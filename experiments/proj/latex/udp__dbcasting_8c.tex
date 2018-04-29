@@ -1,0 +1,59 @@
+\hypertarget{udp__dbcasting_8c}{
+\section{udp\-\_\-dbcasting.c \-File \-Reference}
+\label{udp__dbcasting_8c}\index{udp\-\_\-dbcasting.\-c@{udp\-\_\-dbcasting.\-c}}
+}
+
+
+this is a tool that can be used to send directed broadcasts to all the neighbouring nodes in the same lan for every 1 micro-\/ second.  
+
+
+{\ttfamily \#include $<$stdio.\-h$>$}\*
+{\ttfamily \#include $<$sys/stat.\-h$>$}\*
+{\ttfamily \#include $<$sys/types.\-h$>$}\*
+{\ttfamily \#include $<$sys/socket.\-h$>$}\*
+{\ttfamily \#include $<$netinet/in.\-h$>$}\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\*
+{\ttfamily \#include $<$string.\-h$>$}\*
+{\ttfamily \#include $<$arpa/inet.\-h$>$}\*
+{\ttfamily \#include $<$unistd.\-h$>$}\*
+{\ttfamily \#include $<$signal.\-h$>$}\*
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{udp__dbcasting_8c_a2491303d0fe260aaba8f46717cda66cc}{
+\#define {\bfseries \-M\-A\-X\-\_\-\-B\-U\-F}~1024}
+\label{udp__dbcasting_8c_a2491303d0fe260aaba8f46717cda66cc}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{udp__dbcasting_8c_a22d1267911be4e1dd57e3c32e258468b}{
+void {\bfseries signal\-\_\-handler} (int a)}
+\label{udp__dbcasting_8c_a22d1267911be4e1dd57e3c32e258468b}
+
+\item 
+\hypertarget{udp__dbcasting_8c_a2ef30c42cbc289d899a8be5d2d8f77d0}{
+void {\bfseries usage} ()}
+\label{udp__dbcasting_8c_a2ef30c42cbc289d899a8be5d2d8f77d0}
+
+\item 
+\hypertarget{udp__dbcasting_8c_a3c04138a5bfe5d72780bb7e82a18e627}{
+int {\bfseries main} (int argc, char $\ast$$\ast$argv)}
+\label{udp__dbcasting_8c_a3c04138a5bfe5d72780bb7e82a18e627}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{udp__dbcasting_8c_a5992b274cfdcacdbc1fa8347fd01ebde}{
+int {\bfseries done}}
+\label{udp__dbcasting_8c_a5992b274cfdcacdbc1fa8347fd01ebde}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+this is a tool that can be used to send directed broadcasts to all the neighbouring nodes in the same lan for every 1 micro-\/ second. \begin{DoxyAuthor}{\-Author}
+\-Dev 
+\end{DoxyAuthor}

@@ -1,0 +1,820 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Accept	src/Listener.cpp	/^void Listener::Accept( thread_Settings *server ) {$/;"	f	class:Listener
+AddToMessageLog	src/service.c	/^VOID AddToMessageLog(LPTSTR lpszMsg) {$/;"	f
+BarrierClient	src/Reporter.c	/^void BarrierClient( ReportHeader *agent ) {$/;"	f
+CLIENT_H	include/Client.hpp	55;"	d
+CONDITION_H	include/Condition.h	55;"	d
+CONFIG_H	include/config.win32.h	3;"	d
+CONNECTION_REPORT	include/Reporter.h	89;"	d
+CSV_peer	src/ReportCSV.c	/^void *CSV_peer( Connection_Info *stats, int ID ) {$/;"	f
+CSV_serverstats	src/ReportCSV.c	/^void CSV_serverstats( Connection_Info *conn, Transfer_Info *stats ) {$/;"	f
+CSV_stats	src/ReportCSV.c	/^void CSV_stats( Transfer_Info *stats ) {$/;"	f
+CSV_timestamp	src/ReportCSV.c	/^void CSV_timestamp( char *timestamp, int length ) {$/;"	f
+Client	include/Client.hpp	/^class Client {$/;"	c
+Client	src/Client.cpp	/^Client::Client( thread_Settings *inSettings ) {$/;"	f	class:Client
+CloseReport	src/Reporter.c	/^void CloseReport( ReportHeader *agent, ReportStruct *packet ) {$/;"	f
+CmdInstallService	src/service.c	/^void CmdInstallService(int argc, char **argv) {$/;"	f
+CmdRemoveService	src/service.c	/^BOOL CmdRemoveService() {$/;"	f
+CmdStartService	src/service.c	/^BOOL CmdStartService(int argc, char **argv) {$/;"	f
+Condition	include/Condition.h	/^typedef struct Condition {$/;"	s
+Condition	include/Condition.h	/^} Condition;$/;"	t	typeref:struct:Condition
+Condition_Broadcast	include/Condition.h	162;"	d
+Condition_Broadcast	include/Condition.h	164;"	d
+Condition_Broadcast	include/Condition.h	166;"	d
+Condition_Destroy	include/Condition.h	102;"	d
+Condition_Destroy	include/Condition.h	107;"	d
+Condition_Destroy	include/Condition.h	112;"	d
+Condition_Initialize	include/Condition.h	84;"	d
+Condition_Initialize	include/Condition.h	92;"	d
+Condition_Initialize	include/Condition.h	97;"	d
+Condition_Lock	include/Condition.h	78;"	d
+Condition_Signal	include/Condition.h	153;"	d
+Condition_Signal	include/Condition.h	155;"	d
+Condition_Signal	include/Condition.h	157;"	d
+Condition_TimedWait	include/Condition.h	132;"	d
+Condition_TimedWait	include/Condition.h	141;"	d
+Condition_TimedWait	include/Condition.h	146;"	d
+Condition_Unlock	include/Condition.h	80;"	d
+Condition_Wait	include/Condition.h	117;"	d
+Condition_Wait	include/Condition.h	121;"	d
+Condition_Wait	include/Condition.h	126;"	d
+Connect	src/Client.cpp	/^void Client::Connect( ) {$/;"	f	class:Client
+Connection_Info	include/Reporter.h	/^typedef struct Connection_Info {$/;"	s
+Connection_Info	include/Reporter.h	/^} Connection_Info;$/;"	t	typeref:struct:Connection_Info
+DEFAULTS	src/Settings.cpp	177;"	d	file:
+DELAY_H	include/delay.hpp	54;"	d
+DELETE_ARRAY	include/util.h	186;"	d
+DELETE_PTR	include/util.h	178;"	d
+EINTR	include/headers.h	101;"	d
+ENV_OPTIONS	src/Settings.cpp	127;"	d	file:
+EndReport	src/Reporter.c	/^void EndReport( ReportHeader *agent ) {$/;"	f
+Extractor_Destroy	src/Extractor.c	/^void Extractor_Destroy ( thread_Settings *mSettings ) {$/;"	f
+Extractor_Initialize	src/Extractor.c	/^void Extractor_Initialize ( char *fileName, int inSize, thread_Settings *mSettings ) {$/;"	f
+Extractor_InitializeFile	src/Extractor.c	/^void Extractor_InitializeFile ( FILE *fp, int inSize, thread_Settings *mSettings ) {$/;"	f
+Extractor_canRead	src/Extractor.c	/^int Extractor_canRead ( thread_Settings *mSettings ) {$/;"	f
+Extractor_file	include/Settings.hpp	/^    FILE*  Extractor_file;$/;"	m	struct:thread_Settings
+Extractor_getNextDataBlock	src/Extractor.c	/^int Extractor_getNextDataBlock ( char *data, thread_Settings *mSettings ) {$/;"	f
+Extractor_reduceReadSize	src/Extractor.c	/^void Extractor_reduceReadSize ( int delta, thread_Settings *mSettings ) {$/;"	f
+Extractor_size	include/Settings.hpp	/^    int Extractor_size;$/;"	m	struct:thread_Settings
+FAIL	include/util.h	107;"	d
+FAIL	include/util.h	115;"	d
+FAIL_errno	include/util.h	132;"	d
+FAIL_errno	include/util.h	140;"	d
+FLAG_BUFLENSET	include/Settings.hpp	190;"	d
+FLAG_COMPAT	include/Settings.hpp	191;"	d
+FLAG_CONGESTION	include/Settings.hpp	212;"	d
+FLAG_DAEMON	include/Settings.hpp	192;"	d
+FLAG_DOMAIN	include/Settings.hpp	193;"	d
+FLAG_FILEINPUT	include/Settings.hpp	194;"	d
+FLAG_MODETIME	include/Settings.hpp	202;"	d
+FLAG_MULTICAST	include/Settings.hpp	204;"	d
+FLAG_NOCONNREPORT	include/Settings.hpp	206;"	d
+FLAG_NODATAREPORT	include/Settings.hpp	207;"	d
+FLAG_NODELAY	include/Settings.hpp	195;"	d
+FLAG_NOMULTREPORT	include/Settings.hpp	209;"	d
+FLAG_NOSERVREPORT	include/Settings.hpp	208;"	d
+FLAG_NOSETTREPORT	include/Settings.hpp	205;"	d
+FLAG_PRINTMSS	include/Settings.hpp	196;"	d
+FLAG_REMOVESERVICE	include/Settings.hpp	197;"	d
+FLAG_REPORTSETTINGS	include/Settings.hpp	203;"	d
+FLAG_SINGLECLIENT	include/Settings.hpp	210;"	d
+FLAG_SINGLEUDP	include/Settings.hpp	211;"	d
+FLAG_STDIN	include/Settings.hpp	198;"	d
+FLAG_STDOUT	include/Settings.hpp	199;"	d
+FLAG_SUGGESTWIN	include/Settings.hpp	200;"	d
+FLAG_UDP	include/Settings.hpp	201;"	d
+GETTIMEOFDAY_H	include/gettimeofday.h	55;"	d
+GetLastErrorText	src/service.c	/^LPTSTR GetLastErrorText( LPTSTR lpszBuf, DWORD dwSize ) {$/;"	f
+GetReport	src/Reporter.c	/^Transfer_Info *GetReport( ReportHeader *agent ) {$/;"	f
+HAVE_INT32_T	include/config.win32.h	38;"	d
+HAVE_INT64_T	include/config.win32.h	39;"	d
+HAVE_IPV6	include/config.win32.h	74;"	d
+HAVE_IPV6_MULTICAST	include/config.win32.h	77;"	d
+HAVE_MULTICAST	include/config.win32.h	71;"	d
+HAVE_SNPRINTF	include/config.win32.h	53;"	d
+HAVE_THREAD	include/Thread.h	78;"	d
+HAVE_THREAD	include/Thread.h	85;"	d
+HAVE_THREAD	include/Thread.h	92;"	d
+HAVE_USLEEP	include/config.win32.h	58;"	d
+HAVE_U_INT16_T	include/config.win32.h	37;"	d
+HAVE_U_INT32_T	include/config.win32.h	40;"	d
+HAVE_WIN32_THREAD	include/config.win32.h	24;"	d
+HEADERS	src/Listener.cpp	74;"	d	file:
+HEADERS	src/PerfSocket.cpp	73;"	d	file:
+HEADERS	src/Server.cpp	56;"	d	file:
+HEADERS	src/Settings.cpp	62;"	d	file:
+HEADERS	src/SocketAddr.c	52;"	d	file:
+HEADERS	src/main.cpp	61;"	d	file:
+HEADERS_H	include/headers.h	57;"	d
+HEADERS_SLIM_H	compat/headers_slim.h	2;"	d
+HEADER_VERSION1	include/Settings.hpp	289;"	d
+INET6_ADDRSTRLEN	include/headers.h	163;"	d
+INET_ADDRSTRLEN	include/headers.h	166;"	d
+INET_ATON_H	include/inet_aton.h	57;"	d
+INVALID_SOCKET	include/headers.h	158;"	d
+IPERF_THREADS	src/Locale.c	135;"	d	file:
+IPERF_THREADS	src/Locale.c	137;"	d	file:
+IPERF_THREADS	src/Locale.c	139;"	d	file:
+IPERF_VERSION	include/version.h	1;"	d
+IPERF_VERSION_DATE	include/version.h	2;"	d
+InitMulti	src/Reporter.c	/^MultiHeader* InitMulti( thread_Settings *agent, int inID ) {$/;"	f
+InitReport	src/Reporter.c	/^ReportHeader* InitReport( thread_Settings *agent ) {$/;"	f
+InitiateServer	src/Client.cpp	/^void Client::InitiateServer() {$/;"	f	class:Client
+Iperf_LIST_H	include/List.h	54;"	d
+Iperf_ListEntry	include/List.h	/^struct Iperf_ListEntry {$/;"	s
+Iperf_delete	src/List.cpp	/^void Iperf_delete ( iperf_sockaddr *del, Iperf_ListEntry **root ) {$/;"	f
+Iperf_destroy	src/List.cpp	/^void Iperf_destroy ( Iperf_ListEntry **root ) {$/;"	f
+Iperf_hostpresent	src/List.cpp	/^Iperf_ListEntry* Iperf_hostpresent ( iperf_sockaddr *find, Iperf_ListEntry *root ) {$/;"	f
+Iperf_present	src/List.cpp	/^Iperf_ListEntry* Iperf_present ( iperf_sockaddr *find, Iperf_ListEntry *root ) {$/;"	f
+Iperf_pushback	src/List.cpp	/^void Iperf_pushback ( Iperf_ListEntry *add, Iperf_ListEntry **root ) {$/;"	f
+LISTENER_H	include/Listener.hpp	56;"	d
+LOCALE_H	include/Locale.h	55;"	d
+LONG_OPTIONS	src/Settings.cpp	82;"	d	file:
+Listen	src/Listener.cpp	/^void Listener::Listen( ) {$/;"	f	class:Listener
+Listener	include/Listener.hpp	/^class Listener {$/;"	c
+Listener	src/Listener.cpp	/^Listener::Listener( thread_Settings *inSettings ) {$/;"	f	class:Listener
+MULTIPLE_REPORT	include/Reporter.h	90;"	d
+MUTEX_H	include/Mutex.h	54;"	d
+McastJoin	src/Listener.cpp	/^void Listener::McastJoin( ) {$/;"	f	class:Listener
+McastSetTTL	src/Listener.cpp	/^void Listener::McastSetTTL( int val ) {$/;"	f	class:Listener
+MultiHeader	include/Reporter.h	/^typedef struct MultiHeader {$/;"	s
+MultiHeader	include/Reporter.h	/^} MultiHeader;$/;"	t	typeref:struct:MultiHeader
+Mutex	include/Mutex.h	/^    typedef HANDLE Mutex;$/;"	t
+Mutex	include/Mutex.h	/^    typedef int Mutex;$/;"	t
+Mutex	include/Mutex.h	/^    typedef pthread_mutex_t Mutex;$/;"	t
+Mutex_Destroy	include/Mutex.h	107;"	d
+Mutex_Destroy	include/Mutex.h	109;"	d
+Mutex_Destroy	include/Mutex.h	99;"	d
+Mutex_Initialize	include/Mutex.h	72;"	d
+Mutex_Initialize	include/Mutex.h	74;"	d
+Mutex_Initialize	include/Mutex.h	76;"	d
+Mutex_Lock	include/Mutex.h	81;"	d
+Mutex_Lock	include/Mutex.h	83;"	d
+Mutex_Lock	include/Mutex.h	85;"	d
+Mutex_Unlock	include/Mutex.h	90;"	d
+Mutex_Unlock	include/Mutex.h	92;"	d
+Mutex_Unlock	include/Mutex.h	94;"	d
+NDEBUG	include/headers.h	75;"	d
+NONOPTION_P	src/gnu_getopt.c	362;"	d	file:
+NS_IN6ADDRSZ	compat/inet_ntop.c	26;"	d	file:
+NS_IN6ADDRSZ	compat/inet_pton.c	26;"	d	file:
+NS_INADDRSZ	compat/inet_ntop.c	25;"	d	file:
+NS_INADDRSZ	compat/inet_pton.c	25;"	d	file:
+NS_INT16SZ	compat/inet_ntop.c	24;"	d	file:
+NS_INT16SZ	compat/inet_pton.c	24;"	d	file:
+NUM_MULTI_SLOTS	include/Reporter.h	65;"	d
+NUM_REPORT_STRUCTS	include/Reporter.h	64;"	d
+PERFSOCKET_H	include/PerfSocket.hpp	57;"	d
+PERMUTE	src/gnu_getopt.c	/^    REQUIRE_ORDER, PERMUTE, RETURN_IN_ORDER$/;"	e	enum:__anon3	file:
+PacketID	include/Reporter.h	/^    int PacketID;$/;"	m	struct:ReporterData
+PrintMSS	src/Reporter.c	/^void PrintMSS( ReporterData *stats ) {$/;"	f
+REPORTER_H	include/Reporter.h	54;"	d
+REPORT_ADDRLEN	include/headers.h	171;"	d
+REPORT_CSV_H	include/report_CSV.h	55;"	d
+REPORT_DEFAULT_H	include/report_default.h	55;"	d
+REQUIRE_ORDER	src/gnu_getopt.c	/^    REQUIRE_ORDER, PERMUTE, RETURN_IN_ORDER$/;"	e	enum:__anon3	file:
+RETURN_IN_ORDER	src/gnu_getopt.c	/^    REQUIRE_ORDER, PERMUTE, RETURN_IN_ORDER$/;"	e	enum:__anon3	file:
+RUN_NOW	include/Settings.hpp	290;"	d
+ReportCond	src/main.cpp	/^    Condition ReportCond;$/;"	v
+ReportDoneCond	src/main.cpp	/^    Condition ReportDoneCond;$/;"	v
+ReportHeader	include/Reporter.h	/^typedef struct ReportHeader {$/;"	s
+ReportHeader	include/Reporter.h	/^} ReportHeader;$/;"	t	typeref:struct:ReportHeader
+ReportMode	include/Settings.hpp	/^typedef enum ReportMode {$/;"	g
+ReportMode	include/Settings.hpp	/^} ReportMode;$/;"	t	typeref:enum:ReportMode
+ReportPacket	src/Reporter.c	/^void ReportPacket( ReportHeader* agent, ReportStruct *packet ) {$/;"	f
+ReportRoot	src/Reporter.c	/^ReportHeader *ReportRoot = NULL;$/;"	v
+ReportServerUDP	src/Reporter.c	/^void ReportServerUDP( thread_Settings *agent, server_hdr *server ) {$/;"	f
+ReportSettings	src/Reporter.c	/^void ReportSettings( thread_Settings *agent ) {$/;"	f
+ReportStatusToSCMgr	src/service.c	/^BOOL ReportStatusToSCMgr(DWORD dwCurrentState,$/;"	f
+ReportStruct	include/Reporter.h	/^typedef struct ReportStruct {$/;"	s
+ReportStruct	include/Reporter.h	/^} ReportStruct;$/;"	t	typeref:struct:ReportStruct
+ReporterData	include/Reporter.h	/^typedef struct ReporterData {$/;"	s
+ReporterData	include/Reporter.h	/^} ReporterData;$/;"	t	typeref:struct:ReporterData
+Run	src/Client.cpp	/^void Client::Run( void ) {$/;"	f	class:Client
+Run	src/Listener.cpp	/^void Listener::Run( void ) {$/;"	f	class:Listener
+Run	src/Server.cpp	/^void Server::Run( void ) {$/;"	f	class:Server
+RunTCP	src/Client.cpp	/^void Client::RunTCP( void ) {$/;"	f	class:Client
+SERVER_H	include/Server.hpp	55;"	d
+SERVER_RELAY_REPORT	include/Reporter.h	87;"	d
+SETTINGS_H	include/Settings.hpp	60;"	d
+SETTINGS_REPORT	include/Reporter.h	88;"	d
+SHORT_OPTIONS	src/Settings.cpp	170;"	d	file:
+SHUT_RD	include/headers.h	191;"	d
+SHUT_RDWR	include/headers.h	193;"	d
+SHUT_WR	include/headers.h	192;"	d
+SIGINT	include/util.h	/^    SIGINT,$/;"	e	enum:__anon2
+SIGPIPE	include/util.h	/^    SIGPIPE,$/;"	e	enum:__anon2
+SIGTERM	include/util.h	/^    SIGTERM,$/;"	e	enum:__anon2
+SIZEOF_INT	include/config.win32.h	36;"	d
+SNPRINTF_H	include/snprintf.h	2;"	d
+SOCKET_ADDR_H	include/SocketAddr.h	54;"	d
+SOCKET_ERROR	include/headers.h	157;"	d
+SPECIAL_OSF1_EXTERN_C_START	include/headers.h	66;"	d
+SPECIAL_OSF1_EXTERN_C_START	include/headers.h	69;"	d
+SPECIAL_OSF1_EXTERN_C_STOP	include/headers.h	67;"	d
+SPECIAL_OSF1_EXTERN_C_STOP	include/headers.h	70;"	d
+SZAPPNAME	include/service.h	75;"	d
+SZDEPENDENCIES	include/service.h	84;"	d
+SZSERVICEDISPLAYNAME	include/service.h	81;"	d
+SZSERVICENAME	include/service.h	78;"	d
+Server	include/Server.hpp	/^class Server {$/;"	c
+Server	src/Server.cpp	/^Server::Server( thread_Settings *inSettings ) {$/;"	f	class:Server
+ServiceStart	src/service.c	/^VOID ServiceStart (DWORD dwArgc, LPTSTR *lpszArgv) {$/;"	f
+ServiceStop	src/service.c	/^VOID ServiceStop() {$/;"	f
+SetSocketOptions	src/PerfSocket.cpp	/^void SetSocketOptions( thread_Settings *inSettings ) {$/;"	f
+Settings_Copy	src/Settings.cpp	/^void Settings_Copy( thread_Settings *from, thread_Settings **into ) {$/;"	f
+Settings_Destroy	src/Settings.cpp	/^void Settings_Destroy( thread_Settings *mSettings) {$/;"	f
+Settings_GenerateClientHdr	src/Settings.cpp	/^void Settings_GenerateClientHdr( thread_Settings *client, client_hdr *hdr ) {$/;"	f
+Settings_GenerateClientSettings	src/Settings.cpp	/^void Settings_GenerateClientSettings( thread_Settings *server, $/;"	f
+Settings_GenerateListenerSettings	src/Settings.cpp	/^void Settings_GenerateListenerSettings( thread_Settings *client, thread_Settings **listener ) {$/;"	f
+Settings_GetLowerCaseArg	src/Settings.cpp	/^void Settings_GetLowerCaseArg(const char *inarg, char *outarg) {$/;"	f
+Settings_GetUpperCaseArg	src/Settings.cpp	/^void Settings_GetUpperCaseArg(const char *inarg, char *outarg) {$/;"	f
+Settings_Initialize	src/Settings.cpp	/^void Settings_Initialize( thread_Settings *main ) {$/;"	f
+Settings_Interpret	src/Settings.cpp	/^void Settings_Interpret( char option, const char *optarg, thread_Settings *mExtSettings ) {$/;"	f
+Settings_ParseCommandLine	src/Settings.cpp	/^void Settings_ParseCommandLine( int argc, char **argv, thread_Settings *mSettings ) {$/;"	f
+Settings_ParseEnvironment	src/Settings.cpp	/^void Settings_ParseEnvironment( thread_Settings *mSettings ) {$/;"	f
+Sig_Int	src/Server.cpp	/^void Server::Sig_Int( int inSigno ) {$/;"	f	class:Server
+Sig_Interupt	src/main.cpp	/^void Sig_Interupt( int inSigno ) {$/;"	f
+Sigfunc	include/util.h	/^typedef void Sigfunc(int);$/;"	t
+SigfuncPtr	include/util.h	/^typedef Sigfunc *SigfuncPtr;$/;"	t
+SockAddr_Hostare_Equal	src/SocketAddr.c	/^int SockAddr_Hostare_Equal( struct sockaddr* first, struct sockaddr* second ) {$/;"	f
+SockAddr_are_Equal	src/SocketAddr.c	/^int SockAddr_are_Equal( struct sockaddr* first, struct sockaddr* second ) {$/;"	f
+SockAddr_getHostAddress	src/SocketAddr.c	/^void SockAddr_getHostAddress( iperf_sockaddr *inSockAddr, char* outAddress, $/;"	f
+SockAddr_getPort	src/SocketAddr.c	/^unsigned short SockAddr_getPort( iperf_sockaddr *inSockAddr ) {$/;"	f
+SockAddr_get_in6_addr	src/SocketAddr.c	/^struct in6_addr* SockAddr_get_in6_addr( iperf_sockaddr *inSockAddr ) {$/;"	f
+SockAddr_get_in_addr	src/SocketAddr.c	/^struct in_addr* SockAddr_get_in_addr( iperf_sockaddr *inSockAddr ) {$/;"	f
+SockAddr_get_sizeof_sockaddr	src/SocketAddr.c	/^Socklen_t SockAddr_get_sizeof_sockaddr( iperf_sockaddr *inSockAddr ) {$/;"	f
+SockAddr_isIPv6	src/SocketAddr.c	/^int SockAddr_isIPv6( iperf_sockaddr *inSockAddr ) {$/;"	f
+SockAddr_isMulticast	src/SocketAddr.c	/^int SockAddr_isMulticast( iperf_sockaddr *inSockAddr ) {$/;"	f
+SockAddr_localAddr	src/SocketAddr.c	/^void SockAddr_localAddr( thread_Settings *inSettings ) {$/;"	f
+SockAddr_remoteAddr	src/SocketAddr.c	/^void SockAddr_remoteAddr( thread_Settings *inSettings ) {$/;"	f
+SockAddr_setAddressAny	src/SocketAddr.c	/^void SockAddr_setAddressAny( iperf_sockaddr *inSockAddr ) {$/;"	f
+SockAddr_setHostname	src/SocketAddr.c	/^void SockAddr_setHostname( const char* inHostname, $/;"	f
+SockAddr_setPort	src/SocketAddr.c	/^void SockAddr_setPort( iperf_sockaddr *inSockAddr, unsigned short inPort ) {$/;"	f
+SockAddr_setPortAny	src/SocketAddr.c	/^void SockAddr_setPortAny( iperf_sockaddr *inSockAddr ) {$/;"	f
+SockAddr_zeroAddress	src/SocketAddr.c	/^void SockAddr_zeroAddress( iperf_sockaddr *inSockAddr ) {$/;"	f
+Socklen_t	include/config.win32.h	50;"	d
+THREAD_H	include/Thread.h	64;"	d
+TIMESTAMP_H	include/Timestamp.hpp	61;"	d
+TRANSFER_REPORT	include/Reporter.h	86;"	d
+TestMode	include/Settings.hpp	/^typedef enum TestMode {$/;"	g
+TestMode	include/Settings.hpp	/^} TestMode;$/;"	t	typeref:enum:TestMode
+ThreadMode	include/Settings.hpp	/^typedef enum ThreadMode {$/;"	g
+ThreadMode	include/Settings.hpp	/^} ThreadMode;$/;"	t	typeref:enum:ThreadMode
+TimeAdd	include/Reporter.h	218;"	d
+TimeDifference	include/Reporter.h	215;"	d
+Timestamp	include/Timestamp.hpp	/^    Timestamp( double sec ) {$/;"	f	class:Timestamp
+Timestamp	include/Timestamp.hpp	/^    Timestamp( long sec, long usec ) {$/;"	f	class:Timestamp
+Timestamp	include/Timestamp.hpp	/^    Timestamp( void ) {$/;"	f	class:Timestamp
+Timestamp	include/Timestamp.hpp	/^class Timestamp {$/;"	c
+TotalLen	include/Reporter.h	/^    max_size_t TotalLen;$/;"	m	struct:ReporterData
+TotalLen	include/Reporter.h	/^    max_size_t TotalLen;$/;"	m	struct:Transfer_Info
+Transfer_Info	include/Reporter.h	/^typedef struct Transfer_Info {$/;"	s
+Transfer_Info	include/Reporter.h	/^} Transfer_Info;$/;"	t	typeref:struct:Transfer_Info
+UDPSingleServer	src/Listener.cpp	/^void Listener::UDPSingleServer( ) {$/;"	f	class:Listener
+UDP_datagram	include/Settings.hpp	/^typedef struct UDP_datagram {$/;"	s
+UDP_datagram	include/Settings.hpp	/^} UDP_datagram;$/;"	t	typeref:struct:UDP_datagram
+UTIL_H	include/util.h	54;"	d
+WARN	include/util.h	124;"	d
+WARN_errno	include/util.h	149;"	d
+WIN32_LEAN_AND_MEAN	include/headers.h	94;"	d
+_	src/gnu_getopt.c	54;"	d	file:
+_	src/gnu_getopt.c	56;"	d	file:
+_EXTRACTOR_H	include/Extractor.h	65;"	d
+_GETOPT_H	include/gnu_getopt.h	34;"	d
+_NSIG	include/util.h	/^    _NSIG$/;"	e	enum:__anon2
+_SERVICE_H	include/service.h	63;"	d
+_WIN32_WINNT	include/headers.h	93;"	d
+__gnu_getopt_initialized	src/gnu_getopt.c	/^int __gnu_getopt_initialized = 0;$/;"	v
+_gnu_getopt_initialize	src/gnu_getopt.c	/^_gnu_getopt_initialize( int argc,$/;"	f	file:
+_gnu_getopt_internal	src/gnu_getopt.c	/^_gnu_getopt_internal( int argc,$/;"	f
+ac_fn_c_check_decl	configure	/^ac_fn_c_check_decl ()$/;"	f
+ac_fn_c_check_func	configure	/^ac_fn_c_check_func ()$/;"	f
+ac_fn_c_check_header_compile	configure	/^ac_fn_c_check_header_compile ()$/;"	f
+ac_fn_c_check_header_mongrel	configure	/^ac_fn_c_check_header_mongrel ()$/;"	f
+ac_fn_c_check_type	configure	/^ac_fn_c_check_type ()$/;"	f
+ac_fn_c_compute_int	configure	/^ac_fn_c_compute_int ()$/;"	f
+ac_fn_c_try_compile	configure	/^ac_fn_c_try_compile ()$/;"	f
+ac_fn_c_try_cpp	configure	/^ac_fn_c_try_cpp ()$/;"	f
+ac_fn_c_try_link	configure	/^ac_fn_c_try_link ()$/;"	f
+ac_fn_c_try_run	configure	/^ac_fn_c_try_run ()$/;"	f
+ac_fn_cxx_try_compile	configure	/^ac_fn_cxx_try_compile ()$/;"	f
+adaptive	doc/index.html	/^<!--<A name=adaptive><\/A>$/;"	a
+add	include/Timestamp.hpp	/^    void add( Timestamp right ) {$/;"	f	class:Timestamp
+add	include/Timestamp.hpp	/^    void add( double sec ) {$/;"	f	class:Timestamp
+after	include/Timestamp.hpp	/^    bool after( Timestamp right ) { return after(right.mTime); }$/;"	f	class:Timestamp
+after	include/Timestamp.hpp	/^    bool after( timeval right ) {$/;"	f	class:Timestamp
+agentindex	include/Reporter.h	/^    int agentindex;$/;"	m	struct:MultiHeader
+agentindex	include/Reporter.h	/^    int agentindex;$/;"	m	struct:ReportHeader
+as_fn_append	configure	/^  as_fn_append ()$/;"	f
+as_fn_arith	configure	/^  as_fn_arith ()$/;"	f
+as_fn_error	configure	/^as_fn_error ()$/;"	f
+as_fn_exit	configure	/^as_fn_exit ()$/;"	f
+as_fn_failure	configure	/^as_fn_failure () { as_fn_return 1; }$/;"	f
+as_fn_mkdir_p	configure	/^as_fn_mkdir_p ()$/;"	f
+as_fn_ret_failure	configure	/^as_fn_ret_failure () { return 1; }$/;"	f
+as_fn_ret_success	configure	/^as_fn_ret_success () { return 0; }$/;"	f
+as_fn_set_status	configure	/^as_fn_set_status ()$/;"	f
+as_fn_success	configure	/^as_fn_success () { as_fn_return 0; }$/;"	f
+as_fn_unset	configure	/^as_fn_unset ()$/;"	f
+bandwidth	doc/index.html	/^    <TD><A name=bandwidth><\/A><TT>-b, --bandwidth <I>#[KM]<\/I><\/TT><\/TD>$/;"	a
+barrier	include/Reporter.h	/^    Condition barrier;$/;"	m	struct:MultiHeader
+before	include/Timestamp.hpp	/^    bool before( Timestamp right ) { return before(right.mTime); }$/;"	f	class:Timestamp
+before	include/Timestamp.hpp	/^    bool before( timeval right ) {$/;"	f	class:Timestamp
+bind	doc/index.html	/^    <TD><A name=bind><\/A><TT>-B, --bind <I>host<\/I><\/TT><\/TD>$/;"	a
+bind_address	src/Locale.c	/^const char bind_address[] =$/;"	v
+buffer	src/Reporter.c	/^char buffer[64]; \/\/ Buffer for printing$/;"	v
+bufferlen	include/Settings.hpp	/^    int32_t bufferlen;$/;"	m	struct:client_hdr
+byte_atof	src/stdio.c	/^double byte_atof( const char *inString ) {$/;"	f
+byte_atoi	src/stdio.c	/^max_size_t byte_atoi( const char *inString ) {$/;"	f
+byte_snprintf	src/stdio.c	/^void byte_snprintf( char* outString, int inLen,$/;"	f
+checkMSS_MTU	src/ReportDefault.c	265;"	d	file:
+checkMSS_MTU	src/Reporter.c	873;"	d	file:
+cleanup	src/main.cpp	/^void cleanup( void ) {$/;"	f
+client	doc/index.html	/^    <TD><A name=client><\/A><TT>-c, --client <I>host<\/I><\/TT><\/TD>$/;"	a
+client_datagram_size	src/Locale.c	/^const char client_datagram_size[] =$/;"	v
+client_hdr	include/Settings.hpp	/^typedef struct client_hdr {$/;"	s
+client_hdr	include/Settings.hpp	/^} client_hdr;$/;"	t	typeref:struct:client_hdr
+client_init	src/Launch.cpp	/^void client_init( thread_Settings *clients ) {$/;"	f
+client_port	src/Locale.c	/^const char client_port[] =$/;"	v
+client_spawn	src/Launch.cpp	/^void client_spawn( thread_Settings *thread ) {$/;"	f
+clients	src/List.cpp	/^Iperf_ListEntry *clients = NULL;$/;"	v
+clients_mutex	src/List.cpp	/^Mutex clients_mutex; $/;"	v
+close	include/headers.h	119;"	d
+cntDatagrams	include/Reporter.h	/^    int cntDatagrams;$/;"	m	struct:ReporterData
+cntDatagrams	include/Reporter.h	/^    int cntDatagrams;$/;"	m	struct:Transfer_Info
+cntError	include/Reporter.h	/^    int cntError;$/;"	m	struct:ReporterData
+cntError	include/Reporter.h	/^    int cntError;$/;"	m	struct:Transfer_Info
+cntOutofOrder	include/Reporter.h	/^    int cntOutofOrder;$/;"	m	struct:ReporterData
+cntOutofOrder	include/Reporter.h	/^    int cntOutofOrder;$/;"	m	struct:Transfer_Info
+compatibility	doc/index.html	/^    <TD><A name=compatibility><\/A><TT>-C, --compatibility <\/TT><\/TD>$/;"	a
+compiling	doc/index.html	/^<H2><A name=compiling><\/A>Compiling<\/H2>$/;"	a
+connection	include/Reporter.h	/^    Connection_Info connection;$/;"	m	struct:ReporterData
+connection_notimpl	src/Reporter.c	/^void* connection_notimpl( Connection_Info * nused, int nuse ) { $/;"	f
+connection_reports	src/Reporter.c	/^report_connection connection_reports[kReport_MAXIMUM] = {$/;"	v
+daemon	doc/index.html	/^<P><A name=daemon><\/A>$/;"	a
+data	include/List.h	/^    iperf_sockaddr data;$/;"	m	struct:Iperf_ListEntry
+data	include/Reporter.h	/^    ReportStruct *data;$/;"	m	struct:ReportHeader
+data	include/Reporter.h	/^    Transfer_Info *data;$/;"	m	struct:MultiHeader
+datagrams	include/Settings.hpp	/^    int32_t datagrams;$/;"	m	struct:server_hdr
+delay_loop	compat/delay.cpp	/^void delay_loop(unsigned long usec)$/;"	f
+delta_usec	include/Timestamp.hpp	/^    long delta_usec(void) {$/;"	f	class:Timestamp
+dualtest	doc/index.html	/^    <TD><A name=dualtest><\/A><TT>-d, --dualtest <\/TT><\/TD>$/;"	a
+dwErr	src/service.c	/^DWORD                   dwErr = 0;$/;"	v
+endTime	include/Reporter.h	/^    double endTime;$/;"	m	struct:Transfer_Info
+env_options	src/Settings.cpp	/^const struct option env_options[] =$/;"	v	typeref:struct:option
+err	compat/error.c	/^    DWORD       err;$/;"	m	struct:mesg	file:
+error_cnt	include/Settings.hpp	/^    int32_t error_cnt;$/;"	m	struct:server_hdr
+error_mesgs	compat/error.c	/^const struct mesg error_mesgs[] =$/;"	v	typeref:struct:mesg
+exchange	src/gnu_getopt.c	/^exchange( char **argv ) {$/;"	f	file:
+false	include/config.win32.h	65;"	d
+features	doc/index.html	/^<H2><A name=features><\/A>Features<\/H2>$/;"	a
+first_nonopt	src/gnu_getopt.c	/^static int first_nonopt;$/;"	v	file:
+flag	include/gnu_getopt.h	/^    int *flag;$/;"	m	struct:option
+flags	include/Reporter.h	/^    int flags; $/;"	m	struct:ReporterData
+flags	include/Settings.hpp	/^    int flags; $/;"	m	struct:thread_Settings
+flags	include/Settings.hpp	/^    int32_t flags;$/;"	m	struct:client_hdr
+flags	include/Settings.hpp	/^    int32_t flags;$/;"	m	struct:server_hdr
+format	doc/index.html	/^    <TD><A name=format><\/A><TT>-f, --format <I>[bkmaBKMA]<\/I><\/TT><\/TD>$/;"	a
+fraction	include/Timestamp.hpp	/^    double fraction(Timestamp currentTime, Timestamp endTime) {$/;"	f	class:Timestamp
+free	include/Reporter.h	/^    char   free;$/;"	m	struct:Transfer_Info
+get	include/Timestamp.hpp	/^    double get( void ) {$/;"	f	class:Timestamp
+getSecs	include/Timestamp.hpp	/^    long getSecs( void ) {$/;"	f	class:Timestamp
+getUsecs	include/Timestamp.hpp	/^    long getUsecs( void ) {$/;"	f	class:Timestamp
+getsock_tcp_mss	src/sockets.c	/^int getsock_tcp_mss( int inSock ) {$/;"	f
+getsock_tcp_windowsize	src/tcp_window_size.c	/^int getsock_tcp_windowsize( int inSock, int inSend ) {$/;"	f
+gettimeofday	compat/gettimeofday.c	/^int gettimeofday( struct timeval* tv, void* timezone ) {$/;"	f
+gnu_getopt	src/gnu_getopt.c	/^gnu_getopt ( int argc,$/;"	f
+gnu_getopt_long	src/gnu_getopt_long.c	/^gnu_getopt_long( int argc,$/;"	f
+gnu_getopt_long_only	src/gnu_getopt_long.c	/^gnu_getopt_long_only( int argc,$/;"	f
+gnu_optarg	src/gnu_getopt.c	/^char *gnu_optarg = NULL;$/;"	v
+gnu_opterr	src/gnu_getopt.c	/^int gnu_opterr = 1;$/;"	v
+gnu_optind	src/gnu_getopt.c	/^int gnu_optind = 1;$/;"	v
+gnu_optopt	src/gnu_getopt.c	/^int gnu_optopt = '?';$/;"	v
+groupCond	src/main.cpp	/^    Mutex groupCond;$/;"	v
+groupID	include/Reporter.h	/^    int groupID;$/;"	m	struct:MultiHeader
+groupID	include/Reporter.h	/^    int groupID;$/;"	m	struct:Transfer_Info
+groupID	src/main.cpp	/^    int groupID = 0;$/;"	v
+handlers	compat/signal.c	/^static SigfuncPtr handlers[ _NSIG ] = { 0};$/;"	v	file:
+has_arg	include/gnu_getopt.h	/^    int has_arg;$/;"	m	struct:option
+help	doc/index.html	/^    <TD><A name=help><\/A><TT>-h, --help<\/TT><\/TD>$/;"	a
+holder	include/List.h	/^    MultiHeader *holder;$/;"	m	struct:Iperf_ListEntry
+id	include/Settings.hpp	/^    int32_t id;$/;"	m	struct:UDP_datagram
+inet_ntop	compat/inet_ntop.c	/^inet_ntop(int af, const void *src, char *dst, size_t size) {$/;"	f
+inet_ntop4	compat/inet_ntop.c	/^inet_ntop4(const unsigned char *src, char *dst, size_t size) {$/;"	f
+inet_ntop6	compat/inet_ntop.c	/^inet_ntop6(const unsigned char *src, char *dst, size_t size) {$/;"	f
+inet_pton	compat/inet_pton.c	/^inet_pton(int af,$/;"	f
+inet_pton4	compat/inet_pton.c	/^inet_pton4(src, dst)$/;"	f
+inet_pton6	compat/inet_pton.c	/^inet_pton6(src, dst)$/;"	f
+info	include/Reporter.h	/^    Transfer_Info info;$/;"	m	struct:ReporterData
+int32_t	include/config.win32.h	42;"	d
+int64_t	include/headers.h	107;"	d
+int64_t	include/headers.h	109;"	d
+interval	doc/index.html	/^    <TD><A name=interval><\/A><TT>-i, --interval <I>#<\/I><\/TT><\/TD>$/;"	a
+intervalTime	include/Reporter.h	/^    struct timeval intervalTime;$/;"	m	struct:ReporterData	typeref:struct:ReporterData::timeval
+iperf_sockaddr	include/headers.h	/^typedef struct sockaddr_storage iperf_sockaddr;$/;"	t	typeref:struct:sockaddr_storage
+ipv6	doc/index.html	/^<P><A name=ipv6><\/A>$/;"	a
+isBuflenSet	include/Settings.hpp	214;"	d
+isCompat	include/Settings.hpp	215;"	d
+isCongestionControl	include/Settings.hpp	238;"	d
+isConnectionReport	include/Settings.hpp	231;"	d
+isDaemon	include/Settings.hpp	216;"	d
+isDataReport	include/Settings.hpp	232;"	d
+isFileInput	include/Settings.hpp	218;"	d
+isIPV6	include/Settings.hpp	217;"	d
+isModeTime	include/Settings.hpp	226;"	d
+isMulticast	include/Settings.hpp	228;"	d
+isMultipleReport	include/Settings.hpp	234;"	d
+isNoDelay	include/Settings.hpp	219;"	d
+isPrintMSS	include/Settings.hpp	220;"	d
+isRemoveService	include/Settings.hpp	221;"	d
+isReport	include/Settings.hpp	227;"	d
+isSTDIN	include/Settings.hpp	222;"	d
+isSTDOUT	include/Settings.hpp	223;"	d
+isServerReport	include/Settings.hpp	233;"	d
+isSettingsReport	include/Settings.hpp	230;"	d
+isSingleClient	include/Settings.hpp	236;"	d
+isSingleUDP	include/Settings.hpp	237;"	d
+isSuggestWin	include/Settings.hpp	224;"	d
+isUDP	include/Settings.hpp	225;"	d
+jitter	include/Reporter.h	/^    double jitter;$/;"	m	struct:Transfer_Info
+jitter1	include/Settings.hpp	/^    int32_t jitter1;$/;"	m	struct:server_hdr
+jitter2	include/Settings.hpp	/^    int32_t jitter2;$/;"	m	struct:server_hdr
+join_multicast	src/Locale.c	/^const char join_multicast[] =$/;"	v
+kBytes_to_Bits	src/Client.cpp	/^const int    kBytes_to_Bits = 8; $/;"	v
+kConv_Giga	src/stdio.c	/^    kConv_Giga$/;"	e	enum:__anon4	file:
+kConv_Kilo	src/stdio.c	/^    kConv_Kilo,$/;"	e	enum:__anon4	file:
+kConv_Mega	src/stdio.c	/^    kConv_Mega,$/;"	e	enum:__anon4	file:
+kConv_Unit	src/stdio.c	/^    kConv_Unit,$/;"	e	enum:__anon4	file:
+kConversion	src/stdio.c	/^const double kConversion[] =$/;"	v
+kConversionForBits	src/stdio.c	/^const double kConversionForBits[] =$/;"	v
+kDefault_UDPBufLen	src/Settings.cpp	/^const int  kDefault_UDPBufLen = 1470;      \/\/ -u  if set, read\/write 1470 bytes$/;"	v
+kDefault_UDPRate	src/Settings.cpp	/^const long kDefault_UDPRate = 1024 * 1024; \/\/ -u  if set, 1 Mbit\/sec$/;"	v
+kGiga_to_Unit	src/stdio.c	/^const long kGiga_to_Unit = 1024 * 1024 * 1024;$/;"	v
+kKilo_to_Unit	src/stdio.c	/^const long kKilo_to_Unit = 1024;$/;"	v
+kLabel_Byte	src/stdio.c	/^const char* kLabel_Byte[] =$/;"	v
+kLabel_bit	src/stdio.c	/^const char* kLabel_bit[]  =$/;"	v
+kMega_to_Unit	src/stdio.c	/^const long kMega_to_Unit = 1024 * 1024;$/;"	v
+kMillion	include/Timestamp.hpp	/^        kMillion = 1000000$/;"	e	enum:Timestamp::__anon1
+kMode_Client	include/Settings.hpp	/^    kMode_Client,$/;"	e	enum:ThreadMode
+kMode_Listener	include/Settings.hpp	/^    kMode_Listener$/;"	e	enum:ThreadMode
+kMode_Reporter	include/Settings.hpp	/^    kMode_Reporter,$/;"	e	enum:ThreadMode
+kMode_Server	include/Settings.hpp	/^    kMode_Server,$/;"	e	enum:ThreadMode
+kMode_Unknown	include/Settings.hpp	/^    kMode_Unknown = 0,$/;"	e	enum:ThreadMode
+kReport_CSV	include/Settings.hpp	/^    kReport_CSV,$/;"	e	enum:ReportMode
+kReport_Default	include/Settings.hpp	/^    kReport_Default = 0,$/;"	e	enum:ReportMode
+kReport_MAXIMUM	include/Settings.hpp	/^    kReport_MAXIMUM$/;"	e	enum:ReportMode
+kSecs_to_usecs	src/Client.cpp	/^const double kSecs_to_usecs = 1e6; $/;"	v
+kTest_DualTest	include/Settings.hpp	/^    kTest_DualTest,$/;"	e	enum:TestMode
+kTest_Normal	include/Settings.hpp	/^    kTest_Normal = 0,$/;"	e	enum:TestMode
+kTest_TradeOff	include/Settings.hpp	/^    kTest_TradeOff,$/;"	e	enum:TestMode
+kTest_Unknown	include/Settings.hpp	/^    kTest_Unknown$/;"	e	enum:TestMode
+kgiga_to_Unit	src/stdio.c	/^const long kgiga_to_Unit = 1000 * 1000 * 1000;$/;"	v
+kkilo_to_Unit	src/stdio.c	/^const long kkilo_to_Unit = 1000;$/;"	v
+kmega_to_Unit	src/stdio.c	/^const long kmega_to_Unit = 1000 * 1000;$/;"	v
+lastDatagrams	include/Reporter.h	/^    int lastDatagrams;$/;"	m	struct:ReporterData
+lastError	include/Reporter.h	/^    int lastError;$/;"	m	struct:ReporterData
+lastOutofOrder	include/Reporter.h	/^    int lastOutofOrder;$/;"	m	struct:ReporterData
+lastPacketTime	include/Client.hpp	/^    Timestamp lastPacketTime;$/;"	m	class:Client
+lastTotal	include/Reporter.h	/^    max_size_t lastTotal;$/;"	m	struct:ReporterData
+lastTransit	include/Reporter.h	/^    double lastTransit;$/;"	m	struct:ReporterData
+last_nonopt	src/gnu_getopt.c	/^static int last_nonopt;$/;"	v	file:
+len	doc/index.html	/^    <TD><A name=len><\/A><TT>-l, --len <I>#[KM]<\/I><\/TT><\/TD>$/;"	a
+listener_spawn	src/Launch.cpp	/^void listener_spawn( thread_Settings *thread ) {$/;"	f
+listenport	doc/index.html	/^    <TD><A name=listenport><\/A><TT>-L, --listenport <I>#<\/I><\/TT><\/TD>$/;"	a
+local	include/Reporter.h	/^    iperf_sockaddr local;$/;"	m	struct:Connection_Info
+local	include/Settings.hpp	/^    iperf_sockaddr local;$/;"	m	struct:thread_Settings
+long_options	src/Settings.cpp	/^const struct option long_options[] =$/;"	v	typeref:struct:option
+mAmount	include/Settings.hpp	/^    int32_t mAmount;$/;"	m	struct:client_hdr
+mAmount	include/Settings.hpp	/^    max_size_t mAmount;             \/\/ -n or -t$/;"	m	struct:thread_Settings
+mBuf	include/Client.hpp	/^    char* mBuf;$/;"	m	class:Client
+mBuf	include/Listener.hpp	/^    char* mBuf;$/;"	m	class:Listener
+mBuf	include/Server.hpp	/^    char* mBuf;$/;"	m	class:Server
+mBufLen	include/Reporter.h	/^    int mBufLen;                    \/\/ -l$/;"	m	struct:ReporterData
+mBufLen	include/Settings.hpp	/^    int mBufLen;                    \/\/ -l$/;"	m	struct:thread_Settings
+mClients	include/Listener.hpp	/^    int mClients;$/;"	m	class:Listener
+mCondition	include/Condition.h	/^    HANDLE mCondition;$/;"	m	struct:Condition
+mCondition	include/Condition.h	/^    int mCondition;$/;"	m	struct:Condition
+mCondition	include/Condition.h	/^    pthread_cond_t mCondition;$/;"	m	struct:Condition
+mCongestion	include/Settings.hpp	/^    char* mCongestion;$/;"	m	struct:thread_Settings
+mEndTime	include/Client.hpp	/^    Timestamp mEndTime;$/;"	m	class:Client
+mEndTime	include/Server.hpp	/^    Timestamp mEndTime;$/;"	m	class:Server
+mFileName	include/Settings.hpp	/^    char*  mFileName;               \/\/ -F$/;"	m	struct:thread_Settings
+mFormat	include/Reporter.h	/^    char   mFormat;                 \/\/ -f$/;"	m	struct:Transfer_Info
+mFormat	include/Settings.hpp	/^    char   mFormat;                 \/\/ -f$/;"	m	struct:thread_Settings
+mHandle	include/Settings.hpp	/^    HANDLE mHandle;$/;"	m	struct:thread_Settings
+mHost	include/Reporter.h	/^    char*  mHost;                   \/\/ -c$/;"	m	struct:ReporterData
+mHost	include/Settings.hpp	/^    char*  mHost;                   \/\/ -c$/;"	m	struct:thread_Settings
+mInterval	include/Settings.hpp	/^    double mInterval;               \/\/ -i$/;"	m	struct:thread_Settings
+mListenPort	include/Settings.hpp	/^    unsigned short mListenPort;     \/\/ -L$/;"	m	struct:thread_Settings
+mLocalhost	include/Reporter.h	/^    char*  mLocalhost;              \/\/ -B$/;"	m	struct:ReporterData
+mLocalhost	include/Settings.hpp	/^    char*  mLocalhost;              \/\/ -B$/;"	m	struct:thread_Settings
+mMSS	include/Reporter.h	/^    int mMSS;                       \/\/ -M$/;"	m	struct:ReporterData
+mMSS	include/Settings.hpp	/^    int mMSS;                       \/\/ -M$/;"	m	struct:thread_Settings
+mMode	include/Settings.hpp	/^    TestMode mMode;                 \/\/ -r or -d$/;"	m	struct:thread_Settings
+mMutex	include/Condition.h	/^    HANDLE mMutex;$/;"	m	struct:Condition
+mMutex	include/Condition.h	/^    int mMutex;$/;"	m	struct:Condition
+mMutex	include/Condition.h	/^    pthread_mutex_t mMutex;$/;"	m	struct:Condition
+mOutputFileName	include/Settings.hpp	/^    char*  mOutputFileName;         \/\/ -o$/;"	m	struct:thread_Settings
+mPort	include/Reporter.h	/^    unsigned short mPort;           \/\/ -p$/;"	m	struct:ReporterData
+mPort	include/Settings.hpp	/^    int32_t mPort;$/;"	m	struct:client_hdr
+mPort	include/Settings.hpp	/^    unsigned short mPort;           \/\/ -p$/;"	m	struct:thread_Settings
+mReportMode	include/Settings.hpp	/^    ReportMode mReportMode;$/;"	m	struct:thread_Settings
+mSettings	include/Client.hpp	/^    thread_Settings *mSettings;$/;"	m	class:Client
+mSettings	include/Listener.hpp	/^    thread_Settings *mSettings;$/;"	m	class:Listener
+mSettings	include/Server.hpp	/^    thread_Settings *mSettings;$/;"	m	class:Server
+mSock	include/Settings.hpp	/^    int mSock;$/;"	m	struct:thread_Settings
+mTCPWin	include/Reporter.h	/^    int mTCPWin;                    \/\/ -w$/;"	m	struct:ReporterData
+mTCPWin	include/Settings.hpp	/^    int mTCPWin;                    \/\/ -w$/;"	m	struct:thread_Settings
+mTID	include/Settings.hpp	/^    nthread_t mTID;$/;"	m	struct:thread_Settings
+mTOS	include/Settings.hpp	/^    int mTOS;                       \/\/ -S$/;"	m	struct:thread_Settings
+mTTL	include/Reporter.h	/^    u_char mTTL;                    \/\/ -T$/;"	m	struct:Transfer_Info
+mTTL	include/Settings.hpp	/^    int mTTL;                    \/\/ -T$/;"	m	struct:thread_Settings
+mThreadMode	include/Reporter.h	/^    ThreadMode mThreadMode;         \/\/ -s or -c$/;"	m	struct:ReporterData
+mThreadMode	include/Settings.hpp	/^    ThreadMode mThreadMode;         \/\/ -s or -c$/;"	m	struct:thread_Settings
+mThreads	include/Settings.hpp	/^    int mThreads;                   \/\/ -P$/;"	m	struct:thread_Settings
+mTime	include/Timestamp.hpp	/^    struct timeval mTime;$/;"	m	class:Timestamp	typeref:struct:Timestamp::timeval
+mUDP	include/Reporter.h	/^    char   mUDP;$/;"	m	struct:Transfer_Info
+mUDPRate	include/Settings.hpp	/^    max_size_t mUDPRate;            \/\/ -b or -u$/;"	m	struct:thread_Settings
+mWinBand	include/Settings.hpp	/^    int32_t mWinBand;$/;"	m	struct:client_hdr
+main	config.guess	/^		main()$/;"	f
+main	config.guess	/^	main ()$/;"	f
+main	config.guess	/^main ()$/;"	f
+main	src/gnu_getopt.c	/^main (argc, argv)$/;"	f
+main	src/gnu_getopt_long.c	/^main (argc, argv)$/;"	f
+main	src/main.cpp	/^int main( int argc, char **argv ) {$/;"	f
+max_size_t	include/headers.h	/^typedef uint64_t max_size_t;$/;"	t
+mesg	compat/error.c	/^struct mesg {$/;"	s	file:
+mode	include/Reporter.h	/^    ReportMode mode;$/;"	m	struct:ReporterData
+mss	doc/index.html	/^    <TD><A name=mss><\/A><TT>-M, --mss <I>#[KM}<\/I><\/TT><\/TD>$/;"	a
+multicast	doc/index.html	/^<!--<P><A name=multicast><\/A>$/;"	a
+multicast	doc/index.html	/^<P><A name=multicast><\/A>$/;"	a
+multicast_ttl	src/Locale.c	/^const char multicast_ttl[] =$/;"	v
+multihdr	include/Settings.hpp	/^    MultiHeader*   multihdr;$/;"	m	struct:thread_Settings
+multiple_reports	src/Reporter.c	/^report_statistics multiple_reports[kReport_MAXIMUM] = {$/;"	v
+multireport	include/Reporter.h	/^    MultiHeader *multireport;$/;"	m	struct:ReportHeader
+my_index	src/gnu_getopt.c	/^my_index( const char* str, int chr ) {$/;"	f	file:
+my_signal	compat/signal.c	/^SigfuncPtr my_signal( int inSigno, SigfuncPtr inFunc ) {$/;"	f
+name	include/gnu_getopt.h	/^    const char *name;$/;"	m	struct:option
+next	include/List.h	/^    Iperf_ListEntry *next;$/;"	m	struct:Iperf_ListEntry
+next	include/Reporter.h	/^    struct ReportHeader *next;$/;"	m	struct:ReportHeader	typeref:struct:ReportHeader::ReportHeader
+nextTime	include/Reporter.h	/^    struct timeval nextTime;$/;"	m	struct:ReporterData	typeref:struct:ReporterData::timeval
+nextchar	src/gnu_getopt.c	/^static char *nextchar;$/;"	v	file:
+no_argument	include/gnu_getopt.h	104;"	d
+nodelay	doc/index.html	/^    <TD><A name=nodelay><\/A><TT>-N, --nodelay<\/TT><\/TD>$/;"	a
+nonterminating_num	compat/Thread.c	/^int nonterminating_num = 0;$/;"	v
+nthread_t	include/Thread.h	/^typedef DWORD nthread_t;$/;"	t
+nthread_t	include/Thread.h	/^typedef int nthread_t;$/;"	t
+nthread_t	include/Thread.h	/^typedef pthread_t nthread_t;$/;"	t
+num	doc/index.html	/^    <TD><A name=num><\/A><TT>-n, --num <I>#[KM]<\/I><\/TT><\/TD>$/;"	a
+numThreads	include/Settings.hpp	/^    int32_t numThreads;$/;"	m	struct:client_hdr
+opt_estimate	src/Locale.c	/^const char opt_estimate[]=$/;"	v
+option	include/gnu_getopt.h	/^struct option {$/;"	s
+optional_argument	include/gnu_getopt.h	106;"	d
+ordering	src/gnu_getopt.c	/^} ordering;$/;"	v	typeref:enum:__anon3	file:
+outorder_cnt	include/Settings.hpp	/^    int32_t outorder_cnt;$/;"	m	struct:server_hdr
+packetID	include/Reporter.h	/^    int packetID;$/;"	m	struct:ReportStruct
+packetLen	include/Reporter.h	/^    max_size_t packetLen;$/;"	m	struct:ReportStruct
+packetTime	include/Reporter.h	/^    struct timeval packetTime;$/;"	m	struct:ReportStruct	typeref:struct:ReportStruct::timeval
+packetTime	include/Reporter.h	/^    struct timeval packetTime;$/;"	m	struct:ReporterData	typeref:struct:ReporterData::timeval
+pad1	include/Settings.hpp	/^    char pad1[2];$/;"	m	struct:thread_Settings
+parallel	doc/index.html	/^    <TD><A name=parallel><\/A><TT>-P, --parallel <I>#<\/I><\/TT><\/TD>$/;"	a
+pattern	compat/string.c	/^void pattern( char *outBuf, int inBytes ) {$/;"	f
+peer	include/Reporter.h	/^    iperf_sockaddr peer;$/;"	m	struct:Connection_Info
+peer	include/Settings.hpp	/^    iperf_sockaddr peer;$/;"	m	struct:thread_Settings
+port	doc/index.html	/^    <TD><A name=port><\/A><TT>-p, --port <I>#<\/I><\/TT><\/TD>$/;"	a
+posixly_correct	src/gnu_getopt.c	/^static char *posixly_correct;$/;"	v	file:
+print_mss	doc/index.html	/^    <TD><A name=print_mss><\/A><TT>-m, --print_mss<\/TT><\/TD>$/;"	a
+process_report	src/Reporter.c	/^void process_report ( ReportHeader *report ) {$/;"	f
+prototypes	configure	/^   function prototypes and stuff, but not '\\xHH' hex character constants.$/;"	f
+rMillion	include/Reporter.h	213;"	d
+read	include/headers.h	120;"	d
+readn	src/sockets.c	/^ssize_t readn( int inSock, void *outBuf, size_t inLen ) {$/;"	f
+redirect	src/stdio.c	/^void redirect(const char *inOutputFileName) {$/;"	f
+repmode	doc/index.html	/^<P><A name=repmode><\/A>$/;"	a
+report	include/Reporter.h	/^    ReporterData *report;$/;"	m	struct:MultiHeader
+report	include/Reporter.h	/^    ReporterData report;$/;"	m	struct:ReportHeader
+reportCSV_bw_format	src/Locale.c	/^const char reportCSV_bw_format[] =$/;"	v
+reportCSV_bw_jitter_loss_format	src/Locale.c	/^const char reportCSV_bw_jitter_loss_format[] =$/;"	v
+reportCSV_peer	src/Locale.c	/^const char reportCSV_peer[] =$/;"	v
+report_bw_format	src/Locale.c	/^const char report_bw_format[] =$/;"	v
+report_bw_header	src/Locale.c	/^const char report_bw_header[] =$/;"	v
+report_bw_jitter_loss_format	src/Locale.c	/^const char report_bw_jitter_loss_format[] =$/;"	v
+report_bw_jitter_loss_header	src/Locale.c	/^const char report_bw_jitter_loss_header[] =$/;"	v
+report_connection	include/Reporter.h	/^typedef void* (* report_connection)( Connection_Info*, int );$/;"	t
+report_datagrams	src/Locale.c	/^const char report_datagrams[] =$/;"	v
+report_interval_small	src/Locale.c	/^const char report_interval_small[] =$/;"	v
+report_mss	src/Locale.c	/^const char report_mss[] =$/;"	v
+report_mss_unsupported	src/Locale.c	/^const char report_mss_unsupported[] =$/;"	v
+report_outoforder	src/Locale.c	/^const char report_outoforder[] =$/;"	v
+report_peer	src/Locale.c	/^const char report_peer[] =$/;"	v
+report_read_length_times	src/Locale.c	/^const char report_read_length_times[] =$/;"	v
+report_read_lengths	src/Locale.c	/^const char report_read_lengths[] =$/;"	v
+report_serverstatistics	include/Reporter.h	/^typedef void (* report_serverstatistics)( Connection_Info*, Transfer_Info* );$/;"	t
+report_settings	include/Reporter.h	/^typedef void (* report_settings)( ReporterData* );$/;"	t
+report_statistics	include/Reporter.h	/^typedef void (* report_statistics)( Transfer_Info* );$/;"	t
+report_sum_bw_format	src/Locale.c	/^const char report_sum_bw_format[] =$/;"	v
+report_sum_bw_jitter_loss_format	src/Locale.c	/^const char report_sum_bw_jitter_loss_format[] =$/;"	v
+report_sum_datagrams	src/Locale.c	/^const char report_sum_datagrams[] =$/;"	v
+report_sum_outoforder	src/Locale.c	/^const char report_sum_outoforder[] =$/;"	v
+reporter_condprintstats	src/Reporter.c	/^int reporter_condprintstats( ReporterData *stats, MultiHeader *multireport, int force ) {$/;"	f
+reporter_handle_multiple_reports	src/Reporter.c	/^void reporter_handle_multiple_reports( MultiHeader *reporthdr, Transfer_Info *stats, int force ) {$/;"	f
+reporter_handle_packet	src/Reporter.c	/^int reporter_handle_packet( ReportHeader *reporthdr ) {$/;"	f
+reporter_multistats	src/ReportDefault.c	/^void reporter_multistats( Transfer_Info *stats ) {$/;"	f
+reporter_print	src/Reporter.c	/^int reporter_print( ReporterData *stats, int type, int end ) {$/;"	f
+reporter_printstats	src/ReportDefault.c	/^void reporter_printstats( Transfer_Info *stats ) {$/;"	f
+reporter_process_report	src/Reporter.c	/^int reporter_process_report ( ReportHeader *reporthdr ) {$/;"	f
+reporter_reportMSS	src/ReportDefault.c	/^void reporter_reportMSS( int inMSS, thread_Settings *inSettings ) {$/;"	f
+reporter_reportpeer	src/ReportDefault.c	/^void *reporter_reportpeer( Connection_Info *stats, int ID ) {$/;"	f
+reporter_reportsettings	src/ReportDefault.c	/^void reporter_reportsettings( ReporterData *data ) {$/;"	f
+reporter_serverstats	src/ReportDefault.c	/^void reporter_serverstats( Connection_Info *nused, Transfer_Info *stats ) {$/;"	f
+reporter_spawn	src/Reporter.c	/^void reporter_spawn( thread_Settings *thread ) {$/;"	f
+reporterindex	include/Reporter.h	/^    int reporterindex;$/;"	m	struct:MultiHeader
+reporterindex	include/Reporter.h	/^    int reporterindex;$/;"	m	struct:ReportHeader
+reporthdr	include/Settings.hpp	/^    ReportHeader*  reporthdr;$/;"	m	struct:thread_Settings
+required_argument	include/gnu_getopt.h	105;"	d
+reserved_delay	include/Reporter.h	/^    void *reserved_delay;$/;"	m	struct:Transfer_Info
+runAsDaemon	src/Listener.cpp	/^void Listener::runAsDaemon(const char *pname, int facility) {$/;"	f	class:Listener
+runNext	include/Settings.hpp	/^    struct thread_Settings *runNext;$/;"	m	struct:thread_Settings	typeref:struct:thread_Settings::thread_Settings
+runNow	include/Settings.hpp	/^    struct thread_Settings *runNow;$/;"	m	struct:thread_Settings	typeref:struct:thread_Settings::thread_Settings
+sInterupted	src/main.cpp	/^    int sInterupted = 0;$/;"	v
+sThread	src/main.cpp	/^nthread_t sThread;$/;"	v
+sclient	doc/index.html	/^    <TD><A name=sclient><\/A><TT>-c, --client <I>host<\/I><\/TT><\/TD>$/;"	a
+sentTime	include/Reporter.h	/^    struct timeval sentTime;$/;"	m	struct:ReportStruct	typeref:struct:ReportStruct::timeval
+separator_line	src/Locale.c	/^const char separator_line[] =$/;"	v
+server	doc/index.html	/^    <TD><A name=server><\/A><TT>-s, --server<\/TT><\/TD>$/;"	a
+server	include/List.h	/^    thread_Settings *server;$/;"	m	struct:Iperf_ListEntry
+server	include/Listener.hpp	/^    thread_Settings *server;$/;"	m	class:Listener
+server_datagram_size	src/Locale.c	/^const char server_datagram_size[] =$/;"	v
+server_hdr	include/Settings.hpp	/^typedef struct server_hdr {$/;"	s
+server_hdr	include/Settings.hpp	/^} server_hdr;$/;"	t	typeref:struct:server_hdr
+server_port	src/Locale.c	/^const char server_port[] =$/;"	v
+server_reporting	src/Locale.c	/^const char server_reporting[] =$/;"	v
+server_spawn	src/Launch.cpp	/^void server_spawn( thread_Settings *thread) {$/;"	f
+serverstatistics_notimpl	src/Reporter.c	/^void serverstatistics_notimpl( Connection_Info *nused1, Transfer_Info *nused2 ) { }$/;"	f
+serverstatistics_reports	src/Reporter.c	/^report_serverstatistics serverstatistics_reports[kReport_MAXIMUM] = {$/;"	v
+service	doc/index.html	/^<P><A name=service><\/A>$/;"	a
+service_ctrl	src/service.c	/^VOID WINAPI service_ctrl(DWORD dwCtrlCode) {$/;"	f
+service_main	src/service.c	/^void WINAPI service_main(DWORD dwArgc, LPTSTR *lpszArgv) {$/;"	f
+set	include/Timestamp.hpp	/^    void set( double sec ) {$/;"	f	class:Timestamp
+set	include/Timestamp.hpp	/^    void set( long sec, long usec ) {$/;"	f	class:Timestamp
+setBuflenSet	include/Settings.hpp	240;"	d
+setCompat	include/Settings.hpp	241;"	d
+setCongestionControl	include/Settings.hpp	262;"	d
+setDaemon	include/Settings.hpp	242;"	d
+setFileInput	include/Settings.hpp	244;"	d
+setIPV6	include/Settings.hpp	243;"	d
+setModeTime	include/Settings.hpp	252;"	d
+setMulticast	include/Settings.hpp	254;"	d
+setNoConnReport	include/Settings.hpp	256;"	d
+setNoDataReport	include/Settings.hpp	257;"	d
+setNoDelay	include/Settings.hpp	245;"	d
+setNoMultReport	include/Settings.hpp	259;"	d
+setNoServReport	include/Settings.hpp	258;"	d
+setNoSettReport	include/Settings.hpp	255;"	d
+setPrintMSS	include/Settings.hpp	246;"	d
+setRemoveService	include/Settings.hpp	247;"	d
+setReport	include/Settings.hpp	253;"	d
+setSTDIN	include/Settings.hpp	248;"	d
+setSTDOUT	include/Settings.hpp	249;"	d
+setSingleClient	include/Settings.hpp	260;"	d
+setSingleUDP	include/Settings.hpp	261;"	d
+setSuggestWin	include/Settings.hpp	250;"	d
+setUDP	include/Settings.hpp	251;"	d
+setnow	include/Timestamp.hpp	/^    void setnow( void ) {$/;"	f	class:Timestamp
+setsock_tcp_mss	src/sockets.c	/^void setsock_tcp_mss( int inSock, int inMSS ) {$/;"	f
+setsock_tcp_windowsize	src/tcp_window_size.c	/^int setsock_tcp_windowsize( int inSock, int inTCPWin, int inSend ) {$/;"	f
+settings_notimpl	src/Reporter.c	/^void settings_notimpl( ReporterData * nused ) { }$/;"	f
+settings_reports	src/Reporter.c	/^report_settings settings_reports[kReport_MAXIMUM] = {$/;"	v
+short_options	src/Settings.cpp	/^const char short_options[] = "1b:c:df:hi:l:mn:o:p:rst:uvw:x:y:B:CDF:IL:M:NP:RS:T:UVWZ:";$/;"	v
+sig_dispatcher	compat/signal.c	/^BOOL WINAPI sig_dispatcher( DWORD type ) {$/;"	f
+sig_exit	compat/signal.c	/^void sig_exit( int inSigno ) {$/;"	f
+size_local	include/Reporter.h	/^    Socklen_t size_local;$/;"	m	struct:Connection_Info
+size_local	include/Settings.hpp	/^    Socklen_t size_local;$/;"	m	struct:thread_Settings
+size_peer	include/Reporter.h	/^    Socklen_t size_peer;$/;"	m	struct:Connection_Info
+size_peer	include/Settings.hpp	/^    Socklen_t size_peer;$/;"	m	struct:thread_Settings
+snprintf	compat/snprintf.c	/^int snprintf(char *buf, size_t size, const char *fmt, ...) {$/;"	f
+snprintf	include/headers.h	114;"	d
+sparallel	doc/index.html	/^    <TD><A name=sparallel><\/A><TT>-P, --parallel <I>#<\/I><\/TT><\/TD>$/;"	a
+ssStatus	src/service.c	/^SERVICE_STATUS          ssStatus;       \/\/ current status of the service$/;"	v
+sshStatusHandle	src/service.c	/^SERVICE_STATUS_HANDLE   sshStatusHandle;$/;"	v
+ssize_t	include/config.win32.h	46;"	d
+startTime	include/Reporter.h	/^    double startTime;$/;"	m	struct:Transfer_Info
+startTime	include/Reporter.h	/^    struct timeval startTime;$/;"	m	struct:MultiHeader	typeref:struct:MultiHeader::timeval
+startTime	include/Reporter.h	/^    struct timeval startTime;$/;"	m	struct:ReporterData	typeref:struct:ReporterData::timeval
+statistics_notimpl	src/Reporter.c	/^void statistics_notimpl( Transfer_Info * nused ) { }$/;"	f
+statistics_reports	src/Reporter.c	/^report_statistics statistics_reports[kReport_MAXIMUM] = {$/;"	v
+stop_sec	include/Settings.hpp	/^    int32_t stop_sec;$/;"	m	struct:server_hdr
+stop_usec	include/Settings.hpp	/^    int32_t stop_usec;$/;"	m	struct:server_hdr
+str	compat/error.c	/^    const char* str;$/;"	m	struct:mesg	file:
+subSec	include/Timestamp.hpp	/^    double subSec( Timestamp right ) {$/;"	f	class:Timestamp
+subUsec	include/Timestamp.hpp	/^    long subUsec( Timestamp right ) {$/;"	f	class:Timestamp
+subUsec	include/Timestamp.hpp	/^    long subUsec( timeval right ) {$/;"	f	class:Timestamp
+szErr	src/service.c	/^TCHAR                   szErr[256];$/;"	v
+tcp_window_size	src/Locale.c	/^const char tcp_window_size[] =$/;"	v
+thread_Settings	include/Settings.hpp	/^typedef struct thread_Settings {$/;"	s
+thread_Settings	include/Settings.hpp	/^} thread_Settings;$/;"	t	typeref:struct:thread_Settings
+thread_destroy	compat/Thread.c	/^void thread_destroy( ) {$/;"	f
+thread_equalid	compat/Thread.c	/^int thread_equalid( nthread_t inLeft, nthread_t inRight ) {$/;"	f
+thread_getid	include/Thread.h	128;"	d
+thread_getid	include/Thread.h	130;"	d
+thread_getid	include/Thread.h	132;"	d
+thread_init	compat/Thread.c	/^void thread_init( ) {$/;"	f
+thread_joinall	compat/Thread.c	/^void thread_joinall( void ) {$/;"	f
+thread_numuserthreads	compat/Thread.c	/^int thread_numuserthreads( void ) {$/;"	f
+thread_register_nonterm	compat/Thread.c	/^void thread_register_nonterm( void ) {$/;"	f
+thread_release_nonterm	compat/Thread.c	/^int thread_release_nonterm( int interrupt ) {$/;"	f
+thread_rest	compat/Thread.c	/^void thread_rest ( void ) {$/;"	f
+thread_run_wrapper	compat/Thread.c	/^thread_run_wrapper( void* paramPtr ) {$/;"	f
+thread_sNum	compat/Thread.c	/^int thread_sNum = 0;$/;"	v
+thread_sNum_cond	compat/Thread.c	/^Condition thread_sNum_cond;$/;"	v
+thread_setignore	compat/Thread.c	/^void thread_setignore( ) {$/;"	f
+thread_start	compat/Thread.c	/^void thread_start( struct thread_Settings* thread ) {$/;"	f
+thread_stop	compat/Thread.c	/^void thread_stop( struct thread_Settings* thread ) {$/;"	f
+thread_unregister_nonterm	compat/Thread.c	/^void thread_unregister_nonterm( void ) {$/;"	f
+thread_unsetignore	compat/Thread.c	/^void thread_unsetignore( void ) {$/;"	f
+thread_zeroid	compat/Thread.c	/^nthread_t thread_zeroid( void ) {$/;"	f
+threads	include/Reporter.h	/^    int threads;$/;"	m	struct:MultiHeader
+time	doc/index.html	/^    <TD><A name=time><\/A><TT>-t, --time <I>#<\/I><\/TT><\/TD>$/;"	a
+tos	doc/index.html	/^    <TD><A name=tos><\/A><TT>-S, --tos <I>#<\/I><\/TT><\/TD>$/;"	a
+total_len1	include/Settings.hpp	/^    int32_t total_len1;$/;"	m	struct:server_hdr
+total_len2	include/Settings.hpp	/^    int32_t total_len2;$/;"	m	struct:server_hdr
+tradeoff	doc/index.html	/^    <TD><A name=tradeoff><\/A><TT>-r, --tradeoff <\/TT><\/TD>$/;"	a
+transferID	include/Reporter.h	/^    int transferID;$/;"	m	struct:Transfer_Info
+true	include/config.win32.h	64;"	d
+ttl	doc/index.html	/^    <TD><A name=ttl><\/A><TT>-T, --ttl <I>#<\/I><\/TT><\/TD>$/;"	a
+tuningtcp	doc/index.html	/^<H2><A name=tuningtcp><\/A>Tuning a TCP connection<\/H2>$/;"	a
+tuningudp	doc/index.html	/^<H2><A name=tuningudp><\/A>Tuning a UDP connection<\/H2>$/;"	a
+tv_sec	include/Settings.hpp	/^    u_int32_t tv_sec;$/;"	m	struct:UDP_datagram
+tv_usec	include/Settings.hpp	/^    u_int32_t tv_usec;$/;"	m	struct:UDP_datagram
+type	include/Reporter.h	/^    int type;$/;"	m	struct:ReporterData
+u_int16_t	include/config.win32.h	43;"	d
+u_int32_t	include/config.win32.h	44;"	d
+udp	doc/index.html	/^    <TD><A name=udp><\/A><TT>-u, --udp<\/TT><\/TD>$/;"	a
+udp_buffer_size	src/Locale.c	/^const char udp_buffer_size[] =$/;"	v
+unable_to_change_win	src/Locale.c	/^const char unable_to_change_win[]=$/;"	v
+unsetBuflenSet	include/Settings.hpp	264;"	d
+unsetCompat	include/Settings.hpp	265;"	d
+unsetCongestionControl	include/Settings.hpp	286;"	d
+unsetDaemon	include/Settings.hpp	266;"	d
+unsetFileInput	include/Settings.hpp	268;"	d
+unsetIPV6	include/Settings.hpp	267;"	d
+unsetModeTime	include/Settings.hpp	276;"	d
+unsetMulticast	include/Settings.hpp	278;"	d
+unsetNoConnReport	include/Settings.hpp	280;"	d
+unsetNoDataReport	include/Settings.hpp	281;"	d
+unsetNoDelay	include/Settings.hpp	269;"	d
+unsetNoMultReport	include/Settings.hpp	283;"	d
+unsetNoServReport	include/Settings.hpp	282;"	d
+unsetNoSettReport	include/Settings.hpp	279;"	d
+unsetPrintMSS	include/Settings.hpp	270;"	d
+unsetRemoveService	include/Settings.hpp	271;"	d
+unsetReport	include/Settings.hpp	277;"	d
+unsetSTDIN	include/Settings.hpp	272;"	d
+unsetSTDOUT	include/Settings.hpp	273;"	d
+unsetSingleClient	include/Settings.hpp	284;"	d
+unsetSingleUDP	include/Settings.hpp	285;"	d
+unsetSuggestWin	include/Settings.hpp	274;"	d
+unsetUDP	include/Settings.hpp	275;"	d
+usage_long1	src/Locale.c	/^const char usage_long1[] = "\\$/;"	v
+usage_long2	src/Locale.c	/^const char usage_long2[] = "\\$/;"	v
+usage_short	src/Locale.c	/^const char usage_short[] = "\\$/;"	v
+val	include/gnu_getopt.h	/^    int val;$/;"	m	struct:option
+version	doc/index.html	/^    <TD><A name=version><\/A><TT>-v, --version<\/TT><\/TD>$/;"	a
+version	src/Locale.c	/^const char version[] =$/;"	v
+wait_server_threads	src/Locale.c	/^const char wait_server_threads[] =$/;"	v
+warn	compat/error.c	/^void warn( const char *inMessage, const char *inFile, int inLine ) {$/;"	f
+warn_ack_failed	src/Locale.c	/^const char warn_ack_failed[]=$/;"	v
+warn_buffer_too_small	src/Locale.c	/^const char warn_buffer_too_small[] =$/;"	v
+warn_delay_large	src/Locale.c	/^const char warn_delay_large[] =$/;"	v
+warn_errno	compat/error.c	/^void warn_errno( const char *inMessage, const char *inFile, int inLine ) {$/;"	f
+warn_fileopen_failed	src/Locale.c	/^const char warn_fileopen_failed[]=$/;"	v
+warn_implied_compatibility	src/Locale.c	/^const char warn_implied_compatibility[] =$/;"	v
+warn_implied_udp	src/Locale.c	/^const char warn_implied_udp[] =$/;"	v
+warn_invalid_client_option	src/Locale.c	/^const char warn_invalid_client_option[] =$/;"	v
+warn_invalid_compatibility_option	src/Locale.c	/^const char warn_invalid_compatibility_option[] =$/;"	v
+warn_invalid_report	src/Locale.c	/^const char warn_invalid_report[] =$/;"	v
+warn_invalid_report_style	src/Locale.c	/^const char warn_invalid_report_style[] =$/;"	v
+warn_invalid_server_option	src/Locale.c	/^const char warn_invalid_server_option[] =$/;"	v
+warn_invalid_single_threaded	src/Locale.c	/^const char warn_invalid_single_threaded[] =$/;"	v
+warn_mss_fail	src/sockets.c	/^const char warn_mss_fail[] = "\\$/;"	v
+warn_mss_notset	src/sockets.c	/^const char warn_mss_notset[] =$/;"	v
+warn_no_ack	src/Locale.c	/^const char warn_no_ack[]=$/;"	v
+warn_no_pathmtu	src/Locale.c	/^const char warn_no_pathmtu[] =$/;"	v
+warn_window_requested	src/Locale.c	/^const char warn_window_requested[] =$/;"	v
+warn_window_small	src/Locale.c	/^const char warn_window_small[] = "\\$/;"	v
+window	doc/index.html	/^    <TD><A name=window><\/A><TT>-w, --window <I>#[KM]<\/I><\/TT><\/TD>$/;"	a
+window_default	src/Locale.c	/^const char window_default[] =$/;"	v
+winsock_strerror	compat/error.c	/^const char* winsock_strerror( DWORD inErrno ) {$/;"	f
+write	include/headers.h	121;"	d
+write_UDP_AckFIN	src/Server.cpp	/^void Server::write_UDP_AckFIN( ) {$/;"	f	class:Server
+write_UDP_FIN	src/Client.cpp	/^void Client::write_UDP_FIN( ) {$/;"	f	class:Client
+writen	src/sockets.c	/^ssize_t writen( int inSock, const void *inBuf, size_t inLen ) {$/;"	f
+~Client	src/Client.cpp	/^Client::~Client() {$/;"	f	class:Client
+~Listener	src/Listener.cpp	/^Listener::~Listener() {$/;"	f	class:Listener
+~Server	src/Server.cpp	/^Server::~Server() {$/;"	f	class:Server

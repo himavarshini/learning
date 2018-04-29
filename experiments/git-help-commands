@@ -1,0 +1,21 @@
+1. git config --list
+2. git config user.name
+3. git log -p -2
+4. git log --stat
+5. git log --pretty=oneline
+6. git log --pretty=format:"%h %s" --graph
+7. git log --since=2.weeks
+8. git commit --amend
+9. git remote -v
+10. git fetch pb
+11. git remote show origin
+12. git remote rename branch_1 branch_2
+13. git remote rm branch_2
+14. annotated tag:
+    git tag -a version -m "my new tag"
+15. git tag -s version -m "my new signed tag"
+16. git push origin --tags
+17. git config --global alias.co checkout
+18. git config --global alias.br branch
+19. git config --global alias.ci commit
+20. git config --global alias.st status
