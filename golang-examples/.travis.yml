@@ -1,0 +1,4 @@
+language: python, go
+compiler: python, go
+script: python buildScript.py clean && python buildScript.py build
+
