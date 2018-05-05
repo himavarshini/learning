@@ -1,8 +1,11 @@
 ## useful operations
 
+`printf()`: displays data on the screen
+
 `str()`: converts any type into string type
 
 `type()`: find the type of a variable
+
 
 Many types are in the `python`:
 
@@ -38,3 +41,14 @@ print(first_two, remaining)   # yes more than one statement or variable can be p
 ```
 
 gets the first two elements of the list into `first_two` and the remaining elements into `remaining`.
+
+## functions
+
+Functions are created with `def` type before any function call.
+
+```python
+def display_hello():
+    print("Hello")
+
+display_hello()
+```
