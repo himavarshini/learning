@@ -6,6 +6,9 @@
 
 `type()`: find the type of a variable
 
+doing `**` raises the power of that element by the caller. For ex: `2 ** 4` produces `16`.
+
+modulo operator `%` works the same way in `python` as in `C`.
 
 Many types are in the `python`:
 
@@ -103,6 +106,24 @@ final_val = (val1, val2)
 a = final_val[0]; # indexed
 b = final_val[1]; # same .. indexe
 ```
+
+## packages
+
+### math
+
+```python
+import math
+```
+
+The above one gets everything. If you want only selective package such as radians,
+
+```python
+from math import radians
+```
+
+and the `radians` function simply be called without calling math.
+
+1. `math.pi` gets the value of the pi which is 3.141529..
 
 
 ## Great tools
