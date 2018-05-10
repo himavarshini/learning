@@ -11,6 +11,16 @@
 2. in mqtt the end point publish data to the server (alos called broker) and the other clients register to the broker by subscribe model. when the message comes from the end-point client, the message is then copied to each client nodes that subscribed.
 3. near-realtime delivery of the messages
 
+### broker
+1 broker is the in-between guy between the clients and end-points.
+2. broker allows concurrent connections happen. filters the message and delivers to all subscribe clients.
+3. broker maintains all the client connections and missed messages - also manages authentication and authorization of clients
+4. MQTT is based on top of tcp/ip stack and both client and server needs to have the tcp/ip stack
+
+### message sequencing
+
+1. client sends a CONNECT request <-> broker sends a CONNACK response to client. as long as the 
+
 ### message filtering:
 
 #### 1. subject based filtering:
@@ -20,6 +30,42 @@
 
 ## formats
 
+### 1. CONNECT command
+
+1. client to server for initiate the connection, if it sent more than once or delays, the server / broker will close this connection.
+
+```c
+
+struct mqtt_connect_flags {
+    uint8_t username:1;
+    uint8_t pw:1;
+    uint8_t will_retain:1;
+    uint8_t will_qos:2;
+    uint8_t will:1;
+    uint8_t clean_sess:1;
+    uint8_t reserved:1;
+};
+
+struct mqtt_connect_var_hdr {
+    uint8_t protoname[6];
+    uint8_t protolvl; // 4 is default
+    struct mqtt_connect_flags conn_flags;
+};
+
+struct mqtt_connect_fixed_hdr {
+    uint8_t mqtt_fixed_header:4;
+    uint8_t reserved:4;
+    uint8_t remaining_length;
+};
+
+struct mqtt_connect_hdr {
+    struct mqtt_connect_fixed_hdr fixed_hdr;
+    struct mqtt_connect_var_hdr var_hdr;
+};
+```
+
+1. if protoname is not 'MQTT' the server will disconnect the client.
+2. if protolevel is not 4, then the server must respond to the CONNECT packet with CONNACK return code 0x01 and disconnect client.
 
 ## fixed header: byte 1:
 
