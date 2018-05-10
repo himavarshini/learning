@@ -1,4 +1,26 @@
 
+# MQTT protocol
+
+## very important references:
+
+1. https://www.hivemq.com/blog/mqtt-essentials-part2-publish-subscribe
+
+## overview
+
+1. follow publish/subscriber formats. unlike the client/server model where client directly communicates with the server.
+2. in mqtt the end point publish data to the server (alos called broker) and the other clients register to the broker by subscribe model. when the message comes from the end-point client, the message is then copied to each client nodes that subscribed.
+3. near-realtime delivery of the messages
+
+### message filtering:
+
+#### 1. subject based filtering:
+
+1. each end-point can send out a message on a particular subject. The receiving client subscribes on the topics it is interesetd in with the broker.
+
+
+## formats
+
+
 ## fixed header: byte 1:
 
 ### message types:
@@ -85,10 +107,25 @@ while ((digit & 0x80) != 0);
 value contains the remaining length in bits.
 
 
+## variable header:
+
+### protocol name
+
+1. present in the MQTT CONNECT message.
+2. current protocol version value is 3
+
+```c
+uint8 protocol_version
+```
+
+## messages:
+
 
 ### some learnt concepts:
 
 1. both the client and server can send PUBLISH messages.
+
+## MQTT C structures
 
 ```c
 struct mqtt_fixed_hdr_byte_1 {
@@ -103,6 +140,7 @@ struct mqtt_fixed_hdr_byte_2 {
 } __attribute__ ((__packed__));
 
 struct mqtt_fixed_hdr {
-	struct mqtt_fixed
+	struct mqtt_fixed_hdr_byte_1 byte1;
+	struct mqtt_fixed_hdr_byte_2 byte2;
 }
 ```
