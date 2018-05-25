@@ -105,3 +105,34 @@ int main()
     return 0;
 }
 ```
+
+## Secure coding practises
+
+1. do not use `gets()`.
+
+The `gets()` function usage is as follows.
+
+```cpp
+char input[30];
+
+cout << "Enter your input" << endl;
+// user may enter input more than 30 lines ..
+gets(input);
+```
+
+Above example describe one example of the unsafe use of `gets()`. The user input buffer is of size 30 byte and the gets takes the input from
+a command line. If the input grows more than 30 bytes, the out of bounds error will occur causing the program to crash.
+
+The safest way to program this is to use `fgets()`.
+
+```cpp
+char input[30];
+
+cout << "Enter your input" << endl;
+
+// stdin is input .. the fgets reads till size of input bytes
+fgets(input, sizeof(input) - 1, stdin);
+```
+
+Above example describe that the `fgets()` reads till one less than the size of the `input`.
+
