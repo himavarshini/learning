@@ -1,4 +1,25 @@
-# CPP Manual
+
+# C and CPP Manual
+
+## pre-processor statement
+
+1. preprocessor macros are used for various purposes such as from defining or giving names to values to a function look alikes for perofmrnace reasons
+
+2. value type example
+
+```c
+#define IPHONE_VERSION "6s"
+```
+
+3. function type example
+
+```c
+#define get_iphone_version(_version) { \
+    _version = "6s"; \
+}
+```
+
+above is a multi-line macro.. observe the `\` line after the each line till the end. To group all the statements with in the macro function usually `{` and `{`} are used.
 
 ## FAQ
 
@@ -28,6 +49,33 @@ string s4(s3); // initilsing by another string using constructor again
 string s5(s2, 0, 2); // first two characters of string s2
 string s6(s2, 2, 4); // middle two of the string s2
 ```
+
+### Some of the string manipulation API
+
+1. length of string : `str.length()`.
+2. iterator definitions
+
+```cpp
+string s("12345");
+string::iterator it;
+```
+
+3. finding the size : `str.size()`
+4. finding the capacity: `str.capacity()`
+5. inserting at a particular pos: `str.insert(pos, string_val)`
+6. appending at the end of the string: `str.append(string_val)`
+7. size of the following string is 0.
+
+```cpp
+string str;
+
+cout << "size : " << str.size() << endl;
+
+str.reserve(10);
+
+cout << "size : " << str.size() << endl;
+```
+
 
 The below example describe something in c++ one of the features:
 
