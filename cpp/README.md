@@ -106,9 +106,16 @@ int main()
 }
 ```
 
-## Secure coding practises
+## Cyber security - Secure coding practises
 
-1. do not use `gets()`.
+#### Links:
+
+1. https://wiki.sei.cmu.edu/confluence/display/c/PRE31-C.+Avoid+side+effects+in+arguments+to+unsafe+macros#space-menu-link-content
+2. https://www.w0lfzhang.com/2018/01/17/ASUS-router-stack-overflow-in-http-server/
+
+#### Details:
+
+1. do not use `gets()`. (buffer overflow attacks)
 
 The `gets()` function usage is as follows.
 
