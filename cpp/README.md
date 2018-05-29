@@ -45,6 +45,324 @@ above is a multi-line macro.. observe the `\` line after the each line till the 
 
 1. to use C code inside the cpp use `extern "C" {"` and the `}` when the `C` portion of the program end.
 
+## std::to_string
+
+converts any value type into strings, so be it an `int`, `unsigned int`, `double`, or `long` types. The `to_string` method is an overloaded type.
+
+Example:
+
+```cpp
+#include <iostream>
+#include <cstdint>
+#include <climits>
+#include <string>
+
+int main()
+{
+    std::string int_str = std::to_string(4);
+    std::string long_str = std::to_string(INT_MAX);
+    std::string long_long_str = std::to_string(UINT_MAX);
+    std::string unsigned_str = std::to_string(65535);
+    std::string double_str = std::to_string(14.414);
+
+    std::cout << "int:" << int_str << std::endl;
+    std::cout << "long:" << long_str << std::endl;
+    std::cout << "long long:" << long_long_str << std::endl;
+    std::cout << "unsigned int:" << unsigned_str << std::endl;
+    std::cout << "double str:" << double_str << std::endl;
+}
+```
+
+## std::sort
+
+`std::sort` sorts out the content and orders them in ascending order. Below example reads random input from `/dev/urandom` and apply `std::sort` on it.
+
+use `algorithm` header for `std::sort`. always include `<unistd.h>` while using any Linux OS internal lib.
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <algorithm>
+
+extern "C" {
+#include <unistd.h>
+int getInt(int fd)
+{
+    int var;
+
+    read(fd, &var, sizeof(var));
+
+    return var;
+}
+}
+
+int main()
+{
+    std::vector<unsigned int> a;
+    struct timeval tv;
+    int i;
+    int fd;
+
+    fd = open("/dev/urandom", O_RDONLY);
+    if (fd < 0) {
+        std::cout << "failed to open /dev/urandom" << std::endl;
+        return -1;
+    }
+
+    for (i = 0; i < 100; i ++) {
+        unsigned int var;
+
+        var = getInt(fd);
+        a.push_back(var);
+    }
+
+    std::sort(a.begin(), a.end());
+
+    std::vector<unsigned int>::const_iterator t;
+
+    for (t = a.begin(); t != a.end(); t ++) {
+        std::cout << "a:" << *t << std::endl;
+    }
+
+    close(fd);
+    return 0;
+}
+```
+
+## overloading functions
+
+1. same function name but different jobs depending on the type of input passed
+
+Example:
+
+```cpp
+#include <iostream>
+
+int add(int a, int b)
+{
+    return a + b;
+}
+
+double add(double a, double b)
+{
+    return a + b;
+}
+
+int main()
+{
+    std::cout << "add result for ints <1 and 2>:" << add(1, 2) << std::endl;
+    std::cout << "add result for doubles <1.1 and 2.2>:" << add(1.1, 2.2) << std::endl;
+    std::cout << "add result for a double and int <1.1 and 2>:" << add(1.1, 2) << std::endl;
+}
+```
+
+see the error after compiling this example: that the last line when passed a double and an int. This is because the compiler
+does not find a match with this type.
+
+But when typecasting the value `2` to `(double)2` the code works again see the below:
+
+```cpp
+std::cout << "add result for a double and int <1.1 and 2>:" << add(1.1, (double)2) << std::endl;
+```
+
+2. if the function has same args the overloading is not possible
+3. if the caller passes the variables of types that are not available in the target overloaded functions, then it is not possible to overload (care must be taken to 
+pass the right options or use the typecasting - but typecasting is strictly not good in c++)
+
+
+## constructors
+
+1. constructors are like init routines of a c lib.
+2. constructors never return anything .. not even `void` type
+3. two types of constructors : `default constructor` and `parameterised constructor`.
+
+```cpp
+class constr {
+    private:
+        int a, b;
+    public:
+        constr() // default constructor
+        {
+            a = 4;
+            b = 4;
+        }
+
+        constr(int arga, int argb) // parameterised constructor
+        {
+            a = arga;
+            b = argb;
+        }
+}
+```
+
+## destructor
+
+1. destructors are like deinit routines of a c lib. 
+2. destructors are called when the class object goes out of scope or when the program ends.
+
+Example:
+
+```cpp
+class destr {
+    private:
+        int v;
+    public:
+        destr()
+        {
+            std::cout << "Constructor called"<< std::endl;
+            v = 4;
+        }
+        
+        ~destr()
+        {
+            v = 0;
+        }
+        
+        int getVal()
+        {
+            std::cout << "Destructor called"<< std::endl;
+            return v;
+        }
+};
+
+f1()
+{
+    destr d;
+    
+    std::cout << d.getVal() << std::endl;
+}
+
+f2()
+{
+    destr d;
+    
+    std::cout << d.getVal() << std::endl;
+}
+
+```
+
+## constructor overloading
+
+1. constructors can be overloaded but the both constructors must have different number of args passed to them so that the g++ can find the corresponding one to call.
+2. some uses could be for creating layers or creating default sets
+
+```cpp
+class overloadedC {
+    private:
+        int a;
+    public:
+        overloadedC()
+        {
+            a = 4;
+        }
+        
+        // overloaded constructor
+        overloadedC(int x)
+        {
+            a = x;
+        }
+        
+        int getC()
+        {
+            return a;
+        }
+};
+
+.. caller such as main()..
+
+overloadedC o;
+overloadedC o1(4);
+```
+
+## 'this' pointer
+
+1. used to reference the object itself with in the object only. referencing outside the object is not allowed and produce compiler error.
+
+Example:
+
+```cpp
+#include <iostream>
+
+class thisobj {
+    private:
+        int var;
+    public:
+        thisobj()
+        {
+            var = 4;
+        }
+        int getThis()
+        {
+            std::cout << "this val:" << this << std::endl;
+
+            // causes recursive loop because this is class itself and calling the function itself via this indirectly
+            this->getThis();
+        }
+};
+
+int main()
+{
+    thisobj obj;
+
+    obj.getThis();
+}
+```
+
+### STD API
+
+**1. make_shared and shared_ptr**
+
+include `<memory>` compile with `-std=c++11` option. otherwise you get error regarding the type such as `var does not declare in this scope` or `var does not name a type`.
+
+1. `make_shared` allocates once and `shared_ptr` allocates twice
+
+Example:
+
+```cpp
+auto var = std::make_shared<int>(10);  // creates shared pointer var and assigns the value at address to 10
+
+std::shared_ptr<int> var(new int);  // creates a shared pointer var
+
+*var = 10; // assign the value at var to 10
+
+std::shared_ptr<int> var(new int(10)); // creates a shared pointer var and assigns the value at the address to 10
+```
+
+Another example: using `make_shared` in class
+
+```cpp
+class makeSharedClass {
+    private:
+        int var;
+    public:
+        makeSharedClass()
+        {
+            var = 4;
+        }
+        // overloaded constructor
+        makeSharedClass(int a)
+        {
+            var = a;
+        }
+        int getClass()
+        {
+            return var;
+        }
+};
+
+.. in main()..
+
+auto var = std::make_shared<makeSharedClass>(); // creates a var pointer of type pointing to makeSharedClass
+auto var1 = std::make_shared<makeSharedClass>()->getClass(); // gets value returned from getClass() method.
+auto var2 = std::make_shared<makeSharedClass>(4); // create a var but call the overloaded constructor for direct assignment
+
+std::cout <<"var:" << var->getClass() << std::endl;
+std::cout <<"var1:" << var1 << std::endl;
+std::cout <<"var2:" << var2->getClass() << std::endl;
+```
 
 ### namespaces
 
@@ -197,6 +515,23 @@ note the usage of `str.size()` method to find the length of vector.
         str.insert(str.begin(), "Hi");
 ```
 
+8. adding strings is easy: use `+` operator, its overloaded when using strings.
+
+Example:
+
+```cpp
+#include <iostream>
+
+int main()
+{
+    std::string str1 = "string1 ", str2 = "string2", str;
+
+    str = str1 + str2;
+
+    std::cout <<"string:" << str1 + str2 << std::endl;
+}
+```
+
 Example with all the above API is below.. along with some of the different API tests:
 
 ```cpp
@@ -285,6 +620,46 @@ int main()
 1. the `push_back()` method accepts the constructor of the type `struct type`, where the `type` is a structure name.
 2. each time a new element to be added, a `.push_back()` is called and then elements are referenced and assignment is made.
 3. the access to the elements is same as the vector of integer or strings.
+
+# CMAKE
+
+1. Cmake is a build system especially used for C++ programs.
+
+Example for compiling a small c++ program.
+
+```cmake
+cmake_minimum_required(VERSION 2.4)
+
+project(CPPLearning)
+
+if(CMAKE_COMPILER_IS_GNUCXX)
+    add_definitions(-std=c++11)
+endif()
+
+add_executable(namespace namespace.cpp) # Assuming you have namespace.cpp file
+```
+
+2. setup the cmake build system using
+
+```shell
+cmake .
+```
+
+3. compile
+
+```shell
+cmake --build .
+```
+
+4. more options
+
+a) add c++11 to the build system
+
+```cpp
+if(CMAKE_COMPILER_IS_GNUCXX)
+    add_definitions(-std=c++11)
+endif()
+```
 
 
 ## Cyber security - Secure coding practises
