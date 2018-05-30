@@ -3,7 +3,7 @@
 
 ## Intro
 
-This is a work-in-progress reference manual that detail on the C, C++ and the parts of secure coding in C. This is basically what i learnt over the time.
+This is a work-in-progress reference manual that detail on the C, C++ and the parts of secure coding in C. This is basically what i learnt over the time. This is written in short and simple English and not to confuse the end reader.
 
 Instructions to start the manual:
 
@@ -11,8 +11,10 @@ Instructions to start the manual:
 2. install gcc on Ubuntu.
 
 ```shell
-apt install build-essential gcc g++
+apt install build-essential gcc g++ cmake
 ```
+
+`cmake` is required for building multiple cpp files into one unit. This is similar to `Makefile` but more advanced and wraps around makefile as well. We describe and learn about this in coming sections.
 
 Author: Dev Naga `<devendra.aaru@gmail.com>`   All rights reserved
 
@@ -72,6 +74,8 @@ int main()
     std::cout << "double str:" << double_str << std::endl;
 }
 ```
+
+#CPP programming
 
 ## std::sort
 
@@ -172,6 +176,135 @@ std::cout << "add result for a double and int <1.1 and 2>:" << add(1.1, (double)
 3. if the caller passes the variables of types that are not available in the target overloaded functions, then it is not possible to overload (care must be taken to 
 pass the right options or use the typecasting - but typecasting is strictly not good in c++)
 
+## 'new' and 'delete' operators
+
+1. `new` and `delete` operators are used to allocate and free memory respectively.
+2. they are similar to `malloc` and `free` in C.
+
+Below example describe some of the vary many ways to do allocation of dynamic memory.
+
+```cpp
+new int_ptr = new int; // allocate only pointer to int
+new int_ptr_array = new int[4]; // allocate pointer to array of integers
+new char_ptr = new char[44]; // allocate string
+new int_ptr_2 = new int(2); // allocate and assign value at int_ptr_2 to 2
+new s = new struct mystr; // allocate a structure
+```
+
+3. `delete` operator is similar to the new.
+
+To free one pointer use `delete pointer`.
+To free an array of pointers use `delete [] pointer`.
+
+4. calling `delete` on a NULL pointer has no effect.
+
+**Example:**
+
+```cpp
+#include <iostream>
+#include <cstring>
+
+int main()
+{
+    auto int_ptr = new int;
+        auto int_ptr_array = new int[5];
+        auto str_ptr = new char[100];
+
+        auto int_ptr_2 = new int(2);
+
+        struct var {
+        int i;
+                char str[30];
+        };
+
+        int i;
+
+        struct var v_a = {1, "Hello"};
+        struct var *v1 = new struct var(v_a);
+
+        *int_ptr = 5;
+
+        for (i = 0; i < 5; i ++) {
+            *(int_ptr_array + i) = i;
+        }
+
+        strcpy(str_ptr, "Hello");
+
+        std::cout << "int:" << *int_ptr_2 << std::endl;
+
+        std::cout << "intr_ptr:" << int_ptr << std::endl;
+        std::cout << "int@ int_ptr:" << *int_ptr << std::endl;
+
+        for (i = 0; i < 5; i ++) {
+        std::cout << "* int_ptr[" << i << "]" << *(int_ptr_array + i) << std::endl;
+        }
+
+        std::cout << "string:" << str_ptr << std::endl;
+
+        std::cout << "v_a: " << "i:" << v_a.i << "str:" << v_a.str << std::endl;
+        std::cout << "v_b: " << "i:" << v1->i << "str:" << v1->str << std::endl;
+
+        delete int_ptr;
+        delete [] int_ptr_array;
+        delete [] str_ptr;
+}
+```
+
+5. if you think that there could be n number of values.. you could use the `vector` types than using the `new` followed with `delete` for managing and all. (like for example arrays or array of structures or any n types). For strings you can simply use `std::string` type.
+
+## class
+
+1. class is a very good form of object oriented representation of the software program.
+2. class contain both data and functions (they call in cpp as member functions / methods)
+3. class also has protection mechanisms such as : `private`, `protected` and `public`.
+    1. `private` members of the class are accessible only with in the class by their member functions of the same class or from their friends. Friends are discussed further down the manual.
+    2. `protected` members are accessible from the same members of the class and friends, but also members of the derived classes. derived classes are described further down the manual again.
+    3. `public` members are accessible by anyone once the class is declared in any functions and by referring them from the object.
+
+Example:
+
+```cpp
+class cls {
+    private:
+        int i;
+    public:
+        cls()
+        {
+            i = 4;
+        }
+        int getI()
+        {
+            return i;
+        }
+};
+```
+
+if any of the `private`, `public` or `protected` are not declared then the class become `private` automatically.
+
+Example:
+
+```cpp
+#include <iostream>
+
+class cls {
+    int p;
+
+    int getP()
+    {
+        return (p = 4);
+    }
+};
+
+int main()
+{
+    cls p;
+
+    std::cout << p.getP() << std::endl;
+}
+```
+
+The above example will give compilation error because the method `getP()` is `private` automatically.
+
 
 ## constructors
 
@@ -198,10 +331,37 @@ class constr {
 }
 ```
 
+Another concept in this is copy constructor. Take an example below:
+
+```cpp
+class cons_class {
+    public:
+        int a;
+        cons_class(int x)
+        {
+            a = x;
+        }
+        cons_class(cons_class &x)
+        {
+            a = x.a;
+        }
+};
+
+int main()
+{
+    cons_class p1 (4);
+    cons_class p2 = p1; // copy constructor called here
+}
+```
+
+if the constructor is not created, then the compiler creates one by default.
+
+
 ## destructor
 
 1. destructors are like deinit routines of a c lib. 
 2. destructors are called when the class object goes out of scope or when the program ends.
+3. use `~` symbol before the constructor name, then it becomes destructor. 
 
 Example:
 
@@ -241,7 +401,22 @@ f2()
     
     std::cout << d.getVal() << std::endl;
 }
+```
 
+Alteratively a constructor/ destructor or a memeber function even could be written outside the class layout as well.. 
+
+```cpp
+class cpp_class {
+    private:
+        int i;
+    public:
+        cpp_class();
+};
+
+cpp_class::cpp_class()
+{
+    i = 4;
+}
 ```
 
 ## constructor overloading
@@ -364,9 +539,80 @@ std::cout <<"var1:" << var1 << std::endl;
 std::cout <<"var2:" << var2->getClass() << std::endl;
 ```
 
-### namespaces
+## namespaces
 
 1. namespaces are used to organise the very large amount of source code to avoid name collisions (mainly).
+2. a namespace can be nested within another namespace
+3. namespaces can span into multiple source files / header files and the compiler combines them or extends them
+4. once defined the namespace is accessed using the `using namespace` or the explicit access as `ns::var..`.
+
+Below example provide an overview of the namespace usage:
+
+```cpp
+#include <iostream>
+
+// namespace that's basic
+namespace variable
+{
+    int val = 0;
+}
+
+// nested namespace
+namespace dev
+{
+    namespace naga
+    {
+        int val = 1;
+                //class with in namespace
+        class devnaga {
+            private:
+                int a;
+            public:
+                devnaga()
+                {
+                    a = 2;
+                }
+
+                int getA()
+                {
+                    return a;
+                }
+        };
+    }
+
+        // declaring class object with in the namespace
+        naga::devnaga p;
+}
+
+// extending namespace
+namespace variable
+{
+    int var = 3;
+}
+
+namespace dev {
+namespace naga
+{
+    int var = 4;
+}
+}
+
+// alias of dev::naga namespace
+namespace _newdev = dev::naga;
+
+int main()
+{
+
+    // declare a class within the namespace
+    dev::naga::devnaga p;
+
+    std::cout << "val::variable:" << variable::val << "variable::var:" << variable::var << std::endl;
+    std::cout << "dev::naga::val:" << dev::naga::val << "dev::naga::var:" << dev::naga::var << std::endl;
+    std::cout << "getA():" << p.getA() << std::endl;
+        std::cout << "getA_new():" << dev::p.getA() << std::endl;
+        std::cout << "val_newdev:" << _newdev::val << std::endl;
+}
+```
 
 ### STL
 
@@ -661,15 +907,30 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 endif()
 ```
 
+3. setting `cmake` standard
 
-## Cyber security - Secure coding practises
+```cmake
+if(NOT CMAKE_CXX_STANDARD)
+   set(CMAKE_CXX_STANDARD 14)
+endif()
+```
+
+4. setting `cmake` compiler
+
+```cmake
+if(CMAKE_COMPILER_IS_GNUCXX)
+    add_compile_options(-Wall -Wextra)
+endif()
+```
+
+# Cyber security - Secure coding practises
 
 #### Links:
 
 1. https://wiki.sei.cmu.edu/confluence/display/c/PRE31-C.+Avoid+side+effects+in+arguments+to+unsafe+macros#space-menu-link-content
 2. https://www.w0lfzhang.com/2018/01/17/ASUS-router-stack-overflow-in-http-server/
 
-#### Details:
+### Details and Analysis of common vulnerabilities / issues in the programming:
 
 **1. Bufferoverflow**:
 
@@ -700,4 +961,25 @@ fgets(input, sizeof(input) - 1, stdin);
 ```
 
 Above example describe that the `fgets()` reads till one less than the size of the `input`.
+
+**2. Accessing variable that is going out of scope**
+
+Consider the below example..
+
+```c
+static int *ptr;
+void getPtr()
+{
+    int data = 10;
+
+    ptr = &data;
+}
+
+.. in main ..
+
+getPtr();
+printf("ptr value is %d\n", *ptr);
+```
+
+The variable `data` is local to the function `getPtr()` and the `ptr` is assigned the address of variable `data`. The data scope is within the `getPtr()` function and outside the stack is cleaned up and so the variable `data` memory. Thus the pointer ptr points to an invalid memory after the call to getPtr() resulting in an undefined output.
 
