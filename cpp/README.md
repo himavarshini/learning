@@ -21,6 +21,74 @@ Author: Dev Naga `<devendra.aaru@gmail.com>`   All rights reserved
 
 ## 1. Introduction to Compilers
 
+At this point, i am guessing you already have a version of compiler and most preferrably `gcc` or `g++` on a linux / windows machine.
+
+1. Usually `gcc` is the preferred compiler for C programs and `g++` is for the C++ programs.
+2. The compilers implement the programming language and works as a translational unit that converts the program written in C and C++ into the binaries that are used to run on the hardware.
+3. there are many stages in the compiler.
+    1. preprocessor
+    2. compilation
+    3. assembly
+    4. linking
+
+4. The pre-processor (usually is `cc1`) converts the program to high level language that the compiler understands. it finds out the header files and appends them to your program. if there are multiple header files, then it appends them all, and if there are repeated header files, it then as well appends only one of them.
+5. if there are any macro definitions, it translates them and expands them into code and pastes them into the portions where they are called. We will  / going to discuss about macros in the coming parts of this.
+
+Example:
+```c
+#include <stdio.h>
+
+#define PREP_TEST(x) (x+4)
+
+int main()
+{
+    printf("message is %d\n", PREP_TEST(4));
+}
+```
+
+pre-processing stage:
+
+```shell
+gcc -E prog.c
+```
+
+Would produce the result as:
+
+```shell
+.. stdio.h header output ..
+extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+# 942 "/usr/include/stdio.h" 3 4
+
+# 2 "prep_test.c" 2
+
+
+
+
+# 5 "prep_test.c"
+int main()
+{
+    printf("message is %d\n", (4 +4));
+}
+```
+observe the `#define PREP_TEST` in the C code is replaced with its code after preprocessor.
+
+6. compilation stage involve converting the pre-processor code into the assembly code for a corresponding target architecture. Here's the trick is the compilation target that analyse and replaces instructions to that target architecture.
+
+```shell
+gcc -S prog.c
+```
+
+7. Assembler converts the input code into object code. Object code is then contains the instructions for the target architecture.
+
+```shell
+gcc -c prog.c
+```
+
+8. Linking process involve finding the function call dependencies and library dependencies and adds the corresponding linker referencecs in the object code, something such as a pointer address when called the function. the outcome of this is the final binary that can be run on the target platform. Usuaally, the target binary names would be `a.out` in unix.
+
+Once the program that you have compiled, is loaded into memory for execution, the loader then is responsible for loading the function into the memory and execute it.
+
+
 ## 2. C Programming
 
 ### pre-processor statement
@@ -47,94 +115,8 @@ above is a multi-line macro.. observe the `\` line after the each line till the 
 
 1. to use C code inside the cpp use `extern "C" {"` and the `}` when the `C` portion of the program end.
 
-## std::to_string
 
-converts any value type into strings, so be it an `int`, `unsigned int`, `double`, or `long` types. The `to_string` method is an overloaded type.
-
-Example:
-
-```cpp
-#include <iostream>
-#include <cstdint>
-#include <climits>
-#include <string>
-
-int main()
-{
-    std::string int_str = std::to_string(4);
-    std::string long_str = std::to_string(INT_MAX);
-    std::string long_long_str = std::to_string(UINT_MAX);
-    std::string unsigned_str = std::to_string(65535);
-    std::string double_str = std::to_string(14.414);
-
-    std::cout << "int:" << int_str << std::endl;
-    std::cout << "long:" << long_str << std::endl;
-    std::cout << "long long:" << long_long_str << std::endl;
-    std::cout << "unsigned int:" << unsigned_str << std::endl;
-    std::cout << "double str:" << double_str << std::endl;
-}
-```
-
-#CPP programming
-
-## std::sort
-
-`std::sort` sorts out the content and orders them in ascending order. Below example reads random input from `/dev/urandom` and apply `std::sort` on it.
-
-use `algorithm` header for `std::sort`. always include `<unistd.h>` while using any Linux OS internal lib.
-
-```cpp
-#include <iostream>
-#include <vector>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <algorithm>
-
-extern "C" {
-#include <unistd.h>
-int getInt(int fd)
-{
-    int var;
-
-    read(fd, &var, sizeof(var));
-
-    return var;
-}
-}
-
-int main()
-{
-    std::vector<unsigned int> a;
-    struct timeval tv;
-    int i;
-    int fd;
-
-    fd = open("/dev/urandom", O_RDONLY);
-    if (fd < 0) {
-        std::cout << "failed to open /dev/urandom" << std::endl;
-        return -1;
-    }
-
-    for (i = 0; i < 100; i ++) {
-        unsigned int var;
-
-        var = getInt(fd);
-        a.push_back(var);
-    }
-
-    std::sort(a.begin(), a.end());
-
-    std::vector<unsigned int>::const_iterator t;
-
-    for (t = a.begin(); t != a.end(); t ++) {
-        std::cout << "a:" << *t << std::endl;
-    }
-
-    close(fd);
-    return 0;
-}
-```
+# CPP programming
 
 ## overloading functions
 
@@ -305,6 +287,15 @@ int main()
 
 The above example will give compilation error because the method `getP()` is `private` automatically.
 
+4. pointers can be pointing to the class as well.
+
+```cpp
+class cpp_ptr {
+    int ptr;
+};
+
+class cpp_ptr *cptr; // pointer to a class
+```
 
 ## constructors
 
@@ -349,10 +340,12 @@ class cons_class {
 
 int main()
 {
-    cons_class p1 (4);
+    cons_class p1 (4); // constructor is called here
     cons_class p2 = p1; // copy constructor called here
 }
 ```
+
+Constructor is called only when you declare the class in the caller.
 
 if the constructor is not created, then the compiler creates one by default.
 
@@ -488,6 +481,94 @@ int main()
 
 ### STD API
 
+## std::to_string
+
+converts any value type into strings, so be it an `int`, `unsigned int`, `double`, or `long` types. The `to_string` method is an overloaded type.
+
+Example:
+
+```cpp
+#include <iostream>
+#include <cstdint>
+#include <climits>
+#include <string>
+
+int main()
+{
+    std::string int_str = std::to_string(4);
+    std::string long_str = std::to_string(INT_MAX);
+    std::string long_long_str = std::to_string(UINT_MAX);
+    std::string unsigned_str = std::to_string(65535);
+    std::string double_str = std::to_string(14.414);
+
+    std::cout << "int:" << int_str << std::endl;
+    std::cout << "long:" << long_str << std::endl;
+    std::cout << "long long:" << long_long_str << std::endl;
+    std::cout << "unsigned int:" << unsigned_str << std::endl;
+    std::cout << "double str:" << double_str << std::endl;
+}
+```
+
+## std::sort
+
+`std::sort` sorts out the content and orders them in ascending order. Below example reads random input from `/dev/urandom` and apply `std::sort` on it.
+
+use `algorithm` header for `std::sort`. always include `<unistd.h>` while using any Linux OS internal lib.
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <algorithm>
+
+extern "C" {
+#include <unistd.h>
+int getInt(int fd)
+{
+    int var;
+
+    read(fd, &var, sizeof(var));
+
+    return var;
+}
+}
+
+int main()
+{
+    std::vector<unsigned int> a;
+    struct timeval tv;
+    int i;
+    int fd;
+
+    fd = open("/dev/urandom", O_RDONLY);
+    if (fd < 0) {
+        std::cout << "failed to open /dev/urandom" << std::endl;
+        return -1;
+    }
+
+    for (i = 0; i < 100; i ++) {
+        unsigned int var;
+
+        var = getInt(fd);
+        a.push_back(var);
+    }
+
+    std::sort(a.begin(), a.end());
+
+    std::vector<unsigned int>::const_iterator t;
+
+    for (t = a.begin(); t != a.end(); t ++) {
+        std::cout << "a:" << *t << std::endl;
+    }
+
+    close(fd);
+    return 0;
+}
+```
+
+
 **1. make_shared and shared_ptr**
 
 include `<memory>` compile with `-std=c++11` option. otherwise you get error regarding the type such as `var does not declare in this scope` or `var does not name a type`.
@@ -614,6 +695,33 @@ int main()
 }
 ```
 
+
+Sometimes it gets hard to understand or access variables inside a namespace.. such as for ex defined Enums. See example below.
+
+```cpp
+#include <iostream>
+
+namespace ns {
+    typedef enum {
+        ENUM_1,
+        ENUM_2,
+    } TestEnum_t;
+
+    TestEnum_t te;
+};
+
+int main()
+{
+    ns::TestEnum_t te1 = ns::ENUM_2;
+    ns::te = ns::ENUM_1;
+    std::cout << "Enum1: " << ns::te << std::endl;
+}
+```
+
+in the above example the namespace `ns` defines a enum called `TestEnum_t` inside it..
+
+1. To declare 
+
 ### STL
 
 #### Standard library std (String library)
@@ -662,7 +770,129 @@ str.reserve(10);
 cout << "size : " << str.size() << endl;
 ```
 
-#### vectors
+### Lists (std::list)
+1. lists are another part of STL. they are like the linked lists.
+2. the `std::list` is used to perform the various operations
+
+|type / way to use | description|
+|------------------|------------|
+|`std::list<int>`| declares a set of integer lists|
+|`std::list<int>::const_iterator`| declares a constant iterator to iterate thru list|
+|`std::list::push_front(elem)`| push an element in the front |
+|`std::list::push_back(elem)`| push at the end of the list |
+|`std::list::front(elem)`| access the element at the beginning |
+|`std::list::back(elem)`| access the element at the end |
+|`std::list::empty()`| check if list is empty |
+|`std::list::size()`| size of the list |
+|`std::list::max_size()`| find max size of the list |
+|`std::list::clear()`| clear the list contents |
+|`std::list::assign(std::list<>::const_iterator, std::list<>::const_iterator)` | assign the new list at the end of the old list from begin to end |
+|`std::list::sort(comparison function)` | sorts the elements in the ascending order |
+
+Below example provides an overview of lists:
+
+```cpp
+#include <iostream>
+#include <list>
+
+// writes our class to print list elements
+class list_class {
+    public:
+        void list_print(std::list<int> i)
+        {
+            std::list<int>::const_iterator t;
+
+            for (t = i.begin(); t != i.end(); t ++) {
+                std::cout << *t << "->";
+            }
+            std::cout << std::endl;
+        }
+
+        void list_cprint(std::list<int> i)
+        {
+            std::list<int>::const_iterator t;
+
+            for (t = i.cbegin(); t != i.cend(); t ++) {
+                std::cout << *t << "->";
+            }
+            std::cout << std::endl;
+        }
+
+        void list_rprint(std::list<int> i)
+        {
+            std::list<int>::const_reverse_iterator t;
+
+            for (t = i.rbegin(); t != i.rend(); t ++) {
+                std::cout << *t << "->";
+            }
+            std::cout << std::endl;
+        }
+};
+
+int main()
+{
+    std::list<int> i {1, 2, 3, 4, 5}; // setting up the list initialisation
+    std::list<int>::const_iterator t;
+    std::list<int>::const_reverse_iterator rt;
+
+    std::list<int> new_list {4, 1, 2, 4};
+
+    // value and ptr for testing of the contents after i being modified
+    std::list<int> i_copy = i; // copy constructor ?
+    std::list<int> *i_ptr = &i; // assign the address of the old list
+
+    list_class l;
+
+    //add at front
+    i.push_front(4);
+    //add at end
+    i.push_back(8);
+
+    std::cout << "begin" << std::endl;
+    l.list_print(i);
+
+    std::cout << "cbegin" << std::endl;
+    l.list_cprint(i);
+
+    std::cout << "rbegin" << std::endl;
+    l.list_rprint(i);
+
+    std::cout <<"front element:" << i.front() << std::endl;
+    std::cout <<"last element:" << i.back() << std::endl;
+
+    std::cout << "list empty:" << (i.empty() ? "Yes" : "No") << std::endl;
+
+    std::cout << "list element number:" << i.size() << std::endl;
+
+    std::cout << "list max_size:" << i.max_size() << std::endl;
+
+    std::cout << "clearing list" << std::endl;
+
+    i.clear();
+
+    std::cout << "list count:" << i.size() << std::endl
+              << "list empty:" << (i.empty() ? "Yes" : "No") << std::endl;
+
+    i.assign(new_list.begin(), new_list.end());
+
+    l.list_print(i);
+    l.list_print(i_copy);
+    l.list_print(*i_ptr);
+
+    // sorts them in ascending order
+    i.sort(std::greater<int>());
+    l.list_print(i);
+}
+```
+
+lets discuss here itself some of the comparison operators:
+
+|type / way to use | description|
+|------------------|------------|
+|`std::greater<type>()` | greater than operation |
+|`std::less<type>()` | less than operation |
+
+#### vectors (std::vector)
 
 1. vectors are dynamic arrays unlike the C's static arrays (it can be of array of integers, strings ..).
 2. vectors is a class of std library
@@ -762,6 +992,8 @@ note the usage of `str.size()` method to find the length of vector.
 ```
 
 8. adding strings is easy: use `+` operator, its overloaded when using strings.
+9. access the front element using `.front()`.
+10. access the back element using `.back()`.
 
 Example:
 
@@ -811,6 +1043,9 @@ int main()
     for (i = 0; i < a.size(); i ++) {
         std::cout << "a:" << a[i] << std::endl;
     }
+
+    std::cout << "front:" << a.front()
+              << "end:" << a.back() << std::endl;
 
     std::vector<int>::iterator r = a.begin();
 
@@ -866,6 +1101,48 @@ int main()
 1. the `push_back()` method accepts the constructor of the type `struct type`, where the `type` is a structure name.
 2. each time a new element to be added, a `.push_back()` is called and then elements are referenced and assignment is made.
 3. the access to the elements is same as the vector of integer or strings.
+
+merging the two vectors is a different thing. Here's one example:
+
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+int main()
+{
+    std::vector<int> v(20), v1, v2;
+    int i;
+
+    for (i = 0; i < 10; i ++) {
+        v1.push_back(i);
+        v2.push_back(10 - i);
+    }
+
+    std::cout << "v1 size:" << v1.size() <<std::endl
+              << "v2.size:" << v2.size() << std::endl;
+
+    std::merge(v1.begin(), v1.end(), v2.begin(), v2.end(), v.begin());
+
+    std::cout << "front:" << v1.front()
+              << "back: " << v1.back() << std::endl;
+
+    v.push_back(21);
+
+    std::vector<int>::const_iterator iv;
+
+    std::cout << "size:" << v.size() << std::endl;
+    for (iv = v.begin(); iv != v.end(); iv ++) {
+        std::cout << "iv:" << *iv << std::endl;
+    }
+}
+```
+
+Merging the two vectors is first followed with initialisation of the final vector with the memory sufficient to hold both vectors.
+
+then calling the `std::merge` API to get the merge going.
+
+So, when i test if the vector is still expandable by pushing new element at the rear, it still is.
 
 # CMAKE
 
