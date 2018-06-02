@@ -24,7 +24,7 @@ apt install build-essential gcc g++ cmake
 
 All the code examples are at [here](https://github.com/DevNaga/gists/tree/master/cpp)
 
-**Author**: Dev Naga `<devendra.aaru@gmail.com>`  CopyRight DevNaga. All rights reserved
+**Author**: *Dev Naga* `<devendra.aaru@gmail.com>`  CopyRight DevNaga. All rights reserved
 
 **LICENSE**: [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
@@ -104,11 +104,47 @@ Once the program that you have compiled, is loaded into memory for execution, th
 
 ## 2. C Programming
 
+### intro
+
+The C programming language is created by two great programmers: 
+
+### variables and types
+
+C has many types to represent the data. The following are the types. Type represent the data its holding and its size.
+
+
+| type | size | range |
+|------|------|-------|
+| `char` | character of one byte in size | -127 to 127 |
+| `unsigned char` | unsigned char | 0 to 255 |
+| `short int` | signed short integer of two bytes | -32768 to 32767 |
+| `unsigned short int` | unsigned short int of two bytes | 0 to 65535 |
+| `int` | signed integer of 4 bytes | -2147483648 to 2147483647 |
+| `unsigned int` | unsigned integer of 4 bytes | 0 to 4294967295 |
+
+There are more formats as `long`, `unsigned long`, `long long` types, however they are not very practical.
+
+The ranges are defined in the header file `<limits.h>`.
+
+The header file `<stdint.h>` contain somemore tyes such as below.
+
+| type | size | range|
+|------|------|------|
+| int8_t | 1 | -127 to 127 |
+| uint8_t | 1 | 0 to 255 |
+| int16_t | 2 | -32768 to 32767 |
+| uint16_t | 2 | 0 to 65535 |
+| int32_t | 4 | -2147483648 to 2147483647 |
+| uint32_t | 4 | 0 to 4294967295 |
+| int64_t | 8 | - |
+| uint64_t | 8 | - |
+
+
 ### Loops and conditional statements
 
 ### pre-processor statement
 
-1. preprocessor macros are used for various purposes such as from defining or giving names to values to a function look alikes for perofmrnace reasons
+1. preprocessor macros are used for various purposes such as from defining or giving names to values to a function look alikes for performance reasons
 
 2. value type example
 
