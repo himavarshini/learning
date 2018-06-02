@@ -91,6 +91,8 @@ Once the program that you have compiled, is loaded into memory for execution, th
 
 ## 2. C Programming
 
+### Loops and conditional statements
+
 ### pre-processor statement
 
 1. preprocessor macros are used for various purposes such as from defining or giving names to values to a function look alikes for perofmrnace reasons
@@ -117,6 +119,11 @@ above is a multi-line macro.. observe the `\` line after the each line till the 
 
 
 # CPP programming
+
+## Intro
+
+1. Many C++ standards came in. Most prominent are the C++11 and C++14.
+2. C++ gets much more handson if `python` learnt first and then C++.
 
 ## overloading functions
 
@@ -158,7 +165,7 @@ std::cout << "add result for a double and int <1.1 and 2>:" << add(1.1, (double)
 3. if the caller passes the variables of types that are not available in the target overloaded functions, then it is not possible to overload (care must be taken to 
 pass the right options or use the typecasting - but typecasting is strictly not good in c++)
 
-## 'new' and 'delete' operators
+## 'new' and 'delete' operators (Allocation and Free)
 
 1. `new` and `delete` operators are used to allocate and free memory respectively.
 2. they are similar to `malloc` and `free` in C.
@@ -173,12 +180,35 @@ new int_ptr_2 = new int(2); // allocate and assign value at int_ptr_2 to 2
 new s = new struct mystr; // allocate a structure
 ```
 
-3. `delete` operator is similar to the new.
+**Basic example:**
+
+```cpp
+#include <iostream>
+int main()
+{
+    auto array = new int[5]; // allocate an array to hold 5 integer variable
+    int i;
+
+    // assigning the array elements
+    for (i = 0; i < 5; i ++) {
+        array[i] = i;
+    }
+
+    // print the elements of the array
+    for (i = 0; i < 5; i ++) {
+        std::cout <<"i:" << array[i] << std::endl;
+    }
+}
+```
+
+3. `delete` operator is similar to the `new`.
 
 To free one pointer use `delete pointer`.
 To free an array of pointers use `delete [] pointer`.
 
 4. calling `delete` on a NULL pointer has no effect.
+
+Full example using all sort of the calls with `new` and `delete` is below.
 
 **Example:**
 
@@ -770,6 +800,105 @@ str.reserve(10);
 cout << "size : " << str.size() << endl;
 ```
 
+The C type strings are accessed as well... see below basic example.
+
+```cpp
+#include <iostream>
+
+int main()
+{
+    std::string cstr = "Hello";
+
+    std::cout << "C string form: " << cstr.c_str() << std::endl;
+}
+```
+
+## USECASE
+As we now know much details in the coding of C++ such as `class`, `constructor / destructor` and `std::str` we would go ahead and write on file system io operation class as a usecase.
+
+```cpp
+#include <iostream>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <cstring>
+
+class fsAPI {
+    private:
+        int fd;
+    public:
+        fsAPI(std::string filename, std::string mode)
+        {
+            int o_type = 0;
+            int perms = 0;
+
+            if (mode == "r") {
+                o_type = O_RDONLY;
+            }
+            if (mode == "w") {
+                o_type = O_CREAT | O_WRONLY;
+                perms = S_IRWXU;
+            }
+            if (mode == "a") {
+                o_type = O_APPEND;
+            }
+
+            if (perms != 0) {
+                fd = open(filename.c_str(), o_type, perms);
+            } else {
+                fd = open(filename.c_str(), o_type);
+            }
+            if (fd < 0) {
+                std::cout << "failed to open:" << filename << std::endl;
+            }
+        }
+        ~fsAPI()
+        {
+            if (fd > 0)
+               close(fd);
+        }
+        int writeAPI(std::string buf, int buf_len);
+        int readAPI(std::string *buf, int buf_len);
+};
+
+int fsAPI::writeAPI(std::string buf, int buf_len)
+{
+    return write(fd, buf.c_str(), buf_len);
+}
+
+int fsAPI::readAPI(std::string *buf, int buf_len)
+{
+    char c_buf[1400];
+    int ret;
+
+    ret = read(fd, (void *)c_buf, buf_len);
+
+    c_buf[ret] = '\0';
+
+    buf->append(c_buf);
+    return 0;
+}
+
+int main(int argc, char **argv)
+{
+    if (!strcmp(argv[1], "write")) {
+        class fsAPI fsHandle("devnaga.txt", "w");
+        std::string msg("Hello C++.. fs API");
+
+        fsHandle.writeAPI("Hello C++.. fs API", msg.size());
+    } else if (!strcmp(argv[1], "read")) {
+        class fsAPI fsHandle("devnaga.txt", "r");
+        std::string msg;
+
+        fsHandle.readAPI(&msg, 1400);
+
+        std::cout << "msg length: " << msg.size() << std::endl;
+        std::cout << "str: " << msg << std::endl;
+    }
+}
+```
+
 ### Lists (std::list)
 1. lists are another part of STL. they are like the linked lists.
 2. the `std::list` is used to perform the various operations
@@ -1184,7 +1313,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 endif()
 ```
 
-3. setting `cmake` standard
+3. setting `cmake` C++ standard
 
 ```cmake
 if(NOT CMAKE_CXX_STANDARD)
