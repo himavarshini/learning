@@ -5,6 +5,12 @@
 
 This is a work-in-progress reference manual that detail on the C, C++ and the parts of secure coding in C. This is basically what i learnt over the time. This is written in short and simple English and not to confuse the end reader.
 
+How to read this manual:
+
+The readers intended are basic (and the ones that are starting in C and C++ programming), intermediate and may be serve as a reference or dictionary or a goto guide for the advanced programmers.
+
+1. many topics are started from basic and goes down the line and deep on particular topics more.
+
 Instructions to start the manual:
 
 1. use Ubuntu OS.. i used Ubuntu to compile and run programs .. any Ubuntu >= 18.04 is ok. If you want to use the other OS, you are free to do so.. MacOS does `g++` and `gcc` as well similar to the Ubuntu. Windows, usually it is hard to setup but MinGW is one option. MinGW is here: http://www.mingw.org/
@@ -16,7 +22,14 @@ apt install build-essential gcc g++ cmake
 
 `cmake` is required for building multiple cpp files into one unit. This is similar to `Makefile` but more advanced and wraps around makefile as well. We describe and learn about this in coming sections.
 
-Author: Dev Naga `<devendra.aaru@gmail.com>`   All rights reserved
+All the code examples are at [here](https://github.com/DevNaga/gists/tree/master/cpp)
+
+**Author**: Dev Naga `<devendra.aaru@gmail.com>`  CopyRight DevNaga. All rights reserved
+
+**LICENSE**: [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+
+For any bugs in the manual / in the code contact me at the above mentioned email address.
+
 
 
 ## 1. Introduction to Compilers
