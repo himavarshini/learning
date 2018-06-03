@@ -24,7 +24,7 @@ apt install build-essential gcc g++ cmake
 
 All the code examples are at [here](https://github.com/DevNaga/gists/tree/master/cpp)
 
-**Author**: *Dev Naga* `<devendra.aaru@gmail.com>`  CopyRight DevNaga. All rights reserved
+**Author**: *Dev Naga* `<devendra.aaru@gmail.com>`  CopyRight **DevNaga**. All rights reserved. The work is purely based on what i have learnt over the time of writing this document about C, C++, Secure coding and other topics described in this manual.
 
 **LICENSE**: [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
@@ -106,7 +106,32 @@ Once the program that you have compiled, is loaded into memory for execution, th
 
 ### intro
 
-The C programming language is created by two great programmers: 
+The C programming language is created by a legendry programmer Dennis Ritchie. He himself put around 4 or 5 out of 10 when someone asked him the expertise in C. This is because of the vast programmability and its minimal footprint on the final binary makes it a programming language with infinite variations.
+
+1. Use any text editor to code in C, Like i use `vi` editor or `vscode` from microsoft is also good.
+2. every program in C, starts with header file definition something like `#include <stdio.h>` . Header files contain most important information about various definitions and declarations of the variablee and types. We will discuss these in coming chapters.
+3. every C program starts with `main()` function. Function is a body that contains a group of statements and be executed when the function is called, if not called they wont be executed. So, if `main()` is a function , then who calls `main()` ?
+4. C program follows many syntax rules, they are described in below sections.
+
+For example a C program looks like the following:
+
+```c
+#include <stdio.h>   // header file
+
+int main() // main function
+{
+    printf("Hello C\n");     // printf call
+
+    return 0;   // return statement
+}
+```
+
+1. In the above program the header file that we discussed `<stdio.h>` is being declared. Each header file follows a `#` and `include` statements defining that to include this file into the program.
+2. The function `main()` is called but before that `int` is kept, the `int` type is basically returned by the `main()` function. Every function in C program may or many not return a value. so in our `main()` above there, returns an int, like the last statement `return 0` returning integer 0.
+3. The function `printf()` is called with argument `"Hello C\n"`. argument is basically what the type of variable a function accept. There can be variable arguments to the function and are covered in coming sections of this manual. The `"` is the usage to define a string. string is basically a group of characters followed by a null terminator. a null terminator defines where the string end. the null terminator is basically `\0`. it is not `o` but is `0`.
+4. the `\n` is basically a new line. when `printf()` prints the message on to screen, the new line is printed after the last character is being printed.
+5. the `\\` is comment. comments are basically used to describe what the line or function mean. One can meaningfully define what the particular part of the source code really means. Anything in english language can be written in the comment section
+
 
 ### variables and types
 
@@ -162,6 +187,14 @@ The header file `<stdint.h>` contain somemore tyes such as below.
 
 above is a multi-line macro.. observe the `\` line after the each line till the end. To group all the statements with in the macro function usually `{` and `{` are used.
 
+### arrays
+
+### structures
+
+### pointers
+
+### Functions
+
 ### FAQ
 
 1. to use C code inside the cpp use `extern "C" {"` and the `}` when the `C` portion of the program end.
@@ -172,13 +205,26 @@ above is a multi-line macro.. observe the `\` line after the each line till the 
 ## Intro
 
 1. Many C++ standards came in. Most prominent are the C++11 and C++14.
-2. C++ gets much more handson if `python` learnt first and then C++.
+2. C++ gets much more hands-on if `python` learnt first and then C++.
+
+
+```cpp
+#include <iostream>
+
+int main()
+{
+    std::cout << "Hello C++\n";
+}
+```
+
+One thing that is easily noticeable is the header file missing `.h` extension.
 
 ## overloading functions
 
 1. same function name but different jobs depending on the type of input passed
+2. useful when the job performed by the API is same irrespective of what the input is.. usually templates are the prefered approach for such kind of operation.
 
-Example:
+**Example:**
 
 ```cpp
 #include <iostream>
@@ -201,6 +247,8 @@ int main()
 }
 ```
 
+In the above example, the function `add()` does the same job irresepctive if the input is `int` or `double`.
+
 see the error after compiling this example: that the last line when passed a double and an int. This is because the compiler
 does not find a match with this type.
 
@@ -217,7 +265,7 @@ pass the right options or use the typecasting - but typecasting is strictly not 
 ## 'new' and 'delete' operators (Allocation and Free)
 
 1. `new` and `delete` operators are used to allocate and free memory respectively.
-2. they are similar to `malloc` and `free` in C.
+2. they are similar to `malloc` and `free` in C. However 
 
 Below example describe some of the vary many ways to do allocation of dynamic memory.
 
@@ -312,6 +360,24 @@ int main()
 ```
 
 5. if you think that there could be n number of values.. you could use the `vector` types than using the `new` followed with `delete` for managing and all. (like for example arrays or array of structures or any n types). For strings you can simply use `std::string` type.
+
+A traditional C functions can also be used to perform the similar job. See example below. include `<cstdlib>`.
+
+```cpp
+#include <iostream>
+#include <cstdlib>
+
+int main()
+{
+    int *ptr = (int *)malloc(4);
+
+    *ptr = 4;
+
+    std::cout << "ptr is:" << *ptr << std::endl;
+}
+```
+
+in the above example, we see that the `malloc()` return is typecasted. The CPP does not allow types being return `void *`.
 
 ## class
 
@@ -698,6 +764,69 @@ std::cout <<"var:" << var->getClass() << std::endl;
 std::cout <<"var1:" << var1 << std::endl;
 std::cout <<"var2:" << var2->getClass() << std::endl;
 ```
+
+## std::map
+
+`std::map` provides a key value store in C++ so that one does not have to create something on their own. Think of map as a two-d vector but the values referenced by the keys.
+
+The map can be declared very basically as follows.
+
+```cpp
+std::map <type1, type2> var;
+```
+
+The example below shows the usage of `std::map`.
+
+**Example:**
+
+```cpp
+#include <iostream>
+#include <map>
+
+int main()
+{
+    std::map<char,int> m;
+    std::map<char,int> :: iterator t;
+
+    m['a'] = 1;
+    m['b'] = 2;
+    m['c'] = 3;
+    m['d'] = 4;
+
+    std::cout << "map size:" << m.size() << std::endl;
+
+    for (t = m.begin(); t != m.end(); t ++) {
+        std::cout << "keyid:" << t->first
+                  << "value:" << t->second << std::endl;
+    }
+
+    // search for d
+    std::map<char, int> :: iterator t_1;
+
+    t_1 = m.find('d');
+
+    std::cout << "value at 'd':"<< t_1->second << std::endl;
+}
+```
+
+just like the `std::list` or `std::vector`, the `std::map` can also be iterated using the `std::map <type1, type2> :: iterator`.
+
+in the above example we see that the map element `m` is being iterated with the `.begin` and `.end` types. The `->first` and the `->second` are the `key` and `value` pairs respectively.
+
+A value can be found by using a key element using the `.find()` method. If a key is available or not is found by checking the return of `.find()` method with `.end()`.
+
+
+**Example:**
+
+```cpp
+std::map <char, int> :: iterator key;
+
+key = m.find('e');
+if (key == m.end()) {
+    std::cout << "key did not found\n";
+}
+```
+
 
 ## namespaces
 
