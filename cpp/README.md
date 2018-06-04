@@ -1,6 +1,18 @@
 
 # C and CPP Manual
 
+
+## Table of contents
+1. Intro
+2. C Programming
+3. C++ Programming
+4. CMAKE
+5. Cybersecurity Best practices and Secure coding
+
+
+-----------
+
+
 ## Intro
 
 This is a work-in-progress reference manual that detail on the C, C++ and the parts of secure coding in C. This is basically what i learnt over the time. This is written in short and simple English and not to confuse the end reader.
@@ -47,7 +59,7 @@ At this point, i am guessing you already have a version of compiler and most pre
 4. The pre-processor (usually is `cc1`) converts the program to high level language that the compiler understands. it finds out the header files and appends them to your program. if there are multiple header files, then it appends them all, and if there are repeated header files, it then as well appends only one of them.
 5. if there are any macro definitions, it translates them and expands them into code and pastes them into the portions where they are called. We will  / going to discuss about macros in the coming parts of this.
 
-Example:
+**Example:**
 ```c
 #include <stdio.h>
 
@@ -101,6 +113,7 @@ gcc -c prog.c
 
 Once the program that you have compiled, is loaded into memory for execution, the loader then is responsible for loading the function into the memory and execute it.
 
+-----------------------
 
 ## 2. C Programming
 
@@ -111,7 +124,7 @@ The C programming language is created by a legendry programmer Dennis Ritchie. H
 1. Use any text editor to code in C, Like i use `vi` editor or `vscode` from microsoft is also good.
 2. every program in C, starts with header file definition something like `#include <stdio.h>` . Header files contain most important information about various definitions and declarations of the variablee and types. We will discuss these in coming chapters.
 3. every C program starts with `main()` function. Function is a body that contains a group of statements and be executed when the function is called, if not called they wont be executed. So, if `main()` is a function , then who calls `main()` ?
-4. C program follows many syntax rules, they are described in below sections.
+4. C program follows many syntax rules, they are described in below sections. The source files in C follow the extension `.c` and header files follow the extension `.h`, many editors will colorise and customise the source code as soon as they see this extensions. The compiler would require the extensions to be present as well.
 
 For example a C program looks like the following:
 
@@ -202,6 +215,8 @@ above is a multi-line macro.. observe the `\` line after the each line till the 
 
 # CPP programming
 
+C++ is invented by Bjarne Stroustrup, while he was trying to extend C for object oriented approach.
+
 ## Intro
 
 1. Many C++ standards came in. Most prominent are the C++11 and C++14.
@@ -217,7 +232,7 @@ int main()
 }
 ```
 
-One thing that is easily noticeable is the header file missing `.h` extension.
+One thing that is easily noticeable is the header file missing `.h` extension. C++ does not require the `.h` presence and is optional. The extension for a C++ file are `.cpp` and `.hpp`.
 
 ## overloading functions
 
@@ -261,6 +276,7 @@ std::cout << "add result for a double and int <1.1 and 2>:" << add(1.1, (double)
 2. if the function has same args the overloading is not possible
 3. if the caller passes the variables of types that are not available in the target overloaded functions, then it is not possible to overload (care must be taken to 
 pass the right options or use the typecasting - but typecasting is strictly not good in c++)
+
 
 ## 'new' and 'delete' operators (Allocation and Free)
 
@@ -363,6 +379,8 @@ int main()
 
 A traditional C functions can also be used to perform the similar job. See example below. include `<cstdlib>`.
 
+**Example:**
+
 ```cpp
 #include <iostream>
 #include <cstdlib>
@@ -388,7 +406,7 @@ in the above example, we see that the `malloc()` return is typecasted. The CPP d
     2. `protected` members are accessible from the same members of the class and friends, but also members of the derived classes. derived classes are described further down the manual again.
     3. `public` members are accessible by anyone once the class is declared in any functions and by referring them from the object.
 
-Example:
+**Example:**
 
 ```cpp
 class cls {
@@ -408,7 +426,7 @@ class cls {
 
 if any of the `private`, `public` or `protected` are not declared then the class become `private` automatically.
 
-Example:
+**Example:**
 
 ```cpp
 #include <iostream>
@@ -448,6 +466,8 @@ class cpp_ptr *cptr; // pointer to a class
 2. constructors never return anything .. not even `void` type
 3. two types of constructors : `default constructor` and `parameterised constructor`.
 
+**Example:**
+
 ```cpp
 class constr {
     private:
@@ -468,6 +488,8 @@ class constr {
 ```
 
 Another concept in this is copy constructor. Take an example below:
+
+**Example:**
 
 ```cpp
 class cons_class {
@@ -501,7 +523,7 @@ if the constructor is not created, then the compiler creates one by default.
 2. destructors are called when the class object goes out of scope or when the program ends.
 3. use `~` symbol before the constructor name, then it becomes destructor. 
 
-Example:
+**Example:**
 
 ```cpp
 class destr {
@@ -594,7 +616,7 @@ overloadedC o1(4);
 
 1. used to reference the object itself with in the object only. referencing outside the object is not allowed and produce compiler error.
 
-Example:
+**Example:**
 
 ```cpp
 #include <iostream>
@@ -630,7 +652,7 @@ int main()
 
 converts any value type into strings, so be it an `int`, `unsigned int`, `double`, or `long` types. The `to_string` method is an overloaded type.
 
-Example:
+**Example:**
 
 ```cpp
 #include <iostream>
@@ -659,6 +681,8 @@ int main()
 `std::sort` sorts out the content and orders them in ascending order. Below example reads random input from `/dev/urandom` and apply `std::sort` on it.
 
 use `algorithm` header for `std::sort`. always include `<unistd.h>` while using any Linux OS internal lib.
+
+**Example:**
 
 ```cpp
 #include <iostream>
@@ -764,6 +788,37 @@ std::cout <<"var:" << var->getClass() << std::endl;
 std::cout <<"var1:" << var1 << std::endl;
 std::cout <<"var2:" << var2->getClass() << std::endl;
 ```
+## std::signal
+
+`std::signal()` is an API to register a signal handler for the Linux signals. Such as the `SIGINT`, `SIGQUIT` etc.. The C++ standard library has a wrapper around this API.
+
+**Example:**
+
+```cpp
+#include <csignal>
+#include <iostream>
+
+static std::sig_atomic_t signal_status;
+
+void signal_handler(int signal)
+{
+    signal_status = signal;
+}
+
+int main()
+{
+    std::signal(SIGINT, signal_handler);
+
+    while (1) {
+        if (signal_status == SIGINT) {
+            std::cout << "caught ctrl + c .. exit\n" << std::endl;
+            break;
+        }
+    }
+}
+```
+
+use `<csignal>` to use the `std::signal()` API.
 
 ## std::map
 
@@ -837,6 +892,8 @@ if (key == m.end()) {
 
 Below example provide an overview of the namespace usage:
 
+**Example:**
+
 ```cpp
 #include <iostream>
 
@@ -906,6 +963,8 @@ int main()
 
 Sometimes it gets hard to understand or access variables inside a namespace.. such as for ex defined Enums. See example below.
 
+**Example:**
+
 ```cpp
 #include <iostream>
 
@@ -932,7 +991,7 @@ in the above example the namespace `ns` defines a enum called `TestEnum_t` insid
 
 ### STL
 
-#### Standard library std (String library)
+#### std::string Standard library std (String library)
 
 1. string library is part of std namespace. so, `std::string`. or `using namespace std` and directly reference string
 2. c++ strings does not include null terminator because the c++ string class contain the housekeeping information such as the length of the string and the left length so that to expand the internal buffer storage
@@ -955,11 +1014,19 @@ string s6(s2, 2, 4); // middle two of the string s2
 ##### Some of the string manipulation API
 
 1. length of string : `str.length()`.
-2. iterator definitions
+2. iterator definitions:
 
 ```cpp
-string s("12345");
-string::iterator it;
+std::string s("12345");
+
+std::string::iterator it;
+std::string::const_iterator it; // iterate char by char from 0 index to the length
+
+... use .begin() and .end() API to iterate char by char wise from 0.
+
+std::string::reverse_iterator it; // iterate char by char from last index to 0
+
+... use .rbegin() and .rend() API to iterate char by char wise from length
 ```
 
 3. finding the size : `str.size()`
@@ -980,8 +1047,11 @@ cout << "size : " << str.size() << endl;
 
 The C type strings are accessed as well... see below basic example.
 
+**Example:**
+
 ```cpp
 #include <iostream>
+#include <string>
 
 int main()
 {
@@ -991,8 +1061,119 @@ int main()
 }
 ```
 
+getting a particular character at a particular location is by using the `at` member.
+
+**Example:**
+
+```cpp
+#include <iostream>
+#include <string>
+
+int main()
+{
+    std::string str1 = "Programming";
+
+    std::cout << "first char : " << str1.at(0) << std::endl;
+}
+```
+
+iterating character wise in ascending and descending order is shown below.
+
+**Example:**
+
+```cpp
+#include <iostream>
+#include <string>
+
+int main()
+{
+    std::string str = "string";
+
+    std::cout << "In Ascending order: \n";
+
+    std::string::const_iterator it;
+
+    for (it = str.begin(); it != str.end(); it ++) {
+        std::cout << *it << std::endl;
+    }
+
+    std::cout << "In descending order: \n";
+
+    std::string::reverse_iterator rit;
+
+    for (rit = str.rbegin(); rit != str.rend(); rit ++) {
+        std::cout << *rit << std::endl;
+    }
+}
+```
+
+The front and last characters of a string are found by using `.front()` and `.back()` member functions. The equivalent of calling this is `.at(0)` and `.at(std::str::length() - 1)`.
+
+**Example:**
+
+```cpp
+#include <iostream>
+#include <string>
+
+int main()
+{
+    std::string str = "string";
+
+    std::cout << "Front: " << str.front() << "Back: " << str.back() << std::endl;
+}
+```
+
+use `-std=c++11` option when compiling with `g++`.
+
+To clear the content of the string, use `.clear()` member function.
+
+**Example:**
+
+```cpp
+#include <iostream>
+#include <string>
+
+int main()
+{
+    std::string str = "string";
+
+    std::cout << "string length: " << str.length() << std::endl;
+
+    str.clear();
+
+    std::cout << "string length: " << str.length() << std::endl;
+}
+```
+
+The string to integer conversion is done by using `stoi` and double is done using `stod`. The `stoi` is overloaded in the case that you can pass to convert to a decimal or hex.
+
+**Example:**
+
+```cpp
+#include <iostream>
+#include <string>
+
+int main()
+{
+    std::string s1 = "50";
+    std::string s2 = "44.44";
+
+    int s1_int;
+    double s2_double;
+
+    s1_int = std::stoi(s1);
+    s2_double = std::stod(s2);
+
+    std::cout << "integer value: " << s1_int << std::endl;
+    std::cout << "integer hex : 0x" << std::stoi(s1, 0, 16) << std::endl;
+    std::cout << "double value: " << s2_double << std::endl;
+}
+```
+
 ## USECASE
 As we now know much details in the coding of C++ such as `class`, `constructor / destructor` and `std::str` we would go ahead and write on file system io operation class as a usecase.
+
+**Example:**
 
 ```cpp
 #include <iostream>
@@ -1302,7 +1483,7 @@ note the usage of `str.size()` method to find the length of vector.
 9. access the front element using `.front()`.
 10. access the back element using `.back()`.
 
-Example:
+**Example:**
 
 ```cpp
 #include <iostream>
@@ -1318,6 +1499,8 @@ int main()
 ```
 
 Example with all the above API is below.. along with some of the different API tests:
+
+**Example:**
 
 ```cpp
 #include <iostream>
@@ -1371,6 +1554,8 @@ int main()
 
 Iterting through the structures is bit different. Please look at the below program.
 
+**Example:**
+
 ```cpp
 #include <iostream>
 #include <vector>
@@ -1411,6 +1596,8 @@ int main()
 
 merging the two vectors is a different thing. Here's one example:
 
+**Example:**
+
 ```cpp
 #include <iostream>
 #include <algorithm>
@@ -1450,6 +1637,9 @@ Merging the two vectors is first followed with initialisation of the final vecto
 then calling the `std::merge` API to get the merge going.
 
 So, when i test if the vector is still expandable by pushing new element at the rear, it still is.
+
+## Boost libraries
+
 
 # CMAKE
 
