@@ -178,6 +178,63 @@ The header file `<stdint.h>` contain somemore tyes such as below.
 | uint64_t | 8 | - |
 
 
+A variable can be declared as the following
+
+```c
+char c; // character variable
+unsigned int i; // unsigned integer variable
+uint8_t a[4]; // unsigned array of 4 one byte integers
+uint32_t i; // same as the unsigned int i
+uint64_t big_i; // unsigned 64 bit integer
+```
+
+There is another concept called the **scope and lifetime of the variable**. Here's one example,
+
+```c
+root@linux# cat 1.c:
+
+int a;
+
+int func()
+{
+    a = 4;
+
+    return 0;
+}
+
+int main()
+{
+    func();
+    printf("value of a %d\n", a);
+}
+```
+
+Here the variable `a` is with global scope and it will be accessible by any function in the file `1.c`. The variable `a` is said to be a **Global variable**. The lifetime of the varilable `a`, meaning how long the variable can live, is the program lifetime or till the `main()` function ends.
+
+consider another example below,
+
+```c
+root@linux# cat 1.c:
+
+int func()
+{
+    int a = 4;
+
+    return a;
+}
+
+int main()
+{
+    int a;
+
+    a = func();
+    printf("value of a %d\n", a);
+}
+```
+
+The variable `a` is here said to have a **local/ function scope** and is then called a **Local variable**. The variable `a` in functions `func()` and `main()` does not cause a double declaration compilation warning/error. It is said to have the scope local and thus is valid with in that function only. The lifetime of the variable `a` in function `func()` is said to have its lifetime only the lifetime of the function `func()` (lifetime of `func()` is the execution time of the `func()`) and the same apply to variable `a` in `main()`.
+
+
 ### Loops and conditional statements
 
 ### pre-processor statement
@@ -406,6 +463,20 @@ in the above example, we see that the `malloc()` return is typecasted. The CPP d
     2. `protected` members are accessible from the same members of the class and friends, but also members of the derived classes. derived classes are described further down the manual again.
     3. `public` members are accessible by anyone once the class is declared in any functions and by referring them from the object.
 
+A basic class looks like this:
+
+```cpp
+
+class class_name {
+    access_type:
+        data..
+        data..
+    access_type:
+        member_func();
+        member_func();
+}
+```
+
 **Example:**
 
 ```cpp
@@ -447,6 +518,8 @@ int main()
     std::cout << p.getP() << std::endl;
 }
 ```
+
+if you see in the above example, unlike the structure declaration as `struct cls p`, we only did `cls p` and is fine by the compiler (the class name `class` before cls is optional when declaring).
 
 Alteratively, the variable `p` with in the class can be assigned a value this way as well. But you need to compile with `-std=c++11`.
 
@@ -1025,7 +1098,7 @@ if (key == m.end()) {
 1. namespaces are used to organise the very large amount of source code to avoid name collisions (mainly).
 2. a namespace can be nested within another namespace
 3. namespaces can span into multiple source files / header files and the compiler combines them or extends them
-4. once defined the namespace is accessed using the `using namespace` or the explicit access as `ns::var..`.
+4. once defined the namespace is accessed using the `using namespace` or the explicit access as `ns::var..`. the word `using` is a directive. without using the `using` directive, one should write the namespace before accessing any member of the namespace.
 
 Below example provide an overview of the namespace usage:
 
@@ -1414,7 +1487,32 @@ int main(int argc, char **argv)
 |`std::list::assign(std::list<>::const_iterator, std::list<>::const_iterator)` | assign the new list at the end of the old list from begin to end |
 |`std::list::sort(comparison function)` | sorts the elements in the ascending order |
 
-Below example provides an overview of lists:
+**Declaring the integer list:**
+
+```cpp
+std::list<int> i;
+```
+
+**Adding an element at the end in the list:**
+
+```cpp
+std::list<int> i;
+
+i.push_back(4);
+```
+
+**Adding an element at the front in the list:**
+
+```cpp
+std::list<int> i;
+
+i.push_front(4);
+```
+
+
+Below is a big example, provides an overview of lists:
+
+**Example:**
 
 ```cpp
 #include <iostream>
@@ -1507,6 +1605,112 @@ int main()
     // sorts them in ascending order
     i.sort(std::greater<int>());
     l.list_print(i);
+}
+```
+
+**USECASE:**
+
+```cpp
+/**
+ * Written by DevNaga <devendra.aaru@gmail.com>
+ *
+ * Copyright All rights reserved DevNaga. Apached 2.0 License
+ */
+#include <iostream>
+#include <list>
+#include <string>
+
+// linked list class..
+//
+// wrapper around the std::list<int>
+class linked_list_class {
+    private:
+        std::list<int> i; // 
+    public:
+        void add_element(int i);
+        void remove_element(int i);
+        void print_elements();
+        bool search_element(int i);
+        void delete_all();
+        int element_count();
+};
+
+// add an element in the linked list
+void linked_list_class::add_element(int elem)
+{
+    i.push_back(elem);
+}
+
+// remove an element in the linked list
+void linked_list_class::remove_element(int elem)
+{
+    i.remove(elem);
+}
+
+// print all the elements of linked list
+void linked_list_class::print_elements()
+{
+    std::list<int>::iterator it;
+
+    for (it = i.begin(); it != i.end(); it ++) {
+        std::cout << "elem: " << *it << std::endl;
+    }
+}
+
+// find and check if the element exist in linked list
+bool linked_list_class::search_element(int elem)
+{
+    std::list<int>::iterator it;
+
+    for (it = i.begin(); it != i.end(); it ++) {
+        if (elem == *it) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// delete all the elements in the linked list
+void linked_list_class::delete_all()
+{
+    i.erase(i.begin(), i.end());
+}
+
+// count the number of elements in the linked list
+int linked_list_class::element_count()
+{
+    return i.size();
+}
+
+int main(int argc, char **argv)
+{
+    linked_list_class lc;
+    int i;
+
+    std::cout << "add elements in the list " << std::endl;
+    for (i = 1; i <= argc - 1; i ++) {
+        lc.add_element(std::stoi(argv[i]));
+    }
+
+    std::cout << "printing elements >>>>>>>>>>>>>>>> : Element count is " << lc.element_count() << std::endl;
+
+    lc.print_elements();
+
+    std::cout << "search and remove an element " << std::endl;
+    if (lc.search_element(3)) {
+        lc.remove_element(3);
+    }
+
+    std::cout << "printing elements >>>>>>>>>>>>>>>>> : Element count is " << lc.element_count() << std::endl;
+
+    lc.print_elements();
+
+    lc.delete_all();
+
+    std::cout << "clear off linked list" << std::endl;
+    std::cout << "printing elements >>>>>>>>>>>>>>>>> : Element count is " << lc.element_count() << std::endl;
+    lc.print_elements();
 }
 ```
 
@@ -1835,6 +2039,18 @@ endif()
 ```
 
 # Cyber security - Secure coding practises
+
+## security farmework principles
+
+1. disable features that are not being used by default
+2. run programs in lesser privilege execution mode
+3. write a lot of test cases (use tools such as `gtest`)
+4. do analysis with external code review tools (such as `coverity` for example or any opensource review tools)
+5. run the reviews against a common known vulnerabilities
+
+## coding practices in C and C++
+
+1. reduce the usage of too many or even one global variables as well as static variables unless otherwise it is really really important do not use them.
 
 #### Links:
 
