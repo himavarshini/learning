@@ -448,6 +448,35 @@ int main()
 }
 ```
 
+Alteratively, the variable `p` with in the class can be assigned a value this way as well. But you need to compile with `-std=c++11`.
+
+**Example:**
+
+```cpp
+#include <iostream>
+
+class library {
+    private:
+        int bookCount = 4;
+    public:
+        int getBookCount()
+        {
+            return bookCount;
+        }
+        int getAccess()
+        {
+            return true;
+        }
+};
+
+int main()
+{
+    class library l;
+
+    std::cout << "library book count: " << l.getBookCount() << std::endl;
+}
+```
+
 The above example will give compilation error because the method `getP()` is `private` automatically.
 
 4. pointers can be pointing to the class as well.
@@ -646,9 +675,117 @@ int main()
 }
 ```
 
-### STD API
+## Inheritance
 
-## std::to_string
+As you might already know now that the C++ defines a very nice mechanism called `class` to define object and data very well in sturctured format. One very well known features of the C++ are inheritance.
+
+Inheritance is a derivation or like a child inheriting the genes of her mom.
+
+There are many types of inheritance.
+
+1. single inheritance
+2. multiple inheritance
+3. multilevel inheritance
+4. heirarchial inheritance
+5. hybrid inheritance
+
+
+### single inheritance
+
+A class inherits the properties of another class. This is done by using the `:` operator, followed by the access method. Access method could be like `private`, `public` or `protected`.
+
+Consider the below example:
+
+**Example:**
+
+```cpp
+#include <iostream>
+
+class library {
+    private:
+        int bookCount = 4;
+    public:
+        int getBookCount()
+        {
+            return bookCount;
+        }
+        int getAccess()
+        {
+            return true;
+        }
+};
+
+
+class engineering : public library {
+};
+
+int main()
+{
+    class engineering e;
+    class library l;
+
+    std::cout << "book count: " << e.getBookCount() << std::endl;
+
+    std::cout << "library book count: " << l.getBookCount() << std::endl;
+}
+```
+
+in this example, the `class` `engineering` is a section of `class library`. Library contains so many books and sections and Engineering is part of it. So the methods such as getting access to the library and the number of total books in the library are usually common to both the classes. So the `library` becomes the base class and the `engineernig` becomes a derived class that inherits the `library` base class.
+
+A class can be inherited only one time. doing it multiple times, would cause compilation error. Consider the below example:
+
+**Example:**
+
+```cpp
+#include <iostream>
+
+class library {
+    private:
+        int bookCount = 4;
+    public:
+        int getBookCount()
+        {
+            return bookCount;
+        }
+        int getAccess()
+        {
+            return true;
+        }
+};
+
+
+class engineering : public library {
+};
+
+class compsci: public engineering, public library {
+};
+
+int main()
+{
+    engineering e;
+    library l;
+    computersci cs;
+
+    std::cout << "book count: " << e.getBookCount() << std::endl;
+
+    std::cout << "library book count: " << l.getBookCount() << std::endl;
+}
+```
+
+### multiple inheritance
+
+A class when inherited with multiple super classes (the base classes that are supersets, in our case the `class library` is one of the super class), it is said to be doing multiple inheritance.
+
+### multilevel inheritance
+
+### hierarchial inheritance
+
+### hybrid inheritance
+
+
+## STD API
+
+### std::to_string
 
 converts any value type into strings, so be it an `int`, `unsigned int`, `double`, or `long` types. The `to_string` method is an overloaded type.
 
