@@ -143,7 +143,7 @@ int main() // main function
 2. The function `main()` is called but before that `int` is kept, the `int` type is basically returned by the `main()` function. Every function in C program may or many not return a value. so in our `main()` above there, returns an int, like the last statement `return 0` returning integer 0.
 3. The function `printf()` is called with argument `"Hello C\n"`. argument is basically what the type of variable a function accept. There can be variable arguments to the function and are covered in coming sections of this manual. The `"` is the usage to define a string. string is basically a group of characters followed by a null terminator. a null terminator defines where the string end. the null terminator is basically `\0`. it is not `o` but is `0`.
 4. the `\n` is basically a new line. when `printf()` prints the message on to screen, the new line is printed after the last character is being printed.
-5. the `\\` is comment. comments are basically used to describe what the line or function mean. One can meaningfully define what the particular part of the source code really means. Anything in english language can be written in the comment section
+5. the `//` is comment. comments are basically used to describe what the line or function mean. One can meaningfully define what the particular part of the source code really means. Anything in english language can be written in the comment section
 
 
 ### variables and types
@@ -1720,6 +1720,87 @@ lets discuss here itself some of the comparison operators:
 |------------------|------------|
 |`std::greater<type>()` | greater than operation |
 |`std::less<type>()` | less than operation |
+
+#### Double ended queues (std::deque)
+
+`std::deque` is a double ended queue that allow fast insertion and removal on both ends of the queue. This has the similar APIs that of any other STL API.
+
+| API | description |
+|-----|-------------|
+|`.push_front()` | insert element at the beginning of deque |
+|`.push_back()` | insert element at the end of deque |
+|`.pop_front()` | remove element at the front of deque |
+|`.pop_back()` | remove element at the end of deque |
+|`.size()` | get the size of the deque |
+|`std::deque<type>::const_iterator` | constant iterator from `.begin()` to `.end()` |
+|`std::deque<type>::reverse_iterator` | constant iterator from `.rbegin()` to `.rend()` |
+|`.begin()` | start of the deque |
+|`.end()` | end of the deque |
+|`.rbegin()` | reverse iterator at beginning |
+|`.rend()` | reserve iteartor at the end |
+|`.empty()` | check if the deque is empty |
+
+
+
+```cpp
+#include <iostream>
+#include <deque>
+
+int print_list(std::deque<int> d)
+{
+    std::deque<int>::const_iterator it;
+
+    for (it = d.begin(); it != d.end(); it ++) {
+        std::cout << *it << "-> ";
+    }
+
+    std::cout << std::endl;
+}
+
+int main()
+{
+    std::deque<int> d = {1, 2, 3, 4};
+    std::deque<int>::const_iterator it;
+
+    // normal iterate
+    print_list(d);
+
+    std::deque<int>::reverse_iterator ri;
+    for (ri = d.rbegin(); ri != d.rend(); ri ++) {
+        std::cout << "rd : " << *ri << std::endl;
+    }
+
+    auto empty = d.empty();
+    if (empty == true) {
+        std::cout << "list is empty " << std::endl;
+    } else {
+        std::cout << "list is filled : element count : " << d.size() << std::endl;
+    }
+
+    d.push_front(5);
+    d.push_front(6);
+    d.push_back(7);
+    d.push_back(8);
+
+    print_list(d);
+
+    std::cout << std::endl;
+
+    std::cout << "removing front element : size " << d.size() << std::endl;
+    d.pop_front();
+
+    std::cout << "final size : " << d.size() << std::endl;
+
+    print_list(d);
+
+    std::cout << "removing rear element : size " << d.size() << std::endl;
+    d.pop_back();
+
+    std::cout << "final size : " << d.size() << std::endl;
+
+    print_list(d);
+}
+```
 
 #### vectors (std::vector)
 
