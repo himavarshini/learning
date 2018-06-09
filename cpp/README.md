@@ -140,7 +140,7 @@ int main() // main function
 ```
 
 1. In the above program the header file that we discussed `<stdio.h>` is being declared. Each header file follows a `#` and `include` statements defining that to include this file into the program.
-2. The function `main()` is called but before that `int` is kept, the `int` type is basically returned by the `main()` function. Every function in C program may or many not return a value. so in our `main()` above there, returns an int, like the last statement `return 0` returning integer 0.
+2. The function `main()` is called but before that `int` is kept, the `int` type is basically returned by the `main()` function. Every function in C program may or many not return a value. so in our `main()` above there, returns an int, like the last statement `return 0` returning integer 0. A function can return anything and nothing.
 3. The function `printf()` is called with argument `"Hello C\n"`. argument is basically what the type of variable a function accept. There can be variable arguments to the function and are covered in coming sections of this manual. The `"` is the usage to define a string. string is basically a group of characters followed by a null terminator. a null terminator defines where the string end. the null terminator is basically `\0`. it is not `o` but is `0`.
 4. the `\n` is basically a new line. when `printf()` prints the message on to screen, the new line is printed after the last character is being printed.
 5. the `//` is comment. comments are basically used to describe what the line or function mean. One can meaningfully define what the particular part of the source code really means. Anything in english language can be written in the comment section
@@ -159,6 +159,7 @@ C has many types to represent the data. The following are the types. Type repres
 | `unsigned short int` | unsigned short int of two bytes | 0 to 65535 |
 | `int` | signed integer of 4 bytes | -2147483648 to 2147483647 |
 | `unsigned int` | unsigned integer of 4 bytes | 0 to 4294967295 |
+| `void` | type of void |
 
 There are more formats as `long`, `unsigned long`, `long long` types, however they are not very practical.
 
@@ -237,6 +238,70 @@ The variable `a` is here said to have a **local/ function scope** and is then ca
 
 ### Loops and conditional statements
 
+#### `if` statement
+
+Consider the below example:
+
+```c
+int apples = 6;
+int mangoes = 7;
+
+if (apples > mangeos) {
+    printf("apples are more in number than mangoes\n");
+} else {
+    printf("mangoes are more in number than apples\n");
+}
+```
+
+The statement above is `if` and `else` followed with it. The statement `if` is used to check for truth in the condition and if that truth is passed, then the statements with in the if's opening and closing brace `{` and `}` respectively, will get executed. If the condition is false within the `if` statement then the `else` will be executed.
+
+Consider another example below:
+
+**Example:**
+```c
+int main()
+{
+    else {
+        printf("Hello\n");
+    }
+}
+```
+
+will give you a compilation error because **the `else` shall always be followed with an `if` statement.**
+
+Consider another example:
+
+```c
+typedef enum {
+    MANGOES,
+    APPLES,
+    BANANA,
+    AVOCADO,
+} fruits;
+
+fruits f;
+
+if (f == MANGOES) {
+    printf("chosen Mangoes\n");
+} else if (f == APPLES) {
+    printf("chosen Apples\n");
+} else if (f == BANANA) {
+    printf("chosen Banana\n");
+} else if (f == AVOCADO) {
+    printf("chosen Avocado\n");
+} else {
+    printf("none choosen\n");
+}
+```
+
+The statement above has a new conditional statement called `else if` that is always followed by the `if` statement just like the `else` follows `if`. In `else if` you must add a conditional statement just like you add in the `if` statement. This above example is one of the forms of `if - elseif` ladder.
+
+### switch statement
+
+#### `for` statement
+
+#### `while` statement
+
 ### pre-processor statement
 
 1. preprocessor macros are used for various purposes such as from defining or giving names to values to a function look alikes for performance reasons
@@ -265,10 +330,56 @@ above is a multi-line macro.. observe the `\` line after the each line till the 
 
 ### Functions
 
+Functions in `C` are the efficient way to organise and group the source code. A function will have a declaration and a definition. Definition holds the body of the function and declaration declares the function with its prototype.
+
+Every function may contain the arguments and returns a value. A function may not even have an argument and may not haev even the return type. Such function are not very useful in the real world however.
+
+Here's one example:
+
+```c
+void function(void); // function takes no arguments and returns nothing.
+void function(int a, double f); // function takes integer argument and a double and returns void
+void function(struct struct_var s); // function takes a structure as an argument and returns void
+int function (int a, struct var s); // function takes an int and a struct as argument and returns an int
+```
+
+### sizeof operator
+
+```c
+int i;
+
+sizeof(int); or sizeof(i)  //mean the same
+
+struct var {
+    int i;
+};
+
+struct var v;
+
+sizeof(struct var); or sizeof(v); // mean the same
+
+struct var v[2];
+
+to finding the number of elements in this above v[2], we do.
+
+num_elem = sizeof(v) / sizeof(v[0]);
+
+int *i;
+
+sizeof(*i); and sizeof(i) mean the same but ..
+
+struct var_struct *v;
+
+sizeof(v) and sizeof(*v) does not mean the same.
+
+the sizeof(v) would give you the sizeof a pointer but the sizeof(*v) gives you the sizeof the structure struct var_struct.
+```
+
 ### FAQ
 
 1. to use C code inside the cpp use `extern "C" {"` and the `}` when the `C` portion of the program end.
-
+2. The constant PI is defined as `M_PI` in `<math.h>`.
+3. The types such as `uint32_t` are part of `<stdint.h>`.
 
 # CPP programming
 
@@ -291,7 +402,7 @@ int main()
 
 One thing that is easily noticeable is the header file missing `.h` extension. C++ does not require the `.h` presence and is optional. The extension for a C++ file are `.cpp` and `.hpp`.
 
-## overloading functions
+## overloading functions (polymorphysm)
 
 1. same function name but different jobs depending on the type of input passed
 2. useful when the job performed by the API is same irrespective of what the input is.. usually templates are the prefered approach for such kind of operation.
@@ -1802,7 +1913,7 @@ int main()
 }
 ```
 
-#### vectors (std::vector)
+### vectors (std::vector)
 
 1. vectors are dynamic arrays unlike the C's static arrays (it can be of array of integers, strings ..).
 2. vectors is a class of std library
@@ -2191,3 +2302,130 @@ printf("ptr value is %d\n", *ptr);
 
 The variable `data` is local to the function `getPtr()` and the `ptr` is assigned the address of variable `data`. The data scope is within the `getPtr()` function and outside the stack is cleaned up and so the variable `data` memory. Thus the pointer ptr points to an invalid memory after the call to getPtr() resulting in an undefined output.
 
+
+**3. using `rand()` and `srand()` the random number is not very pseudorandom**
+
+Using `rand()` and `srand()` for seeding the random number generator does not really produce a psuedo random number and is not really usable by applications requiring the pseudorandom number. Insetad  in Linux usually provides `/dev/urandom` as the random number generator.
+
+Here's one way to do a pseudorandom generator in C++.
+
+```cpp
+#include <iostream>
+#include <string>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdint.h>
+
+// random generator class
+class rand_num_gen {
+    private:
+        int fd;
+    public:
+        rand_num_gen();
+        ~rand_num_gen();
+        int gen_rand(uint8_t *rand_num);
+        int gen_rand(uint16_t *rand_num);
+        int gen_rand(uint32_t *rand_num);
+        int gen_rand(uint64_t *rand_num);
+        int gen_rand(uint64_t *rand_num, uint64_t min, uint64_t max);
+};
+
+// open fd to /dev/urandom
+rand_num_gen::rand_num_gen()
+{
+    fd = open("/dev/urandom", O_RDONLY);
+    if (fd < 0) {
+        return;
+    }
+}
+
+rand_num_gen::~rand_num_gen()
+{
+    close(fd);
+}
+
+int rand_num_gen::gen_rand(uint8_t *rand_num)
+{
+    int ret;
+
+    ret = read(fd, rand_num, sizeof(*rand_num));
+    if (ret > 0)
+        return 0;
+
+    return -1;
+}
+
+int rand_num_gen::gen_rand(uint16_t *rand_num)
+{
+    int ret;
+
+    ret = read(fd, rand_num, sizeof(*rand_num));
+    if (ret > 0)
+        return 0;
+
+    return -1;
+}
+
+int rand_num_gen::gen_rand(uint32_t *rand_num)
+{
+    int ret;
+
+    ret = read(fd, rand_num, sizeof(*rand_num));
+    if (ret > 0)
+        return 0;
+
+    return -1;
+}
+
+int rand_num_gen::gen_rand(uint64_t *rand_num)
+{
+    int ret;
+
+    ret = read(fd, rand_num, sizeof(*rand_num));
+    if (ret > 0)
+        return 0;
+
+    return -1;
+}
+
+int rand_num_gen::gen_rand(uint64_t *rand_num, uint64_t min, uint64_t max)
+{
+    int ret;
+
+    if (min == max) {
+        return -1;
+    }
+
+    ret = read(fd, rand_num, sizeof(*rand_num));
+    if (ret > 0) {
+        *rand_num = *rand_num % (max - min);
+    }
+
+    return -1;
+}
+
+
+int main(int argc, char **argv)
+{
+    rand_num_gen r;
+    int i;
+
+    if (argc != 2) {
+        std::cout << argv[0] << " random number of times " << std::endl;
+        return -1;
+    }
+
+    for (i = 0; i < std::stoi(argv[1]); i ++) {
+        uint32_t rand_num32;
+        uint64_t rand_num64;
+
+        r.gen_rand(&rand_num32);
+        r.gen_rand(&rand_num64);
+
+        std::cout << "Rand number: " << rand_num32 << std::endl;
+        std::cout << "Rand number: " << rand_num64 << std::endl;
+    }
+}
+```
