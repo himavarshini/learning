@@ -328,6 +328,24 @@ above is a multi-line macro.. observe the `\` line after the each line till the 
 
 ### arrays
 
+
+| a [0] | a [1] | a [2] | .. | a [n] |
+|-------|-------|-------|----|-------|
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int a[44];
+    int i;
+
+    for (i = 0; i < sizeof(a) / sizeof(a[0]); i ++) {
+        printf("a[%d] = %p\n", i, a + i);
+    }
+}
+```
+
 ### structures
 
 ### pointers
@@ -346,6 +364,114 @@ void function(int a, double f); // function takes integer argument and a double 
 void function(struct struct_var s); // function takes a structure as an argument and returns void
 int function (int a, struct var s); // function takes an int and a struct as argument and returns an int
 ```
+
+it is always advised to declare functions before calling them. The reason being that in C the return (atleast with `gcc`) type is always `int` and the function accepts no arguments. So, it looks something like this.
+
+```c
+int function(void);
+```
+
+Take a look at the example below..
+
+**Example:**
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    double f1 = f();
+    printf("val %f\n", f1);
+}
+
+f()
+{
+    return 44.1;
+}
+```
+
+compiling the above program gives us the following warnings:
+
+```shell
+c/default.c: In function ‘main’:
+c/default.c:5:21: warning: implicit declaration of function ‘f’ [-Wimplicit-function-declaration]
+         double f1 = f();
+                     ^
+c/default.c: At top level:
+c/default.c:9:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ f()
+ ^
+```
+
+see the line 9, the compiler defaulting the return of `f()` to int, however it meant to return the type to double. The new compilers now smart enough to make the following program fail compilation giving out the following errors.
+
+Take a look at the modified example below, the function `f()` returns `double` now.
+
+```c
+#include <stdio.h>
+
+int main()
+{
+        double f1 = f();
+    printf("val %f\n", f1);
+}
+
+double f()
+{
+    return 44.1;
+}
+```
+
+See the  below line 9.
+
+```shell
+c/default.c: In function ‘main’:
+c/default.c:5:21: warning: implicit declaration of function ‘f’ [-Wimplicit-function-declaration]
+         double f1 = f();
+                     ^
+c/default.c: At top level:
+c/default.c:9:8: error: conflicting types for ‘f’
+ double f()
+        ^
+c/default.c:5:21: note: previous implicit declaration of ‘f’ was here
+         double f1 = f();
+                     ^
+```
+
+The correct fix to the program is to have a prototype in the C code. Please see the modified example below..
+
+```c
+#include <stdio.h>
+
+double f();
+
+int main()
+{
+        double f1 = f();
+    printf("val %f\n", f1);
+}
+
+double f()
+{
+    return 44.1;
+}
+```
+
+### string manipulation API
+
+### Allocation API (`malloc` / `calloc` and `free`)
+
+### Data structures
+
+#### Linked Lists
+
+#### Doubly linked lists
+
+#### Queues
+
+#### Stacks
+
+#### Hash tables
 
 ### sizeof operator
 
@@ -378,6 +504,52 @@ sizeof(v) and sizeof(*v) does not mean the same.
 
 the sizeof(v) would give you the sizeof a pointer but the sizeof(*v) gives you the sizeof the structure struct var_struct.
 ```
+
+### The `?:` operator
+
+The `?:` is an operator that has `?` check for truth statement and the rest of the statements between `?` and `:` and after `:` work based on the evaluation before `?`.
+
+See an example below.
+
+**Example:**
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int i = 1;
+
+    printf("%s\n", (i == 1) ? "i is 1": "i is not 1");
+}
+```
+
+Here's the explanation about the above example:
+
+1. The statement `(i == 1)` before the `?` is a condition that gets evaulated first.
+2. The statement `"i is 1"` is executed if the `(i == 1)` holds truth.
+3. The staetement `"i is not 1"` is executed if the `(i == 1)` holds failure.
+
+The following statement,
+
+```c
+    int i = 1;
+
+    (i == 1) ? return 1: return 0;
+```
+
+does not compile and is not valid. However the modified statement,
+
+```c
+    int i = 1;
+
+    return (i == 1) ? 1: 0;
+```
+
+is valid statement and retturns 1.
+
+The `?:` is useful when you do not want to write an `if` and `else` statement and to represent the code portion in a conscice manner.
+
 
 ### FAQ
 
