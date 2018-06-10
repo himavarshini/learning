@@ -7,11 +7,15 @@
 
 
 ## Table of contents
-1. Intro
-2. C Programming
-3. C++ Programming
-4. CMAKE
-5. Cybersecurity Best practices and Secure coding
+**1. Intro**
+
+**2. C Programming**
+
+**3. C++ Programming**
+
+**4. CMAKE**
+
+**5. Cybersecurity Best practices and Secure coding**
 
 
 -----------
@@ -149,6 +153,21 @@ int main() // main function
 4. the `\n` is basically a new line. when `printf()` prints the message on to screen, the new line is printed after the last character is being printed.
 5. the `//` is comment. comments are basically used to describe what the line or function mean. One can meaningfully define what the particular part of the source code really means. Anything in english language can be written in the comment section
 
+### streams (`stdin`, `stdout` and `stderr`)
+
+There are 3 file streams in the C program called
+
+1. `stdin` - input stream
+2. `stdout` - output stream 
+3. `stderr` - error stream 
+
+the function `printf` points to output stream called `stdout`. The `stdout` stream is a buffered stream and the `stderr` is an unbuffered stream.
+
+functions such as `fprintf` are on error stream `stderr`.
+
+functions such as `scanf` are on input stream `stdin`.
+
+when printing too many messages on the screen the `fprintf` is prefered because it is unbuffered than using `printf`.
 
 ### variables and types
 
@@ -329,8 +348,8 @@ above is a multi-line macro.. observe the `\` line after the each line till the 
 ### arrays
 
 
-| a [0] | a [1] | a [2] | .. | a [n] |
-|-------|-------|-------|----|-------|
+| a[0] | a[1] | a[2] | .. | a[n] |
+|------|------|------|----|------|
 
 ```c
 #include <stdio.h>
@@ -461,6 +480,8 @@ double f()
 
 ### Allocation API (`malloc` / `calloc` and `free`)
 
+### FILE I/O
+
 ### Data structures
 
 #### Linked Lists
@@ -559,7 +580,7 @@ The `?:` is useful when you do not want to write an `if` and `else` statement an
 
 # CPP programming
 
-C++ is invented by Bjarne Stroustrup, while he was trying to extend C for object oriented approach.
+C++ is invented by Bjarne Stroustrup, while he was trying to extend C for object oriented approach. C++ is an improvement over C, however, a lot of changes being done in recent years that makes it more and more advanced and faster to program than in C. This makes up a large amount of base being dedicated in C++ to the standard libraries and libraries using STL mechanism (such as **boost library**.)
 
 ## Intro
 
@@ -577,6 +598,278 @@ int main()
 ```
 
 One thing that is easily noticeable is the header file missing `.h` extension. C++ does not require the `.h` presence and is optional. The extension for a C++ file are `.cpp` and `.hpp`.
+
+
+There are 3 API just like the `printf`, `fprintf` and `scanf` we have `cout`, `cerr` and `cin` in C++.
+
+Here are below examples of the 3 API:
+
+**Example:  cout**
+
+```cpp
+#include <iostream>
+
+int main()
+{
+    char hello_msg[] = "Hello";
+
+    std::cout << hello_msg;
+}
+```
+
+**Example: cerr**
+
+```cpp
+#include <iostream>
+
+int main()
+{
+    char hello_msg[] = "Hello";
+
+    std::cerr << hello_msg;
+}
+```
+
+**Example: cin**
+
+```cpp
+#include <iostream>
+
+int main()
+{
+    int n;
+
+    std::cout << "Enter number: ";
+    std::cin >> n;
+    std::cout << "Number is "<< n << std::endl;
+}
+```
+
+### FILE I/O
+
+
+**Example: Writing into file**
+
+```cpp
+#include <iostream>
+#include <fstream>
+
+int main(int argc, char **argv)
+{
+    std::string input;
+    std::ofstream fp;
+
+    fp.open(argv[1]);
+    if (!fp) {
+        return -1;
+    }
+
+    fp << "Hello there" << std::endl;
+
+    fp.close();
+}
+```
+
+**Example: Reading from file**
+
+```cpp
+#include <iostream>
+#include <fstream>
+
+int main(int argc, char **argv)
+{
+    std::ifstream fp;
+    std::string line;
+
+    fp.open(argv[1]);
+
+    if (!fp) {
+        return -1;
+    }
+
+    std::getline(fp, line);
+
+    std::cout << "line: " << line << std::endl;
+
+    fp.close();
+}
+```
+
+There are 3 types of io operations
+
+| operation | meaning |
+|-----------|---------|
+| `std::ios::in` | input .. reading mode like the "r" |
+| `std::ios::out` | output .. writing mode like the "w" |
+| `std::ios::app` | append mode like the "a" |
+| `std::ios::binary` | open file in binary mode |
+
+
+**Example: Open in read and write mode**
+
+```cpp
+#include <iostream>
+#include <fstream>
+
+int main(int argc, char **argv)
+{
+    std::ifstream fp;
+    std::string line;
+
+    fp.open(argv[1], std::ios::in | std::ios::out);
+
+    if (!fp) {
+        return -1;
+    }
+
+    std::getline(fp, line);
+
+    std::cout << "line: " << line << std::endl;
+
+    fp.close();
+}
+```
+
+**Example: Appending to a file**
+
+```cpp
+#include <iostream>
+#include <fstream>
+
+int main(int argc, char **argv)
+{
+    std::string input;
+    std::ofstream fp;
+
+    fp.open(argv[1], std::ios::out | std::ios::app);
+    if (!fp) {
+        return -1;
+    }
+
+    for (auto i = 2; i <= argc - 1; i ++) {
+        fp << argv[i] << " ";
+    }
+    fp << std::endl;
+
+    fp.close();
+}
+```
+
+In the binary mode of operation the file writes must be done using `write` method.
+
+|  member function | description |
+|------------------|-------------|
+| `.write(<reinterpret_cast<char *>msg, sizeof(msg))` | write the output buffer to file |
+| `.flush()` | flush the `ofstream` .. not valid for `ifstream` |
+
+**Example: Binary file operation**
+
+```cpp
+#include <iostream>
+#include <fstream>
+
+int main(int argc, char **argv)
+{
+    std::ofstream fp;
+
+    int array[44];
+
+    for (auto i = 0; i < sizeof(array) / sizeof(array[0]); i ++) {
+        array[i] = i + 1;
+    }
+
+    // write file binary mode
+    fp.open(argv[1], std::ios::out | std::ios::binary);
+    if (!fp) {
+        return -1;
+    }
+
+    // write file in binary mode
+    fp.write(reinterpret_cast<char *>(array), sizeof(array));
+
+    fp.close();
+
+
+    std::ifstream fp_i;
+    int array_i[44] = { 0 };
+
+    fp_i.open(argv[1], std::ios::in | std::ios::binary);
+    if (!fp_i) {
+        return -1;
+    }
+
+    fp_i.read(reinterpret_cast<char *>(array_i), sizeof(array_i));
+
+    for (auto i = 0; i < sizeof(array_i) / sizeof(array_i[0]); i ++) {
+        std::cout << "array [" << i << "]: " << array_i[i] << std::endl;
+    }
+
+    fp_i.close();
+}
+```
+
+**Example: reading a file and printing contents**
+
+```cpp
+#include <iostream>
+#include <fstream>
+
+int main(int argc, char **argv)
+{
+    std::ifstream fp;
+    std::string str;
+
+    fp.open(argv[1], std::ios::in);
+    if (!fp) {
+        return -1;
+    }
+
+    while (fp) {
+        getline(fp, str);
+
+        std::cout << str << std::endl;
+    }
+
+    fp.close();
+}
+```
+
+**Example: file copy program written in C++**
+
+```cpp
+#include <iostream>
+#include <fstream>
+
+int main(int argc, char **argv)
+{
+    std::ifstream fp1;
+    std::ofstream fp2;
+
+    fp1.open(argv[1], std::ios::in | std::ios::binary);
+    if (!fp1) {
+        std::cerr <<"failed to open " << argv[1] << std::endl;
+        return -1;
+    }
+
+    fp2.open(argv[2], std::ios::out | std::ios::binary);
+    if (!fp2) {
+        std::cerr <<"failed to open " << argv[2] << std::endl;
+        return -1;
+    }
+
+    while (fp1) {
+        std::string line;
+
+        std::getline(fp1, line);
+
+        fp2 << line << std::endl;
+    }
+
+    fp1.close();
+    fp2.flush();
+    fp2.close();
+}
+```
 
 ## overloading functions (polymorphysm)
 
@@ -1144,6 +1437,28 @@ A class when inherited with multiple super classes (the base classes that are su
 
 
 ## STD API
+
+### std::chrono (from c++ - 14) use -std=c++14
+
+use `<chrono>` as the header file.
+
+```cpp
+#include <chrono>
+#include <iostream>
+
+using namespace std::chrono_literals;
+
+int main()
+{
+    auto day = 24h;
+    auto secs = 60s;
+    auto millisec = 100ms;
+
+    std::cout << "seconds: " << secs.count() << "\n"
+              << "hours in day: " << day.count() << "\n"
+              << "miiseconds: " << millisec.count() << std::endl;
+}
+```
 
 ### std::to_string
 
@@ -2486,6 +2801,11 @@ Using `rand()` and `srand()` for seeding the random number generator does not re
 Here's one way to do a pseudorandom generator in C++.
 
 ```cpp
+/**
+ * Written by Dev Naga <devendra.aaru@gmail.com>
+ *
+ * All rights reserved Dev Naga, Apache 2.0 license
+ */
 #include <iostream>
 #include <string>
 #include <sys/stat.h>
