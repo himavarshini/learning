@@ -1,4 +1,8 @@
 
+![alt text][C_C++_Manual]
+
+[C_C++_Manual]: https://github.com/DevNaga/learning/blob/master/cpp/C_C%2B%2B.jpg "Logo Title Text 2"
+
 # C and CPP Manual
 
 
