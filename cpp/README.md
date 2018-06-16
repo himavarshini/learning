@@ -50,6 +50,7 @@ All the code examples are at [here](https://github.com/DevNaga/gists/tree/master
 
 For any bugs in the manual / in the code contact me at the above mentioned email address.
 
+-----
 
 
 ## 1. Introduction to Compilers
@@ -577,6 +578,9 @@ The `?:` is useful when you do not want to write an `if` and `else` statement an
 1. to use C code inside the cpp use `extern "C" {"` and the `}` when the `C` portion of the program end.
 2. The constant PI is defined as `M_PI` in `<math.h>`.
 3. The types such as `uint32_t` are part of `<stdint.h>`.
+
+
+----------------
 
 # CPP programming
 
@@ -2665,6 +2669,9 @@ So, when i test if the vector is still expandable by pushing new element at the 
 ## Boost libraries
 
 
+------------------------
+
+
 # CMAKE
 
 1. Cmake is a build system especially used for C++ programs.
@@ -2720,6 +2727,9 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     add_compile_options(-Wall -Wextra)
 endif()
 ```
+
+---------------------------
+
 
 # Cyber security - Secure coding practises
 
