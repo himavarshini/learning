@@ -20,6 +20,16 @@
 
 -----------
 
+## Abbreviations
+
+| Name | Description |
+|------|-------------|
+| gcc  | GNU C Compiler |
+| STL  | Standard Template Library |
+
+
+------------
+
 
 ## Intro
 
@@ -104,7 +114,7 @@ int main()
     printf("message is %d\n", (4 +4));
 }
 ```
-observe the `#define PREP_TEST` in the C code is replaced with its code after preprocessor.
+observe the `#define PREP_TEST` in the C code is replaced with its code after preprocessor. This is called macro expansion.
 
 6. compilation stage involve converting the pre-processor code into the assembly code for a corresponding target architecture. Here's the trick is the compilation target that analyse and replaces instructions to that target architecture.
 
@@ -152,7 +162,7 @@ int main() // main function
 2. The function `main()` is called but before that `int` is kept, the `int` type is basically returned by the `main()` function. Every function in C program may or many not return a value. so in our `main()` above there, returns an int, like the last statement `return 0` returning integer 0. A function can return anything and nothing.
 3. The function `printf()` is called with argument `"Hello C\n"`. argument is basically what the type of variable a function accept. There can be variable arguments to the function and are covered in coming sections of this manual. The `"` is the usage to define a string. string is basically a group of characters followed by a null terminator. a null terminator defines where the string end. the null terminator is basically `\0`. it is not `o` but is `0`.
 4. the `\n` is basically a new line. when `printf()` prints the message on to screen, the new line is printed after the last character is being printed.
-5. the `//` is comment. comments are basically used to describe what the line or function mean. One can meaningfully define what the particular part of the source code really means. Anything in english language can be written in the comment section
+5. the `//` is comment. comments are basically used to describe what the line of code means. One can meaningfully define what the particular part of the source code really means. Anything in english language can be written in the comment section
 
 ### streams (`stdin`, `stdout` and `stderr`)
 
@@ -169,6 +179,8 @@ functions such as `fprintf` are on error stream `stderr`.
 functions such as `scanf` are on input stream `stdin`.
 
 when printing too many messages on the screen the `fprintf` is prefered because it is unbuffered than using `printf`.
+
+One such an example is when printing the messages over the serial console..
 
 ### variables and types
 
@@ -260,6 +272,81 @@ int main()
 The variable `a` is here said to have a **local/ function scope** and is then called a **Local variable**. The variable `a` in functions `func()` and `main()` does not cause a double declaration compilation warning/error. It is said to have the scope local and thus is valid with in that function only. The lifetime of the variable `a` in function `func()` is said to have its lifetime only the lifetime of the function `func()` (lifetime of `func()` is the execution time of the `func()`) and the same apply to variable `a` in `main()`.
 
 
+Below are some of the most useful API need to be understood before we go in subsequent sections...
+
+1. `printf`:
+
+The `printf` function prints the message on the screen. Below are some of the ways to print the data on the screen.
+
+**Printing integers**
+
+```c
+int a = 4;
+
+printf("%d\n", a);
+```
+
+The `%d` is a format specifier to print an integer.
+
+**Printing unsigned integers**
+
+```c
+uint32_t a = 4;
+
+printf("%u\n", a);
+```
+
+The `%u` is a format specifier to print an unsigned integer.
+
+
+**Printing a string**
+
+```c
+char *str = "Hello C";
+
+printf("%s\n", str);
+```
+
+The `%s` is a format specifier to print a string.
+
+
+**Printing a character**
+
+```c
+char c = 'C';
+
+printf("%c\n", c);
+```
+
+The `%c` is a format specifier to print a character.
+
+**Printing hex values**
+
+```c
+uint32_t val = 0x04;
+
+printf("0x%x\n", val);
+```
+
+The `%x` is a format specifier to print a hexadecimal value.. the `0x` before it is a string
+
+**Priting a double**
+
+```c
+double val = 4.4;
+
+printf("%f\n", val);
+```
+
+The `%f` is a format specifier to print a double value
+
+
+
+2. `scanf`:
+
+There's not much about `scanf` and is rarely is used in any newer version of the software .. so we are not gonna much concentrate on this one here.
+
+
 ### Loops and conditional statements
 
 #### `if` statement
@@ -328,7 +415,7 @@ The statement above has a new conditional statement called `else if` that is alw
 
 ### pre-processor statement
 
-1. preprocessor macros are used for various purposes such as from defining or giving names to values to a function look alikes for performance reasons
+1. preprocessor macros are used for various purposes such as from defining or giving names to values to a function look alikes for performance reasons. Calling functions too often may lead to a function call-and-return overhead. Thus, in most of the time the few lines of that source code could go in as a preprocessor macro.
 
 2. value type example
 
@@ -477,6 +564,8 @@ double f()
 }
 ```
 
+#### Static functions
+
 ### string manipulation API
 
 ### Allocation API (`malloc` / `calloc` and `free`)
@@ -496,6 +585,8 @@ double f()
 #### Hash tables
 
 ### sizeof operator
+
+Any size of a variable, structure, data type can be obtained using `sizeof` operator. See some of the few nice examples below.
 
 ```c
 int i;
@@ -584,7 +675,7 @@ The `?:` is useful when you do not want to write an `if` and `else` statement an
 
 # CPP programming
 
-C++ is invented by Bjarne Stroustrup, while he was trying to extend C for object oriented approach. C++ is an improvement over C, however, a lot of changes being done in recent years that makes it more and more advanced and faster to program than in C. This makes up a large amount of base being dedicated in C++ to the standard libraries and libraries using STL mechanism (such as **boost library**.)
+C++ is invented by Bjarne Stroustrup, while he was trying to extend C for object oriented approach. C++ is an improvement over C, however, a lot of changes being done in recent years that makes it more and more advanced and faster to program than in C. This makes up a large amount of base being dedicated in C++ to the standard libraries and libraries using STL (Standard Template Library) mechanism (such as **boost library**.). The C++ is the starting point of the modern object oriented programming approach.
 
 ## Intro
 
@@ -1202,6 +1293,36 @@ Constructor is called only when you declare the class in the caller.
 
 if the constructor is not created, then the compiler creates one by default.
 
+Take a look at the below example. This has the nice way of assigning the values to the private members of the class via constructor.. much like a parameterised constructor in a new way. Download [here](https://github.com/DevNaga/gists/blob/master/cpp/args_setup.cpp).
+
+**Example:**
+
+```cpp
+#include <iostream>
+
+class test_class {
+    public:
+        test_class(int f): a1 (f) // assign f to a1
+        {
+        }
+
+        int geta1()
+        {
+            return a1;
+        }
+
+    private:
+        int a1;
+};
+
+int main()
+{
+    // parameterised constructor call
+    test_class test(5);
+
+    std::cout << "a1: " << test.geta1() << std::endl;
+}
+```
 
 ## destructor
 
