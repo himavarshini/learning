@@ -124,6 +124,26 @@ static int delete_elements(int element_val)
     return 0;
 }
 
+static int create_table(char *table_name, char *type1, char *key1, char *type2, char *key2)
+{
+    int ret;
+    char exec_buf[2048];
+
+    memset(exec_buf, 0, sizeof(exec_buf));
+
+    sprintf(exec_buf, "CREATE TABLE %s(%s %s, %s %s);", table_name, key1, type1, key2, type2);
+
+    printf("exec buf is %s\n", exec_buf);
+
+    ret = sqlite3_exec(db, exec_buf, NULL, 0, NULL);
+    if (ret != SQLITE_OK) {
+        printf("failed to exec %d\n", ret);
+        return -1;
+    }
+
+    return 0;
+}
+
 int main(int argc, char **argv)
 {
     sqlite3_open(argv[1], &db);
@@ -138,7 +158,10 @@ int main(int argc, char **argv)
         attach_databases();
     } else if (!strcmp(argv[2], "delete")) {
         delete_elements(atoi(argv[3]));
+    } else if (!strcmp(argv[2], "create")) {
+        create_table(argv[3], argv[4], argv[5], argv[6], argv[7]);
     }
 
+    sqlite3_close(db);
     return 0;
 }
