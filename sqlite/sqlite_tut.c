@@ -5,6 +5,7 @@
 #include <string.h>
 #include <sqlite3.h>
 
+// db struct for the simple_types (simple table)
 struct simple_types {
     int8_t onebyte;
     int16_t twobytes;
@@ -49,6 +50,7 @@ struct simple_types types[] = {
 
 static sqlite3 *db;
 
+// insert a list of elements fomr struct into the table
 static int insert_elements()
 {
     // selecting and insertion
@@ -82,6 +84,7 @@ static int insert_elements()
     return 0;
 }
 
+// attach more than one database
 static int attach_databases()
 {
     int ret;
@@ -103,6 +106,7 @@ static int attach_databases()
     return 0;
 }
 
+// deleteing tlements from the table (can be a group because of the pattern
 static int delete_elements(int element_val)
 {
     int ret;
@@ -124,6 +128,7 @@ static int delete_elements(int element_val)
     return 0;
 }
 
+// creating tables programmatically
 static int create_table(char *table_name, char *type1, char *key1, char *type2, char *key2)
 {
     int ret;
@@ -165,3 +170,4 @@ int main(int argc, char **argv)
     sqlite3_close(db);
     return 0;
 }
+
