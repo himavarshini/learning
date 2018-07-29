@@ -60,7 +60,18 @@ All the code examples are at [here](https://github.com/DevNaga/gists/tree/master
 
 For any bugs in the manual / in the code contact me at the above mentioned email address.
 
------
+---------
+
+# Source code conventions
+
+1. I use VSCode..which i prefer.. you choose any editor you like (Atom, Sublime, Vim, Emacs, Notepad++ are some of good ones!)
+2. I follow tab width of 4 (VScode defaults)
+3. I give spaces instead of tabs in the entire source code that's in the book
+4. The code following the `public` keyword or the `private` keyword will have 4 spaces
+5. `if` and `else` will have the braces beside them just like `for`, `while`, `class`, `struct`, `union` .. like `if (condition) {`
+6. functions will have the braces below them and not beside.. functions are more privileged that way
+
+---------
 
 
 ## 1. Introduction to Compilers
@@ -1392,6 +1403,8 @@ cpp_class::cpp_class()
 2. some uses could be for creating layers or creating default sets
 
 ```cpp
+#include <iostream>
+
 class overloadedC {
     private:
         int a;
@@ -1413,10 +1426,11 @@ class overloadedC {
         }
 };
 
-.. caller such as main()..
-
-overloadedC o;
-overloadedC o1(4);
+int main()
+{
+    overloadedC o;
+    overloadedC o1(4);
+}
 ```
 
 ## 'this' pointer
@@ -2448,6 +2462,10 @@ lets discuss here itself some of the comparison operators:
 |`std::greater<type>()` | greater than operation |
 |`std::less<type>()` | less than operation |
 
+#### std::stack
+
+#### std::queue
+
 #### Double ended queues (std::deque)
 
 `std::deque` is a double ended queue that allow fast insertion and removal on both ends of the queue. This has the similar APIs that of any other STL API.
@@ -2787,9 +2805,31 @@ then calling the `std::merge` API to get the merge going.
 
 So, when i test if the vector is still expandable by pushing new element at the rear, it still is.
 
+### topics to cover yet:
+
+1. std::runtime_error
+2. std::numeric_limits
+3. static_assert
+4. explicit constructor
+5. std::chrono
+    1. steady clock
+6. std::transform
+7. std::bind
+8. typename
+9. std::thread
+10. pointers vs references
+11. std::for_each
+12. override
+13. decltype
+14. mutable
+### C++ exception handling
+
 ## Boost libraries
 
+### topics to cover:
 
+1. `boost::program_options`
+2. `boost::mpl`
 ------------------------
 
 
