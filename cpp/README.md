@@ -2807,7 +2807,6 @@ So, when i test if the vector is still expandable by pushing new element at the 
 
 ### topics to cover yet:
 
-1. std::runtime_error
 2. std::numeric_limits
 3. static_assert
 4. explicit constructor
@@ -2822,8 +2821,39 @@ So, when i test if the vector is still expandable by pushing new element at the 
 12. override
 13. decltype
 14. mutable
+15. singleton class
+    
 ### C++ exception handling
 
+C++ provides the exception handling via some routines such as the following.
+
+**1. `std::runtime_error`**
+
+The class `runtime_error` provide an exception handling API when used with `throw` statement it produces an exception on the screen and aborts the program by calling `abort`.
+
+A sample of this program is illustrated here. You can download it [here](https://github.com/DevNaga/gists/blob/master/cpp/std_runtime.cpp) as well
+
+**Example**
+
+```cpp
+#include <iostream>
+#include <stdexcept>
+
+int main(int argc, char **argv)
+{
+    if (argc != 2) {
+        throw std::runtime_error("argc is not 2");
+    }
+    std::cout << "number of args : " << argc << std::endl;
+}
+```
+
+As we know the `argc` is count of arguments when entered via command line and `argv` is the list of arguments that are being entered.
+
+In the above program, checks for the `argc` not being equal to 2 and throws the exception on the screen if it isn't. If it is, then it shows number of args is 2.
+
+
+   
 ## Boost libraries
 
 ### topics to cover:
@@ -3096,3 +3126,61 @@ int main(int argc, char **argv)
     }
 }
 ```
+
+# FAQ
+
+1. C header files
+
+| header file | description |
+|-------------|-------------|
+| `<stdio.h>` | standard header file i/o |
+| `<stdint>` | stdint headers with `uint32_t` and `uint8_t` etc |
+| `<limits.h>` | limits such as `UINT_MAX` |
+| `<getopt>` | opt arguments parsing |
+
+2. C++ header files
+
+| header file | description |
+|-------------|-------------|
+| `<array>` | fixed size array |
+| `<bitset>` | a bit array |
+| `<deque>` | double ended que |
+| `<forward_list>` | a singly linked list |
+| `<list>` | doubly linked list |
+| `<map>` | sorted associative array |
+| `<queue>` | single ended que |
+| `<set>` | set class |
+| `<stack> ` | stack |
+| `<unordered_map>` | class for unordered map |
+| `<unordered_set>` | class for unordered set | 
+| `<vector>` | dynamic array |
+| `<algorithm>` | algorithms |
+| `<chrono>` | chrono time events |
+| `<functional>` | standard functions for algorithms |
+| `<iterator>` | classes for templates |
+| `<memory>` | memory management templates |
+| `<stdexcept>` | std exception classes |
+| `<tuple>` | class tuple |
+| `<utility>` | working for object pairs |
+| `<string>` | string manip |
+| `<regex>` | patterns for regex |
+| `<fstream>` | file i/o | 
+| `<iomanip>` | output format manip |
+| `<ios> ` | i/o stream operation |
+| `<iosfwd>` | forward declarations of several templates |
+| `<iostream>` | c++ io fundamentals |
+| `<istream>` | input stream classes |
+| `<ostream>` | output stream classes |
+| `<sstream>` | string stream classes |
+| `<exception>` | exception handling |
+| `<limits>` | std limits |
+| `<thread>` | threads |
+| `<mutex>` | mutual exclusion |
+| `<condition_variable>` | condition variable |
+| `<random>` | faclitiy for generating random numbers |
+
+
+# Useful Links
+
+1. https://www.cs.uaf.edu/2010/spring/cs202/lecture/03_02_exceptions.html
+2. https://en.cppreference.com/w/cpp/error/runtime_error
