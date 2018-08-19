@@ -1777,6 +1777,8 @@ use `<csignal>` to use the `std::signal()` API.
 
 The map can be declared very basically as follows.
 
+use `<map>` header.
+
 ```cpp
 std::map <type1, type2> var;
 ```
@@ -1825,8 +1827,16 @@ A value can be found by using a key element using the `.find()` method. If a key
 
 1. using `::iterator`
 
+with `auto` keyword, its nothing
+
 ```cpp
 for (auto it = m.begin(); it != m.end(); it ++) {
+    std::cout << it->first << it->second << std::endl;
+}
+```
+
+```cpp
+for (std::map<char, int>::iteartor it = map.begin(); it != map.end(); it ++) {
     std::cout << it->first << it->second << std::endl;
 }
 ```
@@ -1836,6 +1846,12 @@ for (auto it = m.begin(); it != m.end(); it ++) {
 ```cpp
 for (auto cit = m.cbegin(); cit != m.cend(); cit ++) {
     std::cout << cit->first << cit->second << std::endl;
+}
+```
+
+```cpp
+for (std::map<char, int>::reverse_iterator rit = map.begin(); rit != map.end(); rit ++) {
+    std::cout << rit->first << rit->second << std::endl;
 }
 ```
 
