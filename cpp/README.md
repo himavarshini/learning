@@ -1821,6 +1821,30 @@ in the above example we see that the map element `m` is being iterated with the 
 
 A value can be found by using a key element using the `.find()` method. If a key is available or not is found by checking the return of `.find()` method with `.end()`.
 
+### writing loops with iterators
+
+1. using `::iterator`
+
+```cpp
+for (auto it = m.begin(); it != m.end(); it ++) {
+    std::cout << it->first << it->second << std::endl;
+}
+```
+
+2. using `const_iterator`
+
+```cpp
+for (auto cit = m.cbegin(); cit != m.cend(); cit ++) {
+    std::cout << cit->first << cit->second << std::endl;
+}
+```
+
+| feature | value |
+|---------|-------|
+| `map.size()` | get the element count in map |
+| `map.erase(iterator)` | erase a particular element |
+| `map.erase(begin, end)` | erase if given begin and end points of iterator |
+| `map.empty()` | check if map is empty |
 
 **Example:**
 
