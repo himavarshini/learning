@@ -1855,6 +1855,37 @@ for (std::map<char, int>::reverse_iterator rit = map.begin(); rit != map.end(); 
 }
 ```
 
+3. using map with structures
+
+```cpp
+
+struct structures {
+    int a;
+    int b;
+};
+
+std::map<std::string, struct structures> data;
+
+struct structures s = {1,2};
+
+// using insert
+data.insert(std::pair<std::string, struct structures>("Hello", s);
+
+// direct set
+
+data["Hello"] = {1, 2};
+```
+
+4. iterating the std::map with a struct
+
+```cpp
+for (std::map<std::string, struct structure>::iterator it = data.begin(); it != data.end(); it ++) {
+    struct structures *s = &(it->second);
+
+    std::cout << " structures: s->a : " << s->a << " s->b : " << s->b << std::endl;
+}
+```
+
 | feature | value |
 |---------|-------|
 | `map.size()` | get the element count in map |
