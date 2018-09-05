@@ -2067,6 +2067,14 @@ str.reserve(10);
 cout << "size : " << str.size() << endl;
 ```
 
+The c type string `char *` can be accessed with the `.c_str` member function.
+
+```cpp
+std::string str = "Hello";
+
+char *c_string = str.c_str();
+```
+
 The C type strings are accessed as well... see below basic example.
 
 **Example:**
@@ -2083,7 +2091,7 @@ int main()
 }
 ```
 
-getting a particular character at a particular location is by using the `at` member.
+getting a particular character at a particular location is by using the `at` member function.
 
 **Example:**
 
@@ -2624,6 +2632,8 @@ int main()
 2. vectors is a class of std library
 3. so we need to use `using namespace std` or use the full form representation (peferred approach if you are starting with CPP)
 
+include `<vector>` header before using `std::vector`
+
 **some of the APIs**
 
 1. iterating
@@ -2875,6 +2885,45 @@ Merging the two vectors is first followed with initialisation of the final vecto
 then calling the `std::merge` API to get the merge going.
 
 So, when i test if the vector is still expandable by pushing new element at the rear, it still is.
+
+defining a vector of vectors:
+
+```cpp
+std::vector< std::vector < int > > i;
+```
+
+iterating the vector of vectors:
+
+```cpp
+std::vector< std::vector < int > > i;
+
+for (auto it = i.begin(); i != i.end(); i ++) {
+    std::vector i1 = *it;
+
+    for (auto it1 = i1.begin(); it1 != i1.end(); it1 ++) {
+        ;
+    }
+}
+```
+
+adding elements to the vector of vectors:
+
+```cpp
+
+int id1 = 0;
+int id2 = 0;
+
+std::vector< std::vector < int > > i;
+
+for (id1 = 0; id1 < 100; id1 ++) {
+    std::vector v;
+
+    for (id2 = 0; id2 < 100; id2 ++) {
+        v.push_back(id2);
+    }
+    i.push_back(v);
+}
+```
 
 ### topics to cover yet:
 
