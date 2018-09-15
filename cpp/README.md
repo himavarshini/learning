@@ -686,11 +686,11 @@ The `?:` is useful when you do not want to write an `if` and `else` statement an
 
 # CPP programming
 
-C++ is invented by Bjarne Stroustrup, while he was trying to extend C for object oriented approach. C++ is an improvement over C, however, a lot of changes being done in recent years that makes it more and more advanced and faster to program than in C. This makes up a large amount of base being dedicated in C++ to the standard libraries and libraries using STL (Standard Template Library) mechanism (such as **boost library**.). The C++ is the starting point of the modern object oriented programming approach.
+C++ is invented by **Bjarne Stroustrup**, while he was trying to extend C for object oriented approach. C++ is an improvement over C, however, a lot of changes being done in recent years that makes it more and more advanced and faster to program than in C. This makes up a large amount of base being dedicated in C++ to the standard libraries and libraries using STL (Standard Template Library) mechanism (such as **boost library**.). The C++ is the starting point of the modern object oriented programming approach.
 
 ## Intro
 
-1. Many C++ standards came in. Most prominent are the C++11 and C++14.
+1. Many C++ standards came in. Most prominent are the C++11 and C++14. Between each standard there are so many improvements and major new features (such as lambda functions in C++14)
 2. C++ gets much more hands-on if `python` learnt first and then C++.
 
 

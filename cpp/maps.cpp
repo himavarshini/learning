@@ -34,7 +34,7 @@ int main()
 	map.insert(std::pair<char, int>('a', 100));
 	map.insert(std::pair<char, int>('b', 200));
 
-	for (std::map<char, int>::iterator it = map.begin(); it != map.end(); it ++) {
+	for (auto it = map.begin(); it != map.end(); it ++) {
 		std::cout << "first : " << it->first << " second : " << it->second << std::endl;
 	}
 
