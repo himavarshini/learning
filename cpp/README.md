@@ -282,6 +282,43 @@ int main()
 
 The variable `a` is here said to have a **local/ function scope** and is then called a **Local variable**. The variable `a` in functions `func()` and `main()` does not cause a double declaration compilation warning/error. It is said to have the scope local and thus is valid with in that function only. The lifetime of the variable `a` in function `func()` is said to have its lifetime only the lifetime of the function `func()` (lifetime of `func()` is the execution time of the `func()`) and the same apply to variable `a` in `main()`.
 
+The below example will provide some reference on what is called **typecasting**. The **typecasting** is most important along with the function prototyping when writing software for automotive and aeronautics systems.
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    double val;
+    
+    val = 1 / 10;
+    
+    printf("%f\n", val);
+}
+```
+
+The above program must print `0` because the compiler treats the right hand side of the expression contain both the `int` values and thus the result. So care must be taken when the other end (left hand side) expression is of different type. So the fixes are many such as below..
+
+```c
+val = 1 / (double)10;
+```
+
+typecast 10 to double. or,
+
+```c
+val = 1 / 10.0;
+```
+make 10 as 10.0 or,
+
+```c
+val = 1.0 / 10;
+```
+make the top 1 as 1.0.
+
+This way the compiler can treat the variables now one of them as double and generates the assembler code to evaulate to double.
+
+
+
 
 Below are some of the most useful API need to be understood before we go in subsequent sections...
 
@@ -468,6 +505,87 @@ int main()
 
 ### pointers
 
+
+### sizeof operator
+
+Any size of a variable, structure, data type can be obtained using `sizeof` operator. See some of the few nice examples below.
+
+```c
+int i;
+
+sizeof(int); or sizeof(i)  //mean the same
+
+struct var {
+    int i;
+};
+
+struct var v;
+
+sizeof(struct var); or sizeof(v); // mean the same
+
+struct var v[2];
+
+to finding the number of elements in this above v[2], we do.
+
+num_elem = sizeof(v) / sizeof(v[0]);
+
+int *i;
+
+sizeof(*i); and sizeof(i) mean the same but ..
+
+struct var_struct *v;
+
+sizeof(v) and sizeof(*v) does not mean the same.
+
+the sizeof(v) would give you the sizeof a pointer but the sizeof(*v) gives you the sizeof the structure struct var_struct.
+```
+
+### The `?:` operator
+
+The `?:` is an operator that has `?` check for truth statement and the rest of the statements between `?` and `:` and after `:` work based on the evaluation before `?`.
+
+See an example below.
+
+**Example:**
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int i = 1;
+
+    printf("%s\n", (i == 1) ? "i is 1": "i is not 1");
+}
+```
+
+Here's the explanation about the above example:
+
+1. The statement `(i == 1)` before the `?` is a condition that gets evaulated first.
+2. The statement `"i is 1"` is executed if the `(i == 1)` holds truth.
+3. The staetement `"i is not 1"` is executed if the `(i == 1)` holds failure.
+
+The following statement,
+
+```c
+    int i = 1;
+
+    (i == 1) ? return 1: return 0;
+```
+
+does not compile and is not valid. However the modified statement,
+
+```c
+    int i = 1;
+
+    return (i == 1) ? 1: 0;
+```
+
+is valid statement and retturns 1.
+
+The `?:` is useful when you do not want to write an `if` and `else` statement and to represent the code portion in a conscice manner.
+
+
 ### Functions
 
 Functions in `C` are the efficient way to organise and group the source code. A function will have a declaration and a definition. Definition holds the body of the function and declaration declares the function with its prototype.
@@ -583,6 +701,125 @@ double f()
 
 ### FILE I/O
 
+FILE I/O in C is done using the C lib. Alternatively one can use directly the lower layer calls provided by the OS such as linux does provide syscalls to do file operations. Both are described in this section.
+
+Below program describe a basic file reading in C.
+
+```c
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    FILE *fp;
+    
+    if (argc != 2) {
+        fprintf(stderr, "<%s filename>\n", argv[0]);
+        return -1;
+    }
+ 
+    // open the file given from command line
+    fp = fopen(argv[1], "r");
+    if (!fp) {
+        fprintf(stderr, "failed to open %s \n", argv[1]);
+        return -1;
+    }
+    
+    char buf[1024];
+    
+    while (fgets(buf, sizeof(buf), fp)) {
+        printf("input <%s>\n", buf);
+    }
+    
+    fclose(fp);
+    
+    return 0;
+}
+```
+
+**Example: basic file i/o**
+
+FILE I/O functions
+
+| function | description |
+|----------|-------------|
+| `fopen` | open the file given name and mode |
+| `fgets` | read a line of text from the input into the buffer pointed |
+| `fprintf` | write formatted contents into the file pointer pointed |
+| `fscanf` | read formatted contents from the file pointer pointed |
+| `fseek` | seek to a specific position in the file |
+| `fclose` | close file pointer |
+
+
+The `FILE` is a type that holds information about the opened file. When `fopen` is called, it returns the pointer of type `FILE`, on success and on  failure `NULL` is returned.
+
+`fopen` prototype is as follows.
+
+```c
+FILE* fopen(char *filename, char *mode);
+```
+
+where `filename` is the file to be opened, and `mode` represents the following.
+
+|mode | description |
+|-----|-------------|
+| "r" | read only |
+| "w" | write only | 
+| "a" | append mode  (write at the end of the file) |
+| "rb" | read binary mode only |
+| "wb" | write binary mode only |
+| "ab" | append binary mode only |
+
+A simple use of the `fopen` is below..
+
+any opened file must be closed with `fclose` function. the `fclose` prototype is as follows.
+
+```c
+void fclose(FILE *fp);
+```
+
+
+```c
+int main(int argc, char **argv)
+{
+    FILE *fp;
+    char input[1024];
+    
+    fp = fopen(argv[1], "w");
+    if (!fp) {
+        fprintf(stderr, "failed to open file in write mode %s\n", argv[1]);
+        return -1;
+    }
+    
+    fprintf(stderr, "write anything to dump in %s..\n", argv[1]);
+    fgets(input, sizeof(input), stdin);
+    fputs(input, fp);
+
+    printf("successfully written to the file..\n");
+    fflush(fp);
+    fclose(fp);
+}
+```
+
+Operating system does not guarantee the writes to be done at the instant when written. If that is the requirement (writes happening immediately) then `fflush` function is to be used to accomplish the job.
+
+`fflush` flushes the given stream immediately causing the system to write contents directly on the stream. Its prototype is as follows.
+
+`int fflush(FILE *fp);`
+
+doing `fflush(fp)` on an `fp` that is opened in write mode causes it to immediately write the contents.
+
+**Linux File i/o**:
+
+Linux file i/o is described here is very simple and not part of the C, but the syscall interface allows to code in C/ C++.
+
+| syscall | description |
+|---------|-------------|
+| `open` | open the file |
+| `read` | read from the file |
+| `write` | write to the file |
+| `close` | close the file |
+
+
 ### Data structures
 
 #### Linked Lists
@@ -594,86 +831,6 @@ double f()
 #### Stacks
 
 #### Hash tables
-
-### sizeof operator
-
-Any size of a variable, structure, data type can be obtained using `sizeof` operator. See some of the few nice examples below.
-
-```c
-int i;
-
-sizeof(int); or sizeof(i)  //mean the same
-
-struct var {
-    int i;
-};
-
-struct var v;
-
-sizeof(struct var); or sizeof(v); // mean the same
-
-struct var v[2];
-
-to finding the number of elements in this above v[2], we do.
-
-num_elem = sizeof(v) / sizeof(v[0]);
-
-int *i;
-
-sizeof(*i); and sizeof(i) mean the same but ..
-
-struct var_struct *v;
-
-sizeof(v) and sizeof(*v) does not mean the same.
-
-the sizeof(v) would give you the sizeof a pointer but the sizeof(*v) gives you the sizeof the structure struct var_struct.
-```
-
-### The `?:` operator
-
-The `?:` is an operator that has `?` check for truth statement and the rest of the statements between `?` and `:` and after `:` work based on the evaluation before `?`.
-
-See an example below.
-
-**Example:**
-
-```c
-#include <stdio.h>
-
-int main()
-{
-    int i = 1;
-
-    printf("%s\n", (i == 1) ? "i is 1": "i is not 1");
-}
-```
-
-Here's the explanation about the above example:
-
-1. The statement `(i == 1)` before the `?` is a condition that gets evaulated first.
-2. The statement `"i is 1"` is executed if the `(i == 1)` holds truth.
-3. The staetement `"i is not 1"` is executed if the `(i == 1)` holds failure.
-
-The following statement,
-
-```c
-    int i = 1;
-
-    (i == 1) ? return 1: return 0;
-```
-
-does not compile and is not valid. However the modified statement,
-
-```c
-    int i = 1;
-
-    return (i == 1) ? 1: 0;
-```
-
-is valid statement and retturns 1.
-
-The `?:` is useful when you do not want to write an `if` and `else` statement and to represent the code portion in a conscice manner.
-
 
 ### FAQ
 
