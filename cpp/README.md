@@ -25,6 +25,7 @@
 | Name | Description |
 |------|-------------|
 | gcc  | GNU C Compiler |
+| g++  | GNU C++ Compiler |
 | STL  | Standard Template Library |
 
 
@@ -397,7 +398,28 @@ There's not much about `scanf` and is rarely is used in any newer version of the
 
 ### Loops and conditional statements
 
+Loops are sections of the code that the program wants the computer to be executed repeatedly or till a condition. Loops in C are coded with `while`, `for` and `do while`. conditions can be written with `if`, `if..else`, `if..elseif`. One can write loops by using `if` and `goto` statement as well. Some programmers may find `goto` as most dangerous way to write software, it depends on the way and path it is being used at in a program.
+
 #### `if` statement
+
+`if` statement holds in a condition and if the condition is set to be true, then the statements with in the if block are executed and if not the statements in the block are not executed.
+
+usually the `if` is followed with atleast one or more of statements such as following..
+
+```c
+if (apples != oranges) {
+    printf("these are apples\n");
+}
+```
+
+The same example above can be written in the following way as well..
+
+```c
+if (apples != oranges)
+    printf("these are apples\n");
+```
+
+now, since the `if` has only one statement to execute within it, thus braces are not required. Let's say there are more than one statement, then one must use the braces to enclose the statements to be executed with in `if`. This may go in as a conding style in organisations (or in opensource projects such as Linux) but following first one is always desirable. The reason being that its less ambiguous and provide more clarity while reading the source code back again.
 
 Consider the below example:
 
@@ -483,6 +505,17 @@ above is a multi-line macro.. observe the `\` line after the each line till the 
 
 ### arrays
 
+Arrays are group of variables of same type. Examples are an array of integers, an array of characters (in this case is string) or array of floats.
+
+defining an array is simple in C.
+
+```c
+int a[5];
+```
+
+defines an array a with 5 integers.
+
+Accessing the elements of the array is simple as well.. the array index starts from 0 and goes till 4 (because size 5 and in C the indexing starts from 0).
 
 | a[0] | a[1] | a[2] | .. | a[n] |
 |------|------|------|----|------|
@@ -3456,6 +3489,11 @@ int main(int argc, char **argv)
 | `<condition_variable>` | condition variable |
 | `<random>` | faclitiy for generating random numbers |
 
+3. creating a static library in linux
+
+```bash
+ar rcv lib.a *.o
+```
 
 # Useful Links
 
