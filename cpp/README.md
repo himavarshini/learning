@@ -1,7 +1,11 @@
 
 ![alt text][C_C++_Manual]
 
-[C_C++_Manual]: https://github.com/DevNaga/learning/blob/master/cpp/C_C%2B%2B.jpg "Logo Title Text 2"
+[C_C++_Manual]: C_C++.jpg "Logo Title Text 2"
+
+
+
+
 
 # C and CPP Manual
 
@@ -36,11 +40,14 @@
 
 This is a work-in-progress reference manual that detail on the C, C++ and the parts of secure coding in C. This is basically what i learnt over the time. This is written in short and simple English and not to confuse the end reader.
 
-How to read this manual:
+**How to read this manual:**
 
-The readers intended are basic (and the ones that are starting in C and C++ programming), intermediate and may be serve as a reference or dictionary or a goto guide for the advanced programmers.
+**The readers intended are basic (and the ones that are starting in C and C++ programming), intermediate and may be serve as a reference or dictionary or a goto guide for the advanced programmers.**
 
 1. many topics are started from basic and goes down the line and deep on particular topics more.
+2. sometimes the topics that are worth describing will be explained there itself than going to the next section like in a conventional way.
+3. the book is not very organised but in a random selection of topic that are sprinkled everywhere. Please bear with this in mind while reading.
+4. sometimes new concepts are being used in the initial parts of the book as well (describing macros at the start of the C example..), this lets the flow in this book going while the new reader might find it hard to understand and keepup. Please bear that many of such concepts are covered and are going to be covered in depth.
 
 Instructions to start the manual:
 
@@ -217,14 +224,14 @@ The header file `<stdint.h>` contain somemore tyes such as below.
 
 | type | size | range|
 |------|------|------|
-| int8_t | 1 | -127 to 127 |
-| uint8_t | 1 | 0 to 255 |
-| int16_t | 2 | -32768 to 32767 |
-| uint16_t | 2 | 0 to 65535 |
-| int32_t | 4 | -2147483648 to 2147483647 |
-| uint32_t | 4 | 0 to 4294967295 |
-| int64_t | 8 | - |
-| uint64_t | 8 | - |
+| `int8_t` | 1 | -127 to 127 |
+| `uint8_t` | 1 | 0 to 255 |
+| `int16_t` | 2 | -32768 to 32767 |
+| `uint16_t` | 2 | 0 to 65535 |
+| `int32_t` | 4 | -2147483648 to 2147483647 |
+| `uint32_t` | 4 | 0 to 4294967295 |
+| `int64_t` | 8 | - |
+| `uint64_t` | 8 | - |
 
 
 A variable can be declared as the following
@@ -235,6 +242,7 @@ unsigned int i; // unsigned integer variable
 uint8_t a[4]; // unsigned array of 4 one byte integers
 uint32_t i; // same as the unsigned int i
 uint64_t big_i; // unsigned 64 bit integer
+char str[40]; // string of length 40
 ```
 
 There is another concept called the **scope and lifetime of the variable**. Here's one example,
@@ -475,7 +483,47 @@ if (f == MANGOES) {
 }
 ```
 
-The statement above has a new conditional statement called `else if` that is always followed by the `if` statement just like the `else` follows `if`. In `else if` you must add a conditional statement just like you add in the `if` statement. This above example is one of the forms of `if - elseif` ladder.
+The above statement has one more new definition called `enum`. `enum`eration often is useful to represent constants or group them together into one to serve one kind of purpose. In above example we grouped MANGOES, APPLES, BANANA, AVOCADO into fruits.
+
+Alternatively we could simply use pre-processor statements to define them as well such as ..
+
+```c
+#define MANGOES 0
+#define APPLES 1
+#define BANANA 2
+#define AVOCADO 3
+```
+
+but when looking at it, we merely cannot identify what they really represent in first glance till we look at their use in the code.
+
+The first constant in the `enum` is always set to 0 by default by the compiler. The next elements are an increment of their previous element. such as the following
+
+```c
+typedef enum {
+    REG_REQ = 1,
+    REG_RESP,
+    UNREG_REQ,
+    UNREG_RESP,
+} request_type_t;
+```
+
+the `REG_REQ` is explicitly set to 1 and thus the `REG_RESP` will be set to 2 and so on..
+
+Let's say the following, setting the `UNREG_REQ` makes `UNREG_RESP` go +1 higher than this..
+
+```c
+typedef enum {
+    REG_REQ = 1,
+    REG_RESP,
+    UNREG_REQ = 10,
+    UNREG_RESP,
+} request_type_t;
+```
+
+printing the above contants will tell us the compiler behavior on `enum` constants. Lets' get back to original program about mangoes..
+
+
+The statement above has a new conditional statement called `else if` that is always followed by the `if` statement just like the `else` follows an `if`. In `else if` you must add a conditional statement just like you add in the `if` statement. This above example is one of the forms of `if - elseif` ladder. An `else` in an `if` .. `else if` ladder can be placed at the end of the last `else if` statement.
 
 ### switch statement
 
