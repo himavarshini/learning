@@ -38,7 +38,7 @@
 
 ## Intro
 
-This is a work-in-progress reference manual that detail on the C, C++ and the parts of secure coding in C. This is basically what i learnt over the time. This is written in short and simple English and not to confuse the end reader.
+This is a work-in-progress reference manual that detail on the C, C++ and some of the parts of secure coding in C. This is basically what i learnt over the time. This is written in short and simple English and not to confuse the end reader. I am not a native english speaker. So, if you come across any silly blunders and spell mistakes, please do not hesistate to correct and provide me patch at `devendra.aaru@gmail.com`. Appericate it !
 
 **How to read this manual:**
 
@@ -52,7 +52,7 @@ This is a work-in-progress reference manual that detail on the C, C++ and the pa
 Instructions to start the manual:
 
 1. use Ubuntu OS.. i used Ubuntu to compile and run programs .. any Ubuntu >= 18.04 is ok. If you want to use the other OS, you are free to do so.. MacOS does `g++` and `gcc` as well similar to the Ubuntu. Windows, usually it is hard to setup but MinGW is one option. MinGW is here: http://www.mingw.org/
-2. install gcc on Ubuntu.
+2. install gcc and g++ on Ubuntu.
 
 ```shell
 apt install build-essential gcc g++ cmake
@@ -62,7 +62,9 @@ apt install build-essential gcc g++ cmake
 
 All the code examples are at [here](https://github.com/DevNaga/gists/tree/master/cpp)
 
-**Author**: *Dev Naga* `<devendra.aaru@gmail.com>`  CopyRight **DevNaga**. All rights reserved. The work is purely based on what i have learnt over the time of writing this document about C, C++, Secure coding and other topics described in this manual.
+**Author**: *Dev Naga* `<devendra.aaru@gmail.com>`
+
+**CopyRight**: **DevNaga**. All rights reserved. The work is purely based on what i have learnt over the time of writing this document about C, C++, Secure coding and other topics described in this manual.
 
 **LICENSE**: [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
@@ -84,7 +86,7 @@ For any bugs in the manual / in the code contact me at the above mentioned email
 
 ## 1. Introduction to Compilers
 
-At this point, i am guessing you already have a version of compiler and most preferrably `gcc` or `g++` on a linux / windows machine.
+At this point, i am guessing you already have a version of compiler and most preferrably `gcc` or `g++` on a linux / windows machine. Check `gcc -v` to see the version of your gcc compiler installed on your ubuntu.
 
 1. Usually `gcc` is the preferred compiler for C programs and `g++` is for the C++ programs.
 2. The compilers implement the programming language and works as a translational unit that converts the program written in C and C++ into the binaries that are used to run on the hardware.
@@ -147,7 +149,7 @@ gcc -S prog.c
 gcc -c prog.c
 ```
 
-8. Linking process involve finding the function call dependencies and library dependencies and adds the corresponding linker referencecs in the object code, something such as a pointer address when called the function. the outcome of this is the final binary that can be run on the target platform. Usuaally, the target binary names would be `a.out` in unix.
+8. Linking process involve finding the function call dependencies and library dependencies and adds the corresponding linker referencecs in the object code, something such as a pointer address when called the function. the outcome of this is the final binary that can be run on the target platform. Usuaally, the target binary names would be `a.out` in unix (if the compiler -o option has not been given).
 
 Once the program that you have compiled, is loaded into memory for execution, the loader then is responsible for loading the function into the memory and execute it.
 
@@ -157,12 +159,12 @@ Once the program that you have compiled, is loaded into memory for execution, th
 
 ### intro
 
-The C programming language is created by a legendry programmer Dennis Ritchie. He himself put around 4 or 5 out of 10 when someone asked him the expertise in C. This is because of the vast programmability and its minimal footprint on the final binary makes it a programming language with infinite variations.
+The C programming language is created by a legendry programmer **Dennis Ritchie**. He himself put around 4 or 5 out of 10 when someone asked him the expertise in C. This is because of the vast programmability and its minimal footprint on the final binary makes it a programming language to code a program in infinite variations.
 
 1. Use any text editor to code in C, Like i use `vi` editor or `vscode` from microsoft is also good.
-2. every program in C, starts with header file definition something like `#include <stdio.h>` . Header files contain most important information about various definitions and declarations of the variablee and types. We will discuss these in coming chapters.
+2. every program in C, starts with header file definition something like `#include <stdio.h>` . This section is called the header file declaration section. Header files contain most important information about various definitions and declarations of the variables and types. We will discuss these in coming chapters.
 3. every C program starts with `main()` function. Function is a body that contains a group of statements and be executed when the function is called, if not called they wont be executed. So, if `main()` is a function , then who calls `main()` ?
-4. C program follows many syntax rules, they are described in below sections. The source files in C follow the extension `.c` and header files follow the extension `.h`, many editors will colorise and customise the source code as soon as they see this extensions. The compiler would require the extensions to be present as well.
+4. C program follows many syntax rules, they are described in below sections. The source files in C follow the extension `.c` and header files follow the extension `.h`, many editors will colorise and customise the source code as soon as they see this extensions. The compiler would require the extensions to be present as well. If you are new to write programs in C and C++ then it is best to use the editor which colorise the keywords and variables for you.
 
 For example a C program looks like the following:
 
@@ -187,9 +189,9 @@ int main() // main function
 
 There are 3 file streams in the C program called
 
-1. `stdin` - input stream
-2. `stdout` - output stream 
-3. `stderr` - error stream 
+1. `stdin` - input stream (takes input from screen console)
+2. `stdout` - output stream (outputs to screen console)
+3. `stderr` - error stream  (outputs to screen console)
 
 the function `printf` points to output stream called `stdout`. The `stdout` stream is a buffered stream and the `stderr` is an unbuffered stream.
 
@@ -214,7 +216,7 @@ C has many types to represent the data. The following are the types. Type repres
 | `unsigned short int` | unsigned short int of two bytes | 0 to 65535 |
 | `int` | signed integer of 4 bytes | -2147483648 to 2147483647 |
 | `unsigned int` | unsigned integer of 4 bytes | 0 to 4294967295 |
-| `void` | type of void |
+| `void` | type of void | - |
 
 There are more formats as `long`, `unsigned long`, `long long` types, however they are not very practical.
 
@@ -232,7 +234,6 @@ The header file `<stdint.h>` contain somemore tyes such as below.
 | `uint32_t` | 4 | 0 to 4294967295 |
 | `int64_t` | 8 | - |
 | `uint64_t` | 8 | - |
-
 
 A variable can be declared as the following
 
@@ -403,6 +404,17 @@ The `%f` is a format specifier to print a double value
 
 There's not much about `scanf` and is rarely is used in any newer version of the software .. so we are not gonna much concentrate on this one here.
 
+
+baseline format specifiers are listed below.. 
+
+| format specifier | type |
+|------------------|------|
+| %d | `int` |
+| %u | `unsigned int` |
+| %ld | `long int` |
+| %lu | `long unsigned int` |
+| %ju | `unsigned long long int` |
+| %f | `float / double` |
 
 ### Loops and conditional statements
 
