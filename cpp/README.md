@@ -49,6 +49,8 @@ This is a work-in-progress reference manual that detail on the C, C++ and the pa
 3. the book is not very organised but in a random selection of topic that are sprinkled everywhere. Please bear with this in mind while reading.
 4. sometimes new concepts are being used in the initial parts of the book as well (describing macros at the start of the C example..), this lets the flow in this book going while the new reader might find it hard to understand and keepup. Please bear that many of such concepts are covered and are going to be covered in depth.
 
+There are lots of coding examples and fully written code than any other C or C++ book anyone have ever read.
+
 Instructions to start the manual:
 
 1. use Ubuntu OS.. i used Ubuntu to compile and run programs .. any Ubuntu >= 18.04 is ok. If you want to use the other OS, you are free to do so.. MacOS does `g++` and `gcc` as well similar to the Ubuntu. Windows, usually it is hard to setup but MinGW is one option. MinGW is here: http://www.mingw.org/
@@ -529,6 +531,32 @@ The statement above has a new conditional statement called `else if` that is alw
 
 #### `for` statement
 
+`for` statement contains 3 steps. first is to assign, second is condition check and third is increment / decrement. one can avoid all 3 statements (that is an infinite loop).
+
+```c
+for (initialise; control ; increment / decrement);
+```
+
+an example of printing numbers from 1 to 100 is below.
+
+```c
+int no;
+
+for (no = 1; no <= 100; no ++) {
+    printf("%d\n", no);
+}
+```
+
+the same example eliminating initialisation can be written as below..
+
+```c
+no = 1;
+
+for (; no <= 100; no ++) {
+    printf("%d\n", no);
+}
+```
+
 #### `while` statement
 
 ### pre-processor statement
@@ -549,7 +577,38 @@ The statement above has a new conditional statement called `else if` that is alw
 }
 ```
 
-above is a multi-line macro.. observe the `\` line after the each line till the end. To group all the statements with in the macro function usually `{` and `{` are used.
+above is a multi-line macro.. observe the `\` line after the each line till the end. To group all the statements with in the macro function usually `{` and `{` are used. usually the better example is below..
+
+
+```c
+#define _factorial(_val, _fact) { \
+    if (_val <= 0) { \
+        _fact = 1; \
+    } else { \
+        int _i; \
+        _fact = 1; \
+        for (_i = 1; _i <= _val; _i ++) {\
+            _fact *= _i; \
+        } \
+    } \
+}
+```
+
+sometimes, even more function like macros are useful where using them is more efficient than doing a function call. (i have no idea to be honest why..)
+
+
+few notes to consider:
+
+1. most of the times, the function like macros cannot be used within `if` condition and such cases shall be prohibited from the code.
+2. macro expansion may lead to the compiler errors / runtime behavior change because of the variables being used are same as well in macro, (shadowed) and to avoid the cases, some preced each variable a `_` and defines variables without it.
+3. do not use function like macros unless otherwise it is really really constrained hardware that the program is executing on. They cause more trouble than gaining those small speeds in execution
+
+
+3. The **#ifdef** ..
+
+4. the **#error**
+
+5. gcc specific macros
 
 ### arrays
 
@@ -584,6 +643,14 @@ int main()
 
 ### structures
 
+1. order and assignment
+
+2. bit fields
+
+3. the `__attribute__((__packed__))`
+
+### unions
+
 ### pointers
 
 
@@ -606,7 +673,7 @@ sizeof(struct var); or sizeof(v); // mean the same
 
 struct var v[2];
 
-to finding the number of elements in this above v[2], we do.
+// to find the number of elements in this above v[2], we do.
 
 num_elem = sizeof(v) / sizeof(v[0]);
 
@@ -780,6 +847,14 @@ double f()
 
 ### Allocation API (`malloc` / `calloc` and `free`)
 
+### static and global variables
+
+If a variable is declared global in the c code above all the functions that are written, then it has the full scope of the binary program. All or any function with in the binary can access this variable (referencing via `extern`).
+
+If a variable is declared global and static then the scope is limited to the file. All functions with in the same file can access this but not the functions outside.
+
+If a varialbe is declared static and with in the function, then it has only file scope and only the function can access it.
+
 ### FILE I/O
 
 FILE I/O in C is done using the C lib. Alternatively one can use directly the lower layer calls provided by the OS such as linux does provide syscalls to do file operations. Both are described in this section.
@@ -913,6 +988,10 @@ Linux file i/o is described here is very simple and not part of the C, but the s
 
 #### Hash tables
 
+#### Trees
+
+#### Graphs
+
 ### FAQ
 
 1. to use C code inside the cpp use `extern "C" {"` and the `}` when the `C` portion of the program end.
@@ -943,8 +1022,33 @@ int main()
 
 One thing that is easily noticeable is the header file missing `.h` extension. C++ does not require the `.h` presence and is optional. The extension for a C++ file are `.cpp` and `.hpp`.
 
+some books / manuals / sites may show the hello example this way as well..
+
+```cpp
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    cout << "Hello C++\n";
+}
+```
+
+this example uses the `using namespace` directive. This means that the namespace std is being used and the keyword `cout` can be found in the `std::` namespace. so one does not need to explicitly write `std::` before `cout` to do scope resolution.
+
+In this manual / book we are not going to use `using namespace` mainly because we would wanna learn and understand various APIs that are exposed by STL and other libraries in C++ as well some classes.
 
 There are 3 API just like the `printf`, `fprintf` and `scanf` we have `cout`, `cerr` and `cin` in C++.
+
+
+| function in C | equivalent in c++ |
+|---------------|-------------------|
+| `printf` | `cout` |
+| `scanf` | `cin` |
+| `fprintf` | `cerr` | 
+
+**NOTE**: usually `fprintf` with stderr is treated as `cerr`.
 
 Here are below examples of the 3 API:
 
