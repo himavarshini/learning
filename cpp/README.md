@@ -248,6 +248,17 @@ uint64_t big_i; // unsigned 64 bit integer
 char str[40]; // string of length 40
 ```
 
+let's define a program this way:
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    short int i;
+}
+```
+
 There is another concept called the **scope and lifetime of the variable**. Here's one example,
 
 ```c
@@ -417,6 +428,7 @@ baseline format specifiers are listed below..
 | %lu | `long unsigned int` |
 | %ju | `unsigned long long int` |
 | %f | `float / double` |
+| %s | `string` |
 
 ### Loops and conditional statements
 
@@ -497,7 +509,7 @@ if (f == MANGOES) {
 }
 ```
 
-The above statement has one more new definition called `enum`. `enum`eration often is useful to represent constants or group them together into one to serve one kind of purpose. In above example we grouped MANGOES, APPLES, BANANA, AVOCADO into fruits.
+The above statement has one more new definition called `enum`. `enum`eration often is useful to represent constants or group them together into one to serve one kind of purpose. In above example we grouped MANGOES, APPLES, BANANA, AVOCADO into fruits. (see that we have used new feature **typedef** and this is explained in below sections)
 
 Alternatively we could simply use pre-processor statements to define them as well such as ..
 
@@ -539,6 +551,19 @@ printing the above contants will tell us the compiler behavior on `enum` constan
 
 The statement above has a new conditional statement called `else if` that is always followed by the `if` statement just like the `else` follows an `if`. In `else if` you must add a conditional statement just like you add in the `if` statement. This above example is one of the forms of `if - elseif` ladder. An `else` in an `if` .. `else if` ladder can be placed at the end of the last `else if` statement.
 
+enums are basically int types so that means they are 4 bytes in length and that means we can use like below..
+
+```c
+typedef enum {
+    PROTOCOL_VERSION_SET = 0x01,
+    ADDR_TYPE_SET = 0x02,
+    STATION_TYPE_SET = 0x04,
+    STATION_COUNTRY_CODE_SET = 0x08,
+} geonetwork_bitsets_t;
+```
+
+the above one is a legit enum definition and can be used anywhere else.. the idea is that now all the values are grouped in one place in a enum type not like the `#define` way of macro'ing everything and confuse what represents what. This way it is more meaningful.
+
 ### switch statement
 
 #### `for` statement
@@ -570,6 +595,47 @@ for (; no <= 100; no ++) {
 ```
 
 #### `while` statement
+
+### typedef
+
+`typedef` is generally used to name a variable or a type. something like in a project if a variable or the type is to be named for the purpose of the project. Something like the below..
+
+```c
+struct __looper_list {
+    int timeout;
+    void (*callback)(void *data);
+};
+```
+
+we declare the variable of type `struct __looper_list` as
+
+```c
+struct __looper_list item;
+```
+
+into something meaningful as 
+
+```c
+typedef struct __looper_list looperSet;
+```
+
+and then use the new type to define variables of the type as
+
+```c
+looperSet item;
+```
+
+more important usecase is the enums. i do really use typedefs when required and only with enums, like i did in the first example where you have seen typedef'ed enums.. 
+
+```c
+typedef enum {
+    DIRECTION_NONE = 0x01,
+    DIRECTION_FWD = 0x02,
+    DIRECTION_REV = 0x04,
+} direction_t;
+```
+
+`typedef` is encountered in almost all C projects that are in Github.. it makes reading the code easier and more understandable..
 
 ### pre-processor statement
 
@@ -662,6 +728,147 @@ int main()
 3. the `__attribute__((__packed__))`
 
 ### unions
+
+unions are similar to structures but are very different from them in terms of memory allocation by the compiler.
+
+union is declared as the below..
+
+```c
+union u {
+    int a;
+};
+```
+
+the above snippet defines a union of type u. the variable `a` in the `union` is accessed by the reference operator `.` or `->` depending on how the union varialble is declared..
+
+referencing with `.`:
+
+```c
+union u {
+    int a;
+};
+
+union u u_;
+
+u_.a = 4;
+
+printf("value of a %d\n", u_.a);
+```
+
+referencing with `->`:
+
+```c
+union u {
+    int a;
+};
+
+union u *u_;
+
+u_ = calloc(1, sizeof(union u));
+if (!u_) {
+    return -1;
+}
+
+u_->a = 4;
+
+printf("value of a %d\n", u_->a);
+```
+
+let's do `sizeof` on the union
+
+```c
+printf("union size %d\n", sizeof(union u));
+```
+
+gives us 4.
+
+let's take an example of the following union
+
+```c
+union u {
+    int a;
+    int a1;
+};
+```
+
+`sizeof` on this gives us 4 as well. 
+
+The reason being that any number of variables that are defined in the union, the largest variable size will become the size of union.
+
+let's take another exmaple
+
+```c
+union u {
+    int a;
+    double a1;
+};
+```
+
+`sizeof` on this gives us 8. its because double is larger.
+
+so let's print the values with in the union..
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    union u {
+        int a;
+        int a1;
+    };
+
+    union u *u_;
+
+    u_ = calloc(1, sizeof(union u));
+    if (!u_) {
+        return -1;
+    };
+
+    u_->a1 = 4;
+
+    printf("size of union %d\n", sizeof(union u));
+    printf("a %d a1 %d\n", u_->a, u_->a1);
+}
+
+```
+
+
+the variable a1 is set to 4. the a as well set to the same value. the reason being that the union allocates the 4 bytes because the largest element is of size 4 bytes and the variable a1 can fit the 4 bytes with value 4 and thus a is sharing the same memory and accesses same value.
+
+lets' say the below program
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    union u {
+        int a;
+        char a1;
+    };
+
+    union u *u_;
+
+    u_ = calloc(1, sizeof(union u));
+    if (!u_) {
+        return -1;
+    };
+
+    u_->a = 0x00404040;
+
+    printf("size of union %d\n", sizeof(union u));
+    printf("a 0x%x a1 %x\n", u_->a, u_->a1);
+}
+
+```
+
+would print `a` as `0x00404040` and `a1` as `0x40` because the a1 is a char variable and when accessed by the `printf` only 1byte of the memory will be accessed and that is the last byte of a.
+
+
+unions are usually discouraged to be used in programs that involve transaction between more than one system, and when memory is enough available, usually structures are prefered over unions.
+
+
 
 ### pointers
 
@@ -854,6 +1061,51 @@ double f()
 ```
 
 #### Static functions
+
+A function can be called anywhere with in the same program. This statement does not hold true at all the times. usually a function can be scoped as well just like a variable. (local or global) 
+
+in this case a function can be scoped to be with in a file and never be called from other files. Let's take below code.
+
+file1.c
+
+```c
+int get_market_rate()
+{
+    return 10;
+}
+```
+
+file2.c
+
+```c
+int main()
+{
+    int market_price = get_market_rate();
+
+    printf("marketprice %d\n", market_price);
+}
+```
+
+when the above two files are compiled together as in `gcc file1.c file2.c` would let the main print the market price. Let's say we add static to the `get_market_rate`.
+
+file1.c
+
+```c
+static int get_market_rate()
+{
+    return 10;
+}
+```
+
+now when we compile `gcc file1.c file2.c` then we get a linkage error saying `undefined reference to get_market_rate()`. That is because the function scope is now limited to file1.c itself.
+
+Why anyone wants to limit function scope. Many reasons to it.. such as 
+
+
+1. name collision with other functions with in different files and thus limit their scope
+2. reduce the exposure of functions to just within the file and otherwise not required - like the way in c++
+
+Eitherway, usage of static functions reduce the ambiguity and clutter.
 
 ### string manipulation API
 
@@ -3402,7 +3654,7 @@ endif()
 
 1. disable features that are not being used by default
 2. run programs in lesser privilege execution mode
-3. write a lot of test cases (use tools such as `gtest`)
+3. write a lot of test cases (use tools such as `gtest`, `flawfinder`)
 4. do analysis with external code review tools (such as `coverity` for example or any opensource review tools)
 5. run the reviews against a common known vulnerabilities
 
