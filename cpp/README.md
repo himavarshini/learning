@@ -224,7 +224,7 @@ There are more formats as `long`, `unsigned long`, `long long` types, however th
 
 The ranges are defined in the header file `<limits.h>`.
 
-The header file `<stdint.h>` contain somemore tyes such as below.
+The header file `<stdint.h>` contain somemore tyes such as below. and the ranges of each type is defined in `limits.h`.
 
 | type | size | range|
 |------|------|------|
