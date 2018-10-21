@@ -719,6 +719,62 @@ int main()
 }
 ```
 
+
+#### 2D arrays
+
+two-d arrays are defined as follows..
+
+```c
+int a[5][4];
+```
+
+defines a 2-d array of dimemnsions 5x4. The array can fit 4 columns and 5 rows. that means it can fit integers of total 20.
+
+**accessing two-d arrays**
+
+writing:
+
+```c
+int i;
+int j;
+
+for (i = 0; i < 5; i ++) {
+    for (j = 0; j < 4; j ++) {
+        a[i][j] = j;
+    }
+}
+```
+
+reading:
+
+```c
+int i;
+int j;
+
+for (i = 0; i < 5; i ++) {
+    printf("row [%d]\n", i);
+    for (j = 0; j < 4; j ++) {
+        printf("\t %d\n", a[i][j]);
+    }
+}
+```
+
+various other types can have the same array type
+
+two-d array of strings (or called as array of strings)
+
+```c
+char string[100][40];
+```
+
+100 rows of strings of length 40 each.
+
+
+uses of the two-d arrays (or especially arrays of multi dimensions) are wide in the current world. They are used to represent the rows and columsn of a csv file, or a black-and-white photograph (intensitiy of the black and white lights respectively..) or anything that deals with matrix multiplications and additions in more than one dimension.
+
+
+#### 3D arrays
+
 ### structures
 
 1. order and assignment
