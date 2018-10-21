@@ -430,6 +430,61 @@ baseline format specifiers are listed below..
 | %f | `float / double` |
 | %s | `string` |
 
+**reading an input from scanf:**
+
+```c
+int a, b;
+scanf("%d", &a);
+scanf("%d", &b);
+
+printf("a is %d b is %d\n", a, b);
+```
+
+`scanf` reads the input from `stdin` that we discussed earlier the standard input and copies into the variable, and that is why it requires the `&` operator to know the variable address that it can dereference to.
+
+We can read single variable as follows
+
+```c
+int a, b;
+
+scanf("%d", &a);
+```
+
+or multiple variables in one `scanf`..
+
+```c
+int a, b;
+
+scanf("%d %d", &a, &b);
+```
+
+**reading floats**
+
+```c
+float f;
+
+scanf("%f", &f);
+```
+
+**reading doubles**
+
+```c
+double f;
+
+scanf("%f", &f);
+```
+
+**reading strings**
+```c
+char str[100];
+
+scanf("%s", str);
+```
+
+observe that we are not passing `&` to the string `str`. it is because the array when not given the `[]` is an address itself and points to the beginning of the array (i.e. 0, arrays are described in below sections)
+
+**NOTE**: i strongly discourage using `scanf` and encourage using the command line arguments for any inputs that are needed. command line arguments are described in below sections.
+
 ### Loops and conditional statements
 
 Loops are sections of the code that the program wants the computer to be executed repeatedly or till a condition. Loops in C are coded with `while`, `for` and `do while`. conditions can be written with `if`, `if..else`, `if..elseif`. One can write loops by using `if` and `goto` statement as well. Some programmers may find `goto` as most dangerous way to write software, it depends on the way and path it is being used at in a program.
@@ -1014,6 +1069,19 @@ The `?:` is useful when you do not want to write an `if` and `else` statement an
 Functions in `C` are the efficient way to organise and group the source code. A function will have a declaration and a definition. Definition holds the body of the function and declaration declares the function with its prototype.
 
 Every function may contain the arguments and returns a value. A function may not even have an argument and may not haev even the return type. Such function are not very useful in the real world however.
+
+the generic function prototyping in general terms is 
+
+```c
+
+return_type function_name(argument1, argument2, argument3, ...)
+{
+    ... statements ...
+    
+    return return_type;
+}
+```
+some, as described have the return type `void`. meaning they do not return anything. returning a value in a function that return `void` is invalid and should not have a `return` statement returning something (however, one can still have a plain return).
 
 Here's one example:
 
