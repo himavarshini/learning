@@ -827,6 +827,69 @@ char string[100][40];
 
 uses of the two-d arrays (or especially arrays of multi dimensions) are wide in the current world. They are used to represent the rows and columsn of a csv file, or a black-and-white photograph (intensitiy of the black and white lights respectively..) or anything that deals with matrix multiplications and additions in more than one dimension.
 
+**Example: matrix addition**
+
+```c
+#include <stdio.h>
+
+/**
+ * @brief - adds two matrices and places them in 3rd matrix
+ */
+static int mat_add(int mat1[3][3], int mat2[3][3], int mat3[3][3])
+{
+        int i;
+        int j;
+
+        for (i = 0; i < 3; i ++) {
+                for (j = 0; j < 3; j ++) {
+                        mat3[i][j] = mat1[i][j] + mat2[i][j];
+                }
+        }
+
+        return 0;
+}
+
+int main()
+{
+        int mat1[3][3] = {
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9},
+        };
+
+        int mat2[3][3] = {
+                {2, 4, 6},
+                {8, 10, 12},
+                {14, 16, 18},
+        };
+
+        int mat3[3][3];
+        int ret;
+
+        ret = mat_add(mat1, mat2, mat3);
+        if (ret < 0) {
+                return -1;
+        }
+
+        int i;
+        int j;
+
+        for (i = 0; i < 3; i ++) {
+                for (j = 0; j < 3; j ++) {
+                        printf("%d ", mat3[i][j]);
+                }
+                printf("\n");
+        }
+}
+```
+
+prints the following:
+
+```shell
+3 6 9
+12 15 18
+21 24 27 
+````
 
 #### 3D arrays
 
@@ -1235,6 +1298,14 @@ Eitherway, usage of static functions reduce the ambiguity and clutter.
 
 ### Allocation API (`malloc` / `calloc` and `free`)
 
+#### malloc
+
+#### calloc
+
+#### realloc
+
+#### free
+
 ### static and global variables
 
 If a variable is declared global in the c code above all the functions that are written, then it has the full scope of the binary program. All or any function with in the binary can access this variable (referencing via `extern`).
@@ -1246,6 +1317,8 @@ If a varialbe is declared static and with in the function, then it has only file
 ### FILE I/O
 
 FILE I/O in C is done using the C lib. Alternatively one can use directly the lower layer calls provided by the OS such as linux does provide syscalls to do file operations. Both are described in this section.
+
+the header file `<stdio.h>` define the `FILE` object.  without including the header the `FILE` object will result in compiler error.
 
 Below program describe a basic file reading in C.
 
@@ -1322,6 +1395,8 @@ void fclose(FILE *fp);
 ```
 
 
+**writing to a file:**
+
 ```c
 int main(int argc, char **argv)
 {
@@ -1343,6 +1418,43 @@ int main(int argc, char **argv)
     fclose(fp);
 }
 ```
+
+**file copy:**
+
+```c
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    FILE *fp1, *fp2;
+
+    fp1 = fopen(argv[1], "r");
+    if (!fp1) {
+        fprintf(stderr, "failed to open %s\n", argv[1]);
+        return -1;
+    }
+
+    fp2 = fopen(argv[2], "w");
+    if (!fp2) {
+        fprintf(stderr, "failed to open %s\n", argv[2]);
+        return -1;
+    }
+
+    char buf[1024];
+
+    while (fgets(buf, sizeof(buf), fp1)) {
+        fprintf(fp2, "%s", buf);
+    }
+
+    printf("copy success\n");
+    fflush(fp2);
+    fclose(fp2);
+    fclose(fp1);
+
+    return 0;
+}
+```
+
 
 Operating system does not guarantee the writes to be done at the instant when written. If that is the requirement (writes happening immediately) then `fflush` function is to be used to accomplish the job.
 
