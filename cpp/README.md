@@ -780,6 +780,41 @@ few notes to consider:
 
 3. The **#ifdef** ..
 
+The `#ifdef` statement allows the code to be compiled conditionally. That means a part of the code can be included / discarded based on the compiler options.
+
+`gcc` has one of the compiler options for preprocessor statements, called -D. the -D option allows the programs to specify the macros at compile time such as 
+
+**file.c:**
+
+```c
+#ifdef FUNC_ENABLE
+int func()
+{
+    .. some logic ..
+    return 1;
+}
+#else
+int func()
+{
+    return -1;
+}
+#endif
+```
+
+**Example: portion of the file.c code (main function excluded)**
+
+as you can see an `#ifdef` statement may or may not follow with an `#else` statement. In cases like hiding a portion of code instead of functions, one may discard the `#else`. just like `if` and `else` statements, the `#else` requires an `#if` or an `#ifdef` statement before for it to be a valid `#else`.
+
+Let's compile the above program `file.c` as 
+
+```shell
+gcc -Wall file.c -DFUNC_ENABLE
+```
+
+the above file file.c has the code with in the `FUNC_ENABLE` macro gaurded by the `#ifdef`. when enabled, via `-D` option in the gcc, the `#ifdef` version of the function `func()` will be included in the final executable and the `#else` version will be discarded.
+
+if the -D option is not given then the compiler (aka. gcc) will choose to include the `#else` part in the final executable.
+
 4. the **#error**
 
 5. gcc specific macros
