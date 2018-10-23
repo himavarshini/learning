@@ -596,6 +596,37 @@ for (; no <= 100; no ++) {
 
 #### `while` statement
 
+The `while` statement is described as follows..
+
+```c
+while (condition) {
+    .. statements ..
+}
+```
+
+if the condition with in the while evaluates to true, the statements will be executed. as soon as the condition evaluates to false the while statement stops executing and returns (breaks).
+
+an example of this can be written as follows.
+
+```c
+
+int i = 0;
+
+while (i < 10) {
+    printf("i is %d\n", i);
+    i ++;
+}
+```
+
+in the above program the variable `i` is initialised to 0 and then in `while` it is checked against 10 .. till `i` reaches 10 increment and when `i` reach 10 the `while` loop condition becomes false and exits the `while`.
+
+you see the problem here is
+
+1. without incrementing variable `i` the loop may become infinite
+2. without initialising i before hand, the loop may never have executed because `i` might have contained garbage.
+
+thus usually in situations that the `while` is necessary or required only there is prefered to use. or else where it is `for` that is to be used. `for` loops  are preferable over the `while` loops.
+
 ### typedef
 
 `typedef` is generally used to name a variable or a type. something like in a project if a variable or the type is to be named for the purpose of the project. Something like the below..
@@ -655,7 +686,17 @@ typedef enum {
 }
 ```
 
-above is a multi-line macro.. observe the `\` line after the each line till the end. To group all the statements with in the macro function usually `{` and `{` are used. usually the better example is below..
+above is a multi-line macro.. observe the `\` line after the each line till the end. To group all the statements with in the macro function usually `{` and `{` are used. 
+
+
+which the above statement can simply written in one-line as
+
+```c
+#define get_iphone_version(_version) _version = "6s"
+```
+
+usually the better example is below..
+
 
 
 ```c
@@ -672,7 +713,7 @@ above is a multi-line macro.. observe the `\` line after the each line till the 
 }
 ```
 
-sometimes, even more function like macros are useful where using them is more efficient than doing a function call. (i have no idea to be honest why..)
+sometimes, even more function like macros are useful where using them is more efficient than doing a function call. For examples, in cases where the function call is costlier than the macro definition. With modern hardware, the function like macros does not provide the optimisation that functions provide and cause more code replication.
 
 
 few notes to consider:
@@ -3647,7 +3688,7 @@ In the above program, checks for the `argc` not being equal to 2 and throws the 
 
 # CMAKE
 
-1. Cmake is a build system especially used for C++ programs.
+1. Cmake is a build system especially used for C++ programs. (Many C projects use it as well)
 
 Example for compiling a small c++ program.
 
@@ -3662,6 +3703,8 @@ endif()
 
 add_executable(namespace namespace.cpp) # Assuming you have namespace.cpp file
 ```
+
+the first line `cmake_minimum_required` is important to check the compatibility of the current cmake in use with the build.
 
 2. setup the cmake build system using
 
