@@ -224,7 +224,7 @@ There are more formats as `long`, `unsigned long`, `long long` types, however th
 
 The ranges are defined in the header file `<limits.h>`.
 
-The header file `<stdint.h>` contain somemore tyes such as below.
+The header file `<stdint.h>` contain somemore tyes such as below. and the ranges of each type is defined in `limits.h`.
 
 | type | size | range|
 |------|------|------|
@@ -429,6 +429,61 @@ baseline format specifiers are listed below..
 | %ju | `unsigned long long int` |
 | %f | `float / double` |
 | %s | `string` |
+
+**reading an input from scanf:**
+
+```c
+int a, b;
+scanf("%d", &a);
+scanf("%d", &b);
+
+printf("a is %d b is %d\n", a, b);
+```
+
+`scanf` reads the input from `stdin` that we discussed earlier the standard input and copies into the variable, and that is why it requires the `&` operator to know the variable address that it can dereference to.
+
+We can read single variable as follows
+
+```c
+int a, b;
+
+scanf("%d", &a);
+```
+
+or multiple variables in one `scanf`..
+
+```c
+int a, b;
+
+scanf("%d %d", &a, &b);
+```
+
+**reading floats**
+
+```c
+float f;
+
+scanf("%f", &f);
+```
+
+**reading doubles**
+
+```c
+double f;
+
+scanf("%f", &f);
+```
+
+**reading strings**
+```c
+char str[100];
+
+scanf("%s", str);
+```
+
+observe that we are not passing `&` to the string `str`. it is because the array when not given the `[]` is an address itself and points to the beginning of the array (i.e. 0, arrays are described in below sections)
+
+**NOTE**: i strongly discourage using `scanf` and encourage using the command line arguments for any inputs that are needed. command line arguments are described in below sections.
 
 ### Loops and conditional statements
 
@@ -813,6 +868,69 @@ char string[100][40];
 
 uses of the two-d arrays (or especially arrays of multi dimensions) are wide in the current world. They are used to represent the rows and columsn of a csv file, or a black-and-white photograph (intensitiy of the black and white lights respectively..) or anything that deals with matrix multiplications and additions in more than one dimension.
 
+**Example: matrix addition**
+
+```c
+#include <stdio.h>
+
+/**
+ * @brief - adds two matrices and places them in 3rd matrix
+ */
+static int mat_add(int mat1[3][3], int mat2[3][3], int mat3[3][3])
+{
+        int i;
+        int j;
+
+        for (i = 0; i < 3; i ++) {
+                for (j = 0; j < 3; j ++) {
+                        mat3[i][j] = mat1[i][j] + mat2[i][j];
+                }
+        }
+
+        return 0;
+}
+
+int main()
+{
+        int mat1[3][3] = {
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9},
+        };
+
+        int mat2[3][3] = {
+                {2, 4, 6},
+                {8, 10, 12},
+                {14, 16, 18},
+        };
+
+        int mat3[3][3];
+        int ret;
+
+        ret = mat_add(mat1, mat2, mat3);
+        if (ret < 0) {
+                return -1;
+        }
+
+        int i;
+        int j;
+
+        for (i = 0; i < 3; i ++) {
+                for (j = 0; j < 3; j ++) {
+                        printf("%d ", mat3[i][j]);
+                }
+                printf("\n");
+        }
+}
+```
+
+prints the following:
+
+```shell
+3 6 9
+12 15 18
+21 24 27 
+````
 
 #### 3D arrays
 
@@ -1056,6 +1174,19 @@ Functions in `C` are the efficient way to organise and group the source code. A 
 
 Every function may contain the arguments and returns a value. A function may not even have an argument and may not haev even the return type. Such function are not very useful in the real world however.
 
+the generic function prototyping in general terms is 
+
+```c
+
+return_type function_name(argument1, argument2, argument3, ...)
+{
+    ... statements ...
+    
+    return return_type;
+}
+```
+some, as described have the return type `void`. meaning they do not return anything. returning a value in a function that return `void` is invalid and should not have a `return` statement returning something (however, one can still have a plain return).
+
 Here's one example:
 
 ```c
@@ -1208,6 +1339,14 @@ Eitherway, usage of static functions reduce the ambiguity and clutter.
 
 ### Allocation API (`malloc` / `calloc` and `free`)
 
+#### malloc
+
+#### calloc
+
+#### realloc
+
+#### free
+
 ### static and global variables
 
 If a variable is declared global in the c code above all the functions that are written, then it has the full scope of the binary program. All or any function with in the binary can access this variable (referencing via `extern`).
@@ -1219,6 +1358,8 @@ If a varialbe is declared static and with in the function, then it has only file
 ### FILE I/O
 
 FILE I/O in C is done using the C lib. Alternatively one can use directly the lower layer calls provided by the OS such as linux does provide syscalls to do file operations. Both are described in this section.
+
+the header file `<stdio.h>` define the `FILE` object.  without including the header the `FILE` object will result in compiler error.
 
 Below program describe a basic file reading in C.
 
@@ -1295,6 +1436,8 @@ void fclose(FILE *fp);
 ```
 
 
+**writing to a file:**
+
 ```c
 int main(int argc, char **argv)
 {
@@ -1316,6 +1459,43 @@ int main(int argc, char **argv)
     fclose(fp);
 }
 ```
+
+**file copy:**
+
+```c
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    FILE *fp1, *fp2;
+
+    fp1 = fopen(argv[1], "r");
+    if (!fp1) {
+        fprintf(stderr, "failed to open %s\n", argv[1]);
+        return -1;
+    }
+
+    fp2 = fopen(argv[2], "w");
+    if (!fp2) {
+        fprintf(stderr, "failed to open %s\n", argv[2]);
+        return -1;
+    }
+
+    char buf[1024];
+
+    while (fgets(buf, sizeof(buf), fp1)) {
+        fprintf(fp2, "%s", buf);
+    }
+
+    printf("copy success\n");
+    fflush(fp2);
+    fclose(fp2);
+    fclose(fp1);
+
+    return 0;
+}
+```
+
 
 Operating system does not guarantee the writes to be done at the instant when written. If that is the requirement (writes happening immediately) then `fflush` function is to be used to accomplish the job.
 
