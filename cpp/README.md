@@ -7,7 +7,7 @@
 
 
 
-# C and CPP Manual
+# C and C++ Manual
 
 
 ## Table of contents
@@ -173,9 +173,9 @@ For example a C program looks like the following:
 ```c
 #include <stdio.h>   // header file
 
-int main() // main function
+int main() // main function definition
 {
-    printf("Hello C\n");     // printf call
+    printf("Hello C\n");     // printf function call
 
     return 0;   // return statement
 }
@@ -185,7 +185,23 @@ int main() // main function
 2. The function `main()` is called but before that `int` is kept, the `int` type is basically returned by the `main()` function. Every function in C program may or many not return a value. so in our `main()` above there, returns an int, like the last statement `return 0` returning integer 0. A function can return anything and nothing.
 3. The function `printf()` is called with argument `"Hello C\n"`. argument is basically what the type of variable a function accept. There can be variable arguments to the function and are covered in coming sections of this manual. The `"` is the usage to define a string. string is basically a group of characters followed by a null terminator. a null terminator defines where the string end. the null terminator is basically `\0`. it is not `o` but is `0`.
 4. the `\n` is basically a new line. when `printf()` prints the message on to screen, the new line is printed after the last character is being printed.
-5. the `//` is comment. comments are basically used to describe what the line of code means. One can meaningfully define what the particular part of the source code really means. Anything in english language can be written in the comment section
+5. the `//` is comment. comments are basically used to describe what the line of code means. One can meaningfully define what the particular part of the source code really means. Anything in english language can be written in the comment section. There are multiline comments as well which starts with `/*` and ends with `*/` such as following..
+
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    /**
+      Here is a multiline comment
+      for a program that does nothing
+     */
+    return 0;
+}
+```
+
+usually code editors such as `vi` or `vscode` autoindent the comments or multiline comments. its easy with a multiline comment than using `//` when writing comments in more than one line.
 
 ### streams (`stdin`, `stdout` and `stderr`)
 
@@ -199,11 +215,13 @@ the function `printf` points to output stream called `stdout`. The `stdout` stre
 
 functions such as `fprintf` are on error stream `stderr`.
 
-functions such as `scanf` are on input stream `stdin`.
+functions such as `scanf`, `fscanf` are on input stream `stdin`.
 
 when printing too many messages on the screen the `fprintf` is prefered because it is unbuffered than using `printf`.
 
 One such an example is when printing the messages over the serial console..
+
+**NOTE: although one might have used `fprintf` to print streams of messages on the console, without using the `stderr` calling `fprintf` with stdout is same as calling `printf`**
 
 ### variables and types
 
@@ -246,17 +264,8 @@ uint8_t a[4]; // unsigned array of 4 one byte integers
 uint32_t i; // same as the unsigned int i
 uint64_t big_i; // unsigned 64 bit integer
 char str[40]; // string of length 40
-```
-
-let's define a program this way:
-
-```c
-#include <stdio.h>
-
-int main()
-{
-    short int i;
-}
+struct s s; // structure variable s of type s
+int *p; // pointer p of type int
 ```
 
 There is another concept called the **scope and lifetime of the variable**. Here's one example,
@@ -305,7 +314,38 @@ int main()
 
 The variable `a` is here said to have a **local/ function scope** and is then called a **Local variable**. The variable `a` in functions `func()` and `main()` does not cause a double declaration compilation warning/error. It is said to have the scope local and thus is valid with in that function only. The lifetime of the variable `a` in function `func()` is said to have its lifetime only the lifetime of the function `func()` (lifetime of `func()` is the execution time of the `func()`) and the same apply to variable `a` in `main()`.
 
-The below example will provide some reference on what is called **typecasting**. The **typecasting** is most important along with the function prototyping when writing software for automotive and aeronautics systems.
+consider the below example,
+
+```c
+root@linux# cat 1.c
+
+int a;
+
+int func()
+{
+    int a = 4;
+
+    return a;
+}
+
+int main()
+{
+    int a;
+
+    a = func();
+    printf("value of a %d\n", a);
+}
+```
+
+is still valid too, unless you are using `gcc` `-Wall -Werror -Wshadow` options when you are compiling the above program.
+
+The above program is one example of shadow variable. the local variable `a` in functions `func` and `main` shadow the global variable `a`. This type of coding (using globals with same name as the locals) is incorrect and should usually be avoided.
+
+The above program still prints the value of `a` as 4.
+
+**typecasting:**
+
+The below example will provide some reference on what is called **typecasting**. The **typecasting** is most important along with the function prototyping when writing software for automotive and aeronautics systems. we will find out why in the below example.
 
 ```c
 #include <stdio.h>
@@ -340,10 +380,11 @@ make the top 1 as 1.0.
 
 This way the compiler can treat the variables now one of them as double and generates the assembler code to evaulate to double.
 
+so a missing value of 0.1 would cause great damages when put in perspective of what output this value is coming from (such as a landing zone) and what units are (kilometers / meters / etc..)
 
 
 
-Below are some of the most useful API need to be understood before we go in subsequent sections...
+Below are some of the most useful API need to be understood (and we be using them more frequently) before we go in subsequent sections...
 
 1. `printf`:
 
@@ -418,7 +459,7 @@ The `%f` is a format specifier to print a double value
 There's not much about `scanf` and is rarely is used in any newer version of the software .. so we are not gonna much concentrate on this one here.
 
 
-baseline format specifiers are listed below.. 
+baseline format specifiers for `scanf` are similar to that of printf and are listed below.. 
 
 | format specifier | type |
 |------------------|------|
@@ -483,7 +524,22 @@ scanf("%s", str);
 
 observe that we are not passing `&` to the string `str`. it is because the array when not given the `[]` is an address itself and points to the beginning of the array (i.e. 0, arrays are described in below sections)
 
-**NOTE**: i strongly discourage using `scanf` and encourage using the command line arguments for any inputs that are needed. command line arguments are described in below sections.
+so, lets say if i want to pass the address of str but still read the string.
+
+The example looks as follows,
+
+```c
+char str[100];
+
+scanf("%s", &str[0]);
+```
+
+if you want to make things hard for the reader of the program.
+
+remember that the `scanf` terminates reading the string when it encounters a first space when reading.
+
+
+**NOTE**: i strongly discourage using `scanf` and encourage using the command line arguments for any inputs that are needed. command line arguments are described in below sections. one should replace `scanf` and `gets` and use `fgets` instaed. the details are described in the cybersecurity - secure programming section.
 
 ### Loops and conditional statements
 
@@ -682,6 +738,8 @@ you see the problem here is
 
 thus usually in situations that the `while` is necessary or required only there is prefered to use. or else where it is `for` that is to be used. `for` loops  are preferable over the `while` loops.
 
+#### goto statement
+
 ### typedef
 
 `typedef` is generally used to name a variable or a type. something like in a project if a variable or the type is to be named for the purpose of the project. Something like the below..
@@ -815,6 +873,26 @@ the above file file.c has the code with in the `FUNC_ENABLE` macro gaurded by th
 
 if the -D option is not given then the compiler (aka. gcc) will choose to include the `#else` part in the final executable.
 
+if you remember seeing `#ifndef` in the first line of the header file, the meaning is that the contents of the file are included if the macro is not defined, but if its defined, they are not included
+
+```bash
+cat header.h:
+```
+
+```c
+#ifndef __CPP_MACROS_H__
+#define __CPP_MACROS_H__
+
+...
+
+#endif
+
+```
+
+the contents of the above header will be included if the __CPP_MACROS_H__ is not defined.
+
+Down the line, the header may be included more than once in multiple other parts of the code. in such cases, the first one that is included will be considered. because the header is defined the __CPP_MACROS_H__ in the beginning, so subsequent inclusions of the same header will be ignored because of the `#ifndef` as the name implies (if defined, do not include).
+
 4. the **#error**
 
 5. gcc specific macros
@@ -833,8 +911,31 @@ defines an array a with 5 integers.
 
 Accessing the elements of the array is simple as well.. the array index starts from 0 and goes till 4 (because size 5 and in C the indexing starts from 0).
 
-| a[0] | a[1] | a[2] | .. | a[n] |
-|------|------|------|----|------|
+```
+| a[0] | a[1] | a[2] | a[3] | a[4] |
+|------|------|------|------|------|
+```
+
+the above layout describe an array of 5 elements of type `int` from 0 to 4. Each element spans a width of 4 bytes and a total of 5elements of 4 bytes each = 20 bytes allocated.
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int a[44]; // 44 elements of integers
+    int i;
+
+    // print addresses of each element that is present in the array
+    for (i = 0; i < sizeof(a) / sizeof(a[0]); i ++) {
+        printf("a[%d] = %p\n", i, a + i);
+    }
+}
+```
+
+in the above program, observe that the elements are stored sequentially in the array one after the other. it is again sometimes, compiler/OS/ hardware architecture dependent.
+
+Let's assign some elements to the array:
 
 ```c
 #include <stdio.h>
@@ -845,11 +946,61 @@ int main()
     int i;
 
     for (i = 0; i < sizeof(a) / sizeof(a[0]); i ++) {
-        printf("a[%d] = %p\n", i, a + i);
+        a[i] = i;
+    }
+
+    for (i = 0; i < sizeof(a) / sizeof(a[0]); i ++) {
+        printf("a[%d] = %d\n", i, a[i]);
     }
 }
 ```
 
+let's say if i want to print only a specific element then,
+
+print 5th elementin the array:
+
+```c
+printf("%d\n", a[4]);
+```
+consider the below program:
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int i;
+    int a[4];
+
+    a[0] = 1;
+    a[3] = 1;
+
+    for (i = 0; i < sizeof(a) / sizeof(a[0]); i ++) {
+        printf("%d\n", a[i]);
+    }
+}
+```
+
+the values `a[1]` and `a[2]` are not initialised and thus contain the random data.
+
+
+however, the below code has perfectly initialised the array's elements. setting first element `a[0]` to 1 and the rest to 0s.
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int a[4] = {1};
+    int i;
+
+    for (i = 0; i < sizeof(a) / sizeof(a[0]); i ++) {
+        printf("%d\n", a[i]);
+    }
+}
+```
+
+as you can see from the program's output, the array elements are perfectly initialised.
 
 #### 2D arrays
 
@@ -860,6 +1011,14 @@ int a[5][4];
 ```
 
 defines a 2-d array of dimemnsions 5x4. The array can fit 4 columns and 5 rows. that means it can fit integers of total 20.
+
+|        | col 0 | col 1 | col 2 | col 3 |
+|--------|-------|--------|--------|--------|
+| row 0 | a[0][0] | a[0][1] | a[0][2] | a[0][3] |
+| row 1 | a[1][0] | a[1][1] | a[1][2] | a[1][3] |
+| row 2 | a[2][0] | a[2][1] | a[2][2] | a[2][3] |
+| row 3 | a[3][0] | a[3][1] | a[3][2] | a[3][3] |
+| row 4 | a[4][0] | a[4][1] | a[4][2] | a[4][4] |
 
 **accessing two-d arrays**
 
@@ -889,6 +1048,17 @@ for (i = 0; i < 5; i ++) {
     }
 }
 ```
+
+according to the above table, the elements placing will be like the below..
+
+|      | col 0 | col 1 | col 2 | col 3 |
+|------|-------|-------|-------|-------|
+| row 0| 0 | 1 | 2 | 3 |
+| row 1| 0 | 1 | 2 | 3 |
+| row 2| 0 | 1 | 2 | 3 |
+| row 3| 0 | 1 | 2 | 3 |
+| row 4| 0 | 1 | 2 | 3 |
+
 
 various other types can have the same array type
 
@@ -970,6 +1140,18 @@ prints the following:
 #### 3D arrays
 
 ### structures
+
+structures are defined with a `struct` keyword. a structure is a group of elements such as `int`, `double`, `char` or `char *` or `struct` itself.
+
+an example structure looks as follows,
+
+```c
+struct basket {
+    int apples; // count of apples
+    int oranges; // count of oranges
+    double cost; // cost of the basket
+};
+```
 
 1. order and assignment
 
@@ -1370,7 +1552,189 @@ Why anyone wants to limit function scope. Many reasons to it.. such as
 
 Eitherway, usage of static functions reduce the ambiguity and clutter.
 
+### command line arguments
+
+the `main` can accept two arguments, one is `argc` number of arguments given in command line, second is `argv` the actual arguments given. The `main` looks like below with command line arguments..
+
+```c
+int main(int argc, char **argv)
+```
+
+or
+
+```c
+int main(int argc, char *argv[])
+```
+
+**reading from command line:**
+
+```c
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    int i;
+
+    for (i = 0; i < argc; i ++) {
+        printf("argv[i] = %s\n", i, argv[i]);
+    }
+
+    return 0;
+}
+```
+
+when given from command line as 
+
+```shell
+shell@cpp$ ./a.out 
+argv[0] = ./a.out
+```
+
+and when given arguments to the program as 
+
+```shell
+shell@cpp$./a.out 1 2 3 4 5 6 7 
+argv[0] = ./a.out
+argv[1] = 1
+argv[2] = 2
+argv[3] = 3
+argv[4] = 4
+argv[5] = 5
+argv[6] = 6
+argv[7] = 7
+```
+
+as you can see the arguments need to be given with spaces
+
+second way of reading the command line arguments is using `getopt` API.
+
+include `<getopt.h>` to use the `getopt` API.
+
+**reading command line args with `getopt`:**
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <getopt.h>
+
+int main(int argc, char **argv)
+{
+    int ret;
+    int opt_a = 0;
+    int opt_b = 0;
+
+    while ((ret = getopt(argc, argv, "a:b")) != -1) {
+        switch (ret) {
+            case 'a':
+                opt_a = atoi(optarg);
+            break;
+            case 'b':
+                opt_b = 1;
+            break;
+        }
+    }
+
+    printf("opt_a %d opt_b %d\n", opt_a, opt_b);
+
+    return 0;
+}
+```
+
 ### string manipulation API
+
+the strings always end with a termination character is `\0`.
+
+various ways to declare strings:
+
+1. array method:
+
+```c
+char string[12] = "Chappie";
+char string[] = "Chappie";
+char *string = "Chappie";
+```
+
+when the string is a pointer and assigned a value, the string will be assigned to the read only sections of the program. It cannot be modified at runtime of the program.
+
+use `<string.h>` header file  for string manipulation API.
+
+#### strcpy
+
+**Example:**
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char string1[] = "String example";
+    char dest[20];
+
+    strcpy(dest, string1);
+
+    printf("string [%s] len [%d] destination [%s] len [%d]\n", string1, strlen(string1), dest, strlen(dest));
+
+    return 0;
+}
+```
+
+#### strlen
+
+**Example:**
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, char **argv)
+{
+    if (argc != 2) {
+        fprintf(stderr, "<%s> string\n", argv[0]);
+        return -1;
+    }
+
+    fprintf(stderr, "length of string [%s] is %d\n", argv[1], strlen(argv[1]));
+    return 0;
+}
+```
+
+#### strcat
+
+**Example:**
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, char **argv)
+{
+    char *str1 = "are you";
+    char final_string[40];
+
+    if (argc != 2) {
+        fprintf(stderr, "<%s> string\n", argv[0]);
+        return -1;
+    }
+
+    strcpy(final_string, str1);
+    strcat(final_string, " ");
+    strcat(final_string, argv[1]);
+
+    printf("concatenated string [%s] len [%d]\n", final_string, strlen(final_string));
+
+    return 0;
+}
+```
+
+#### strcmp
+
+#### strchr
+
+#### atoi - ascii to integer conversion facilities
+
+#### strtol
+
+#### strtoul
+
+#### strtod
 
 ### Allocation API (`malloc` / `calloc` and `free`)
 
@@ -1470,6 +1834,7 @@ any opened file must be closed with `fclose` function. the `fclose` prototype is
 void fclose(FILE *fp);
 ```
 
+simple example of writing to a file is given below:
 
 **writing to a file:**
 
@@ -1536,7 +1901,9 @@ Operating system does not guarantee the writes to be done at the instant when wr
 
 `fflush` flushes the given stream immediately causing the system to write contents directly on the stream. Its prototype is as follows.
 
-`int fflush(FILE *fp);`
+```c
+int fflush(FILE *fp);
+```
 
 doing `fflush(fp)` on an `fp` that is opened in write mode causes it to immediately write the contents.
 
@@ -1555,6 +1922,216 @@ Linux file i/o is described here is very simple and not part of the C, but the s
 ### Data structures
 
 #### Linked Lists
+
+Linked list is one of the data structure that is used to store variables in  a list.
+
+it is organised as 
+
+```
+|-----|    |-------|    |-------|     |-------|
+|   a |--->|   b   |--->|   c   |---->|   d   |----->NULL
+|-----|    |-------|    |-------|     |-------|
+```
+
+each element points to the next one and so on and the last element points to NULL.
+
+**list.c**:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct linked_list {
+    void *data;
+    struct linked_list *next;
+};
+
+static struct linked_list *head = NULL;
+static struct linked_list *tail = NULL;
+
+int linked_list_add_head(void *data)
+{
+    struct linked_list *item;
+
+    item = calloc(1, sizeof(struct linked_list));
+    if (!item) {
+        return -1;
+    }
+
+    item->data = data;
+    
+    if (!head) {
+        head = item;
+        tail = item;
+    } else {
+        tail->next = item;
+        tail = item;
+    }
+
+    return 0;
+}
+
+int linked_list_remove(void *data,
+                       void (*remove_callback)(void *data))
+{
+    struct linked_list *cur;
+    struct linked_list *prev;
+
+    cur = head;
+
+    if (cur->data == data) {
+        head = cur->next;
+        remove_callback(cur->data);
+        free(cur);
+        return 0;
+    }
+
+    while (cur) {
+        if (cur->data == data) {
+            prev->next = cur->next;
+            remove_callback(cur->data);
+            free(cur);
+            return 0;
+        }
+        prev = cur;
+        cur = cur->next;
+    }
+
+    return -1;
+}
+
+int linked_list_find_item(void *data)
+{
+    struct linked_list *cur;
+
+    for (cur = head; cur; cur = cur->next) {
+        if (cur->data == data) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+int linked_list_remove_all(void (*remove_callback)(void *data))
+{
+    struct linked_list *cur;
+    struct linked_list *prev;
+
+    cur = head;
+
+    while (cur) {
+        prev = cur;
+        remove_callback(cur->data);
+        cur = cur->next;
+        free(prev);
+    }
+}
+
+void linked_list_print(void (*print_callback)(void *data))
+{
+    struct linked_list *item;
+
+    for (item = head; item; item = item->next) {
+        print_callback(item->data);
+    }
+}
+```
+
+**list.h:**
+```c
+#ifndef __LIST_H__
+#define __LIST_H__
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int linked_list_add_head(void *data);
+
+int linked_list_remove(void *data,
+                       void (*remove_callback)(void *data));
+
+int linked_list_find_item(void *data);
+
+int linked_list_remove_all(void (*remove_callback)(void *data));
+
+void linked_list_print(void (*print_callback)(void *data));
+
+#endif
+
+```
+
+**main.c:**
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <list.h>
+
+void remove_callback(void *data)
+{
+    free(data);
+}
+
+void print_items(void *data)
+{
+    int *a = data;
+
+    printf("%d\n", *a);
+}
+
+int main(int argc, char **argv)
+{
+    int i;
+    int *one;
+    int *two;
+    int *three;
+
+    for (i = 0; i < 10; i ++) {
+        int *a;
+
+        a = calloc(1, sizeof(*a));
+        if (!a) {
+            return -1;
+        }
+
+        *a = i + 1;
+
+        // take copies of addresses for further deletes
+        if (i == 0) {
+            one = a;
+        } else if (i == 1) {
+            two = a;
+        } else if (i == 2) {
+            three = a;
+        }
+
+        linked_list_add_head(a);
+    }
+
+    printf("print list:\n");
+
+    linked_list_print(print_items);
+
+    printf("delete elements 1, 2 and 3\n");
+
+    linked_list_remove(one, remove_callback);
+    linked_list_remove(two, remove_callback);
+    linked_list_remove(three, remove_callback);
+
+    printf("print list:\n");
+
+    linked_list_print(print_items);
+
+    printf("remove all items\n");
+
+    linked_list_remove_all(remove_callback);
+
+    return 0;
+}
+```
+
+#### circular linked lists
 
 #### Doubly linked lists
 
@@ -3207,7 +3784,7 @@ int main(int argc, char **argv)
 ```
 
 ### Lists (std::list)
-1. lists are another part of STL. they are like the linked lists.
+1. lists are another part of STL. they are like the linked lists. we do not have to write one and simply use C++ linked lists.
 2. the `std::list` is used to perform the various operations
 
 |type / way to use | description|
